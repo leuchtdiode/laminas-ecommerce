@@ -1,0 +1,45 @@
+{
+	"name": "leuchtdiode/laminas-ecommerce",
+	"description": "Laminas E-commerce module",
+	"type": "library",
+	"license": "MIT",
+	"homepage": "https://try2catch.com",
+	"authors": [
+		{
+			"name": "Alex Schloegl",
+			"email": "alex@try2catch.com",
+			"homepage": "https://try2catch.com",
+			"role": "Developer"
+		}
+	],
+	"keywords": [
+		"Laminas",
+		"Module",
+		"E-Commerce",
+		"Payment",
+		"Shop"
+	],
+	"require": {
+		"php": ">=7.1",
+		"ext-curl": "*",
+		"ext-json": "*",
+		"ext-openssl": "*",
+		"ext-gettext": "*",
+		"ext-intl": "*",
+		"leuchtdiode/laminas-common": "^1.0",
+		"leuchtdiode/laminas-log": "^1.0",
+		"leuchtdiode/laminas-mail": "^1.0",
+		"leuchtdiode/laminas-async-queue": "^0.1",
+		"leuchtdiode/laminas-assets": "^0.1.1",
+		"ramsey/uuid-doctrine": "^1.5",
+		"firebase/php-jwt": "^5.0",
+		"moneyphp/money": "^3.2",
+		"paypal/rest-api-sdk-php": "^1.14",
+		"spipu/html2pdf": "^5.2"
+	},
+	"autoload": {
+		"psr-4": {
+			"Ecommerce\\": "src/"
+		}
+	}
+}

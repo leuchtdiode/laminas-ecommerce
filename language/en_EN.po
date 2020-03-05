@@ -1,0 +1,1596 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Zend 3 Ecommerce\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-16 10:06+0100\n"
+"PO-Revision-Date: 2020-01-16 10:06+0100\n"
+"Last-Translator: Alex <ash@compass.at>\n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: translate;translatePlural:1,2\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../src/Cart/CouldNotFindCartError.php:34
+msgid "Warenkorb nicht gefunden"
+msgstr "Could not find cart"
+
+#: ../src/Cart/InvalidCartError.php:34
+msgid "Der Warenkorb enthält fehlerhafte Produkte"
+msgstr "Your cart contains invalid items"
+
+#: ../src/Cart/Item/CouldNotFindCartItemError.php:34
+msgid "Warenkorb-Item nicht gefunden"
+msgstr "Could not find cart item"
+
+#: ../src/Customer/Auth/CustomerNotActiveError.php:34
+msgid "Kunde nicht aktiv"
+msgstr "Customer not active"
+
+#: ../src/Customer/Auth/PasswordIncorrectError.php:34
+msgid "Passwort ungültig"
+msgstr "Invalid password"
+
+#: ../src/Customer/CouldNotFindCustomerError.php:34
+msgid "Kunde konnte nicht gefunden werden"
+msgstr "Could not find customer"
+
+#: ../src/Customer/CustomerWithEmailAlreadyExistsError.php:47
+msgid "Die E-Mail Adresse "
+msgstr "The E-Mail address "
+
+#: ../src/Customer/Password/InvalidHashError.php:34
+msgid "Der Link ist abgelaufen, bitte fordere einen neuen an"
+msgstr "The link has expired, please request a new one"
+
+#: ../src/Customer/PasswordsDoNotMatchError.php:34
+msgid "Die Passwörter stimmen nicht überein"
+msgstr "The passwords are not matching"
+
+#: ../src/Customer/SalutationProvider.php:14
+msgid "Herr"
+msgstr "Mr"
+
+#: ../src/Customer/SalutationProvider.php:15
+msgid "Frau"
+msgstr "Mrs"
+
+#: ../src/Customer/SalutationValidator.php:26
+msgid "Anrede %value% ist ungültig"
+msgstr "Salutation %value% is invalid"
+
+#: ../src/Customer/StatusProvider.php:31
+msgid "Wartet auf Aktivierung"
+msgstr "Waiting for activation"
+
+#: ../src/Customer/StatusProvider.php:32 ../src/Product/StatusProvider.php:14
+msgid "Aktiv"
+msgstr "Active"
+
+#: ../src/Payment/MethodHandler/PayPal/MethodHandler.php:178
+#, php-format
+msgid "Bestellung %s"
+msgstr "Order %s"
+
+#: ../src/Payment/MethodProvider.php:14
+msgid "PayPal"
+msgstr "PayPal"
+
+#: ../src/Payment/MethodProvider.php:15
+msgid "Amazon Pay"
+msgstr "Amazon Pay"
+
+#: ../src/Payment/MethodProvider.php:16
+msgid "Vorkasse"
+msgstr "Pre payment"
+
+#: ../src/Payment/MethodValidator.php:26
+msgid "Ungültige Zahlungsmethode %value%"
+msgstr "Invalid payment method %value%"
+
+#: ../src/Product/CouldNotFindProductError.php:34
+msgid "Produkt wurde nicht gefunden"
+msgstr "Could not find product"
+
+#: ../src/Product/ProductHasNotEnoughStockError.php:48
+msgid "Nicht genügend lagernd"
+msgstr "Not enough stock"
+
+#: ../src/Product/ProductHasNotEnoughStockError.php:50
+#, php-format
+msgid "Nicht genügend lagernd (%d Stück lagernd)"
+msgstr "Not enough stock (%d in stock)"
+
+#: ../src/Product/StatusProvider.php:15
+msgid "Inaktiv"
+msgstr "Inactive"
+
+#: ../src/Rest/Action/Customer/ActivateData.php:20
+msgid "Erstelldatum"
+msgstr "Creation date"
+
+#: ../src/Rest/Action/Customer/Address/AddOrModifyData.php:27
+#: ../src/Rest/Action/Customer/RegisterData.php:91
+msgid "Land"
+msgstr "Country"
+
+#: ../src/Rest/Action/Customer/Address/AddOrModifyData.php:32
+#: ../src/Rest/Action/Customer/RegisterData.php:75
+msgid "PLZ"
+msgstr "Zip"
+
+#: ../src/Rest/Action/Customer/Address/AddOrModifyData.php:36
+#: ../src/Rest/Action/Customer/RegisterData.php:79
+msgid "Ort"
+msgstr "City"
+
+#: ../src/Rest/Action/Customer/Address/AddOrModifyData.php:40
+#: ../src/Rest/Action/Customer/RegisterData.php:83
+msgid "Straße"
+msgstr "Street"
+
+#: ../src/Rest/Action/Customer/Address/AddOrModifyData.php:44
+#: ../src/Rest/Action/Customer/RegisterData.php:87
+msgid "Straße (Zusatz)"
+msgstr "Street (extra)"
+
+#: ../src/Rest/Action/Customer/Address/AddOrModifyData.php:48
+msgid "Standard-Rechnungsadresse"
+msgstr "Default billing address"
+
+#: ../src/Rest/Action/Customer/Address/AddOrModifyData.php:52
+msgid "Standard-Lieferadresse"
+msgstr "Default shipping address"
+
+#: ../src/Rest/Action/Customer/ModifyData.php:26
+#: ../src/Rest/Action/Customer/RegisterData.php:50
+msgid "Anrede"
+msgstr "Salutation"
+
+#: ../src/Rest/Action/Customer/ModifyData.php:31
+#: ../src/Rest/Action/Customer/RegisterData.php:55
+msgid "Titel"
+msgstr "Title"
+
+#: ../src/Rest/Action/Customer/ModifyData.php:35
+#: ../src/Rest/Action/Customer/RegisterData.php:59
+msgid "Vorname"
+msgstr "First name"
+
+#: ../src/Rest/Action/Customer/ModifyData.php:39
+#: ../src/Rest/Action/Customer/RegisterData.php:63
+msgid "Nachname"
+msgstr "Last name"
+
+#: ../src/Rest/Action/Customer/ModifyData.php:43
+#: ../src/Rest/Action/Customer/RegisterData.php:67
+msgid "Firma"
+msgstr "Company"
+
+#: ../src/Rest/Action/Customer/ModifyData.php:47
+#: ../src/Rest/Action/Customer/RegisterData.php:71
+msgid "UID"
+msgstr "VAT number"
+
+#: ../src/Rest/Action/Customer/Password/ChangeData.php:22
+msgid "Aktuelles Passwort"
+msgstr "Current password"
+
+#: ../src/Rest/Action/Customer/Password/ChangeData.php:26
+#: ../src/Rest/Action/Customer/Password/ResetData.php:26
+msgid "Neues Passwort"
+msgstr "New password"
+
+#: ../src/Rest/Action/Customer/Password/ChangeData.php:30
+#: ../src/Rest/Action/Customer/Password/ResetData.php:30
+msgid "Neues Passwort (Verifizierung)"
+msgstr "New password (verification)"
+
+#: ../src/Rest/Action/Customer/Password/RequestData.php:20
+#: ../src/Rest/Action/Customer/RegisterData.php:37
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: ../src/Rest/Action/Customer/Password/ResetData.php:22
+msgid "Hash"
+msgstr "Hash"
+
+#: ../src/Rest/Action/Customer/RegisterData.php:42
+msgid "Passwort"
+msgstr "Password"
+
+#: ../src/Rest/Action/Customer/RegisterData.php:46
+msgid "Passwort-Verifizierung"
+msgstr "Password verification"
+
+#: ../src/Rest/Action/Customer/Transaction/GetListData.php:22
+msgid "Status"
+msgstr "Status"
+
+#: ../src/Rest/Action/Customer/Transaction/GetListData.php:26
+msgid "Sortierung"
+msgstr "Sort"
+
+#: ../src/Transaction/StatusProvider.php:14
+msgid "Neu"
+msgstr "New"
+
+#: ../src/Transaction/StatusProvider.php:15
+msgid "In Bearbeitung"
+msgstr "Processing"
+
+#: ../src/Transaction/StatusProvider.php:16
+msgid "Abgebrochen"
+msgstr "Cancelled"
+
+#: ../src/Transaction/StatusProvider.php:17
+msgid "Fehler"
+msgstr "Error"
+
+#: ../src/Transaction/StatusProvider.php:18
+msgid "Erfolgreich"
+msgstr "Successful"
+
+#~ msgid "Ihre Bestellung"
+#~ msgstr "Your order"
+
+#~ msgid "Ihre Garofil-Bestellung"
+#~ msgstr "Your Garofil order"
+
+#~ msgid "Ihre Zahlung war erfolgreich. Sie finden die Rechnung im Anhang."
+#~ msgstr "Your payment was successful. Please find the invoice attached to this e-mail."
+
+#~ msgid "Vielen Dank für Ihr Vertrauen,"
+#~ msgstr "Thank you for your trust,"
+
+#~ msgid "Ihr Garofil-Team"
+#~ msgstr "Your Garofil team"
+
+#~ msgid "Ihre Bestellung im Garofil-Shop"
+#~ msgstr "Your Garofil order"
+
+#~ msgid "Die Zahlung war leider nicht erfolgreich."
+#~ msgstr "The payment was not successful."
+
+#~ msgid "Bitte versuchen Sie es noch einmal oder wenden Sie sich an %s"
+#~ msgstr "Please try again or contact %s"
+
+#~ msgid "Rechnungsempfänger"
+#~ msgstr "Invoice recipient"
+
+#~ msgid "Rechnungsdaten"
+#~ msgstr "Billing information"
+
+#~ msgid "Rechnungsnummer"
+#~ msgstr "Invoice number"
+
+#~ msgid "Rechnungsdatum"
+#~ msgstr "Invoice date"
+
+#~ msgid "Zahlungsart"
+#~ msgstr "Payment method"
+
+#~ msgid "Rechnung"
+#~ msgstr "Invoice"
+
+#~ msgid "Produkt"
+#~ msgstr "Product"
+
+#~ msgid "Menge"
+#~ msgstr "Amount"
+
+#~ msgid "Einzelpreis (netto)"
+#~ msgstr "Single price (net)"
+
+#~ msgid "USt."
+#~ msgstr "VAT"
+
+#~ msgid "Gesamt (brutto)"
+#~ msgstr "Total price (gross)"
+
+#~ msgid "Endbetrag (brutto)"
+#~ msgstr "Single price (gross)"
+
+#~ msgid "Alle Preisangaben in EUR"
+#~ msgstr "All prices in EUR"
+
+#~ msgid "Sortierung erfolgreich geändert"
+#~ msgstr "Sorting successfully changed"
+
+#~ msgid "Es dürfen nicht alle Seiten gelöscht werden"
+#~ msgstr "Not all pages may be deleted"
+
+#~ msgid "Seiten erfolgreich gelöscht"
+#~ msgstr "Pages successfully deleted"
+
+#~ msgid "Seiten erfolgreich zum Buch hinzugefügt"
+#~ msgstr "Pages successfully added to book"
+
+#~ msgid "Fehler beim Hinzufügen der Seiten"
+#~ msgstr "Error while adding the pages"
+
+#~ msgid "Notiz erfolgreich gespeichert"
+#~ msgstr "Note successfully saved"
+
+#~ msgid "Buch erfolgreich erstellt"
+#~ msgstr "Book successfully created"
+
+#~ msgid "Institution erfolgreich gespeichert"
+#~ msgstr "Institution successfully saved"
+
+#~ msgid "Fehler beim Speichern der Institution"
+#~ msgstr "Error while saving the institution"
+
+#~ msgid "Berechtigungen erfolgreich gespeichert"
+#~ msgstr "Permissions successfully saved"
+
+#~ msgid "Fehler beim Speichern der Berechtigungen"
+#~ msgstr "Error while saving the permissions"
+
+#~ msgid "Publikationsreihen erfolgreich gespeichert"
+#~ msgstr "Publication series successfully saved"
+
+#~ msgid "Fehler beim Speichern der Publikationsreihen"
+#~ msgstr "Error while saving publication series"
+
+#~ msgid "Seite erfolgreich veröffentlicht"
+#~ msgstr "Page successfully published"
+
+#~ msgid "Die Seite ist nun nicht mehr veröffentlicht"
+#~ msgstr "The page is not published any longer"
+
+#~ msgid "Freischaltung erfolgreich beantragt, wir informieren Sie sobald die Seite freigeschalten wurde"
+#~ msgstr "Release successfully requested. We will let you know as soon as the page has been released."
+
+#~ msgid "Bitte geben Sie eine Begründung ein"
+#~ msgstr "Please enter a reason"
+
+#~ msgid "Sie sind nicht berechtigt sich anzumelden. Bitte wenden Sie sich an Ihre Institution."
+#~ msgstr "You are not permitted to login. Please contact your institution."
+
+#~ msgid "Wir konnten keine eindeutige Benutzerkennung ermitteln. Bitte wenden Sie sich an Ihre Institution."
+#~ msgstr "We could not determine a unique user identifier. Please contact your institution."
+
+#~ msgid "facetField-"
+#~ msgstr "facetField-"
+
+#~ msgid "Gutschein erfolgreich eingelöst"
+#~ msgstr "Coupon successfully applied"
+
+#~ msgid "Login unzulässig"
+#~ msgstr "Login not allowed"
+
+#~ msgid "Logindaten fehlerhaft"
+#~ msgstr "Login details incorrect"
+
+#~ msgid "Sie wurden ausgeloggt, da Ihre Session abgelaufen ist oder beendet wurde"
+#~ msgstr "You have been logged out because your session expired or was ended"
+
+#~ msgid "Sie bekommen in Kürze eine E-Mail mit Ihrem neuen Passwort"
+#~ msgstr "You will shortly receive an email containing your new password"
+
+#~ msgid "Fehler beim Zurücksetzen des Passworts"
+#~ msgstr "Error while resetting the password"
+
+#~ msgid "Diese E-Mail Adresse konnte im System leider nicht gefunden werden"
+#~ msgstr "This email address could not be found in the system"
+
+#~ msgid "Vielen Dank für die Registrierung"
+#~ msgstr "Thank you for registering"
+
+#~ msgid "Bitte überprüfen Sie Ihre Eingaben!"
+#~ msgstr "Please check you entries"
+
+#~ msgid "Daten erfolgreich gespeichert"
+#~ msgstr "Data successfully saved"
+
+#~ msgid "Bitte überprüfen Sie Ihre Eingaben"
+#~ msgstr "Please check you entries"
+
+#~ msgid "Abo erfolgreich gekündigt"
+#~ msgstr "Subscription successfully cancelled"
+
+#~ msgid "Fehler beim Kündigen des Abos"
+#~ msgstr "Error while cancelling the subscription"
+
+#~ msgid "Passwort erfolgreich geändert"
+#~ msgstr "Password successfully changed"
+
+#~ msgid "Fehler beim Ändern des Passworts"
+#~ msgstr "Error while changing the password"
+
+#~ msgid "Die neuen Passwörter müssen übereinstimmen"
+#~ msgstr "The new passwords must match"
+
+#~ msgid "Aktuelles Passwort inkorrekt"
+#~ msgstr "Current password incorrect"
+
+#~ msgid "Benutzers Passwort erfolgreich zurückgesetzt (per E-Mail versendet)"
+#~ msgstr "User’s password successfully reset (sent by email)"
+
+#~ msgid "Benutzer erfolgreich gelöscht"
+#~ msgstr "User successfully deleted"
+
+#~ msgid "Fehler beim Löschen des Benutzers"
+#~ msgstr "Error while deleting the user"
+
+#~ msgid "Zugang erfolgreich gespeichert"
+#~ msgstr "Access successfully saved"
+
+#~ msgid "Fehler beim Speichern"
+#~ msgstr "Error while saving"
+
+#~ msgid "Benutzer erfolgreich angelegt"
+#~ msgstr "User successfully created"
+
+#~ msgid "Fehler beim Anlegen des Benutzers"
+#~ msgstr "Error while creating the user"
+
+#~ msgid "Benutzer erfolgreich gespeichert"
+#~ msgstr "User successfully saved"
+
+#~ msgid "Fehler beim Speichern des Benutzers"
+#~ msgstr "Error while saving the user"
+
+#~ msgid "Shoppackage muss ausgewählt werden"
+#~ msgstr "Shop package must be selected"
+
+#~ msgid "Betrag muss gesetzt werden"
+#~ msgstr "Amount must be set"
+
+#~ msgid "Neues Passwort wiederholen"
+#~ msgstr "Re-enter new password"
+
+#~ msgid "ändern"
+#~ msgstr "change"
+
+#~ msgid "Postleitzahl"
+#~ msgstr "Postcode"
+
+#~ msgid "Adresse"
+#~ msgstr "Address:"
+
+#~ msgid "Telefonnummer"
+#~ msgstr "Phone number"
+
+#~ msgid "UID-Nummer"
+#~ msgstr "VAT ID"
+
+#~ msgid "Ungültige UID-Nummer"
+#~ msgstr "Invalid VAT ID"
+
+#~ msgid "Bitte akzeptieren Sie die AGB"
+#~ msgstr "Please accept the General Terms and Conditions"
+
+#~ msgid "Bitte akzeptieren Sie die Abo-Bedingungen"
+#~ msgstr "Please accept the subscription conditions"
+
+#~ msgid "weiter"
+#~ msgstr "continue"
+
+#~ msgid "Ich akzeptiere die <a href=\"%s\" target=\"_blank\">AGB</a>"
+#~ msgstr "I accept the <a href=\"%s\" target=\"_blank\">legal terms</a>"
+
+#~ msgid "Durch die kostenpflichtige Bestellung nehmen Sie den Abschluss<br />eines <a href=\"\" class=\"open-abo-popup\">Abonnements gemäß unserer AGB</a> zustimmend zur Kenntnis."
+#~ msgstr "By paying for your order, you accept the conclusion<br />of a <a href=\"\" class=\"open-abo-popup\">subscription in accordance with our General Terms and Conditions</a>."
+
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#~ msgid "Feedback"
+#~ msgstr "Feedback"
+
+#~ msgid "senden"
+#~ msgstr "submit"
+
+#~ msgid "Gleichzeitige Sessions"
+#~ msgstr "Simultaneous sessions"
+
+#~ msgid "IP-Adressen (IP oder Range pro Zeile)"
+#~ msgstr "IP addresses (one IP or range per line)"
+
+#~ msgid "Start"
+#~ msgstr "Start"
+
+#~ msgid "Ende"
+#~ msgstr "End"
+
+#~ msgid "SAML Entity-ID"
+#~ msgstr "SAML Entity-ID"
+
+#~ msgid "SSO Key"
+#~ msgstr "SSO Key"
+
+#~ msgid "SSO Redirect URL"
+#~ msgstr "SSO Redirect URL"
+
+#~ msgid "aktiv"
+#~ msgstr "active"
+
+#~ msgid "Registrierung deaktivieren"
+#~ msgstr "Deactivate registration"
+
+#~ msgid "Willkommen-Popup deaktivieren"
+#~ msgstr "Disable welcome popup"
+
+#~ msgid "salutation-"
+#~ msgstr "salutation-"
+
+#~ msgid "Stadt"
+#~ msgstr "City"
+
+#~ msgid "Adresse 1"
+#~ msgstr "Address 1"
+
+#~ msgid "Adresse 2"
+#~ msgstr "Address 2"
+
+#~ msgid "Wie haben Sie von ZEDHIA erfahren?"
+#~ msgstr "How did you hear about ZEDHIA?"
+
+#~ msgid "speichern"
+#~ msgstr "save"
+
+#~ msgid "Anmelden"
+#~ msgstr "Login"
+
+#~ msgid "Ja, ich möchte den ZEDHIA-Newsletter erhalten."
+#~ msgstr "Yes, I would like to receive the ZEDHIA newsletter."
+
+#~ msgid "Bitte geben Sie diese Zeichenkombination rückwärts ein:"
+#~ msgstr "Please type this word backwards:"
+
+#~ msgid "Registrieren"
+#~ msgstr "Register"
+
+#~ msgid "Captcha ungültig"
+#~ msgstr "Invalid captcha"
+
+#~ msgid "Institution"
+#~ msgstr "Institution"
+
+#~ msgid "Über die Institution anmelden"
+#~ msgstr "Login with institution account"
+
+#~ msgid "--- auswählen ---"
+#~ msgstr "--- select ---"
+
+#~ msgid "Code"
+#~ msgstr "Code"
+
+#~ msgid "einlösen"
+#~ msgstr "apply"
+
+#~ msgid "Paket"
+#~ msgstr "Package"
+
+#~ msgid "--- keines ---"
+#~ msgstr "--- none ---"
+
+#~ msgid "Shop deaktivieren"
+#~ msgstr "Deactivate shop"
+
+#~ msgid "Abo aktiv"
+#~ msgstr "Subscription active"
+
+#~ msgid "Abo (muss bezahlen seit)"
+#~ msgstr "Subscription (must pay since)"
+
+#~ msgid "Anzahl"
+#~ msgstr "Quantity"
+
+#~ msgid "Typ"
+#~ msgstr "Type"
+
+#~ msgid "Shoppackage"
+#~ msgstr "Shop package"
+
+#~ msgid "Gutschrift"
+#~ msgstr "Credit"
+
+#~ msgid "Beispiel: 5.00 oder 20.99"
+#~ msgstr "Example: 5.00 or 20.99"
+
+#~ msgid "nur einmal benutzbar"
+#~ msgstr "can only be used once"
+
+#~ msgid "Gültig bis"
+#~ msgstr "Valid to"
+
+#~ msgid "erzeugen"
+#~ msgstr "create"
+
+#~ msgid "Ungültiger Betrag"
+#~ msgstr "Invalid amount"
+
+#~ msgid "Ungültiges Datum"
+#~ msgstr "Invalid date"
+
+#~ msgid "Meine Bookmarks"
+#~ msgstr "My bookmarks"
+
+#~ msgid "facetField-categories-"
+#~ msgstr "facetField-categories-"
+
+#~ msgid "Page not found (404)"
+#~ msgstr "Page not found (404)"
+
+#~ msgid "This page is no longer available."
+#~ msgstr "This page is no longer available."
+
+#~ msgid "The requested controller was unable to dispatch the request."
+#~ msgstr "Der angeforderte Controller war nicht in der Lage die Anfrage zu verarbeiten."
+
+#~ msgid "The requested controller could not be mapped to an existing controller class."
+#~ msgstr "Der angeforderte Controller konnte keiner Controller Klasse zugeordnet werden."
+
+#~ msgid "The requested controller was not dispatchable."
+#~ msgstr "Der angeforderte Controller ist nicht aufrufbar."
+
+#~ msgid "The requested URL could not be matched by routing."
+#~ msgstr "Für die angeforderte URL konnte keine Übereinstimmung gefunden werden."
+
+#~ msgid "We cannot determine at this time why a 404 was generated."
+#~ msgstr "Zu diesem Zeitpunkt ist es uns nicht möglich zu bestimmen, warum ein 404 Fehler aufgetreten ist."
+
+#~ msgid "Controller"
+#~ msgstr "Controller"
+
+#~ msgid "resolves to %s"
+#~ msgstr "wird aufgelöst in %s"
+
+#~ msgid "Additional information"
+#~ msgstr "Zusätzliche Information"
+
+#~ msgid "File"
+#~ msgstr "Datei"
+
+#~ msgid "Message"
+#~ msgstr "Meldung"
+
+#~ msgid "Stack trace"
+#~ msgstr "Stapelüberwachung"
+
+#~ msgid "Previous exceptions"
+#~ msgstr "Vorherige Ausnahme"
+
+#~ msgid "No Exception available"
+#~ msgstr "Es ist keine Ausnahme verfügbar"
+
+#~ msgid "Kontakt"
+#~ msgstr "Contact"
+
+#~ msgid "Impressum"
+#~ msgstr "Legal notice"
+
+#~ msgid "AGB"
+#~ msgstr "General Terms and Conditions"
+
+#~ msgid "Rechte"
+#~ msgstr "Rights"
+
+#~ msgid "Datenschutzerklärung"
+#~ msgstr "Data privacy statement"
+
+#~ msgid "Die Suchergebnisse werden als einzelne Buchtreffer chronologisch sortiert angezeigt. Die Suche kann durch diverse Filter und die erweiterte Suche eingegrenzt werden."
+#~ msgstr "The search results are displayed as individual book hits in chronological order. The search can be limited by various filters and the advanced search."
+
+#~ msgid "Standardsuche"
+#~ msgstr "Standard search"
+
+#~ msgid "Die Suchergebnisse werden seitenweise als einzelne Textabschnitte chronologisch sortiert angezeigt. Die Suche kann zeitlich - nach Datum oder Jahr – eingeschränkt werden."
+#~ msgstr "The search results are displayed page by page as individual sections of text sorted chronologically. The search can be limited in time - by date or year."
+
+#~ msgid "Schnellsuche"
+#~ msgstr "Quick search"
+
+#~ msgid "Shop"
+#~ msgstr "Shop"
+
+#~ msgid "Login"
+#~ msgstr "Login"
+
+#~ msgid "Lesezeichen"
+#~ msgstr "Bookmarks"
+
+#~ msgid "Markierte Bücher"
+#~ msgstr "Marked publications"
+
+#~ msgid "Markierte Seiten"
+#~ msgstr "Marked pages"
+
+#~ msgid "Eigene Bücher"
+#~ msgstr "My Books"
+
+#~ msgid "Admin"
+#~ msgstr "Admin"
+
+#~ msgid "Institutionen"
+#~ msgstr "Institutions"
+
+#~ msgid "Benutzer"
+#~ msgstr "User"
+
+#~ msgid "Gutscheine"
+#~ msgstr "Vouchers"
+
+#~ msgid "Mein Profil"
+#~ msgstr "My profile"
+
+#~ msgid "Abmelden"
+#~ msgstr "Logout"
+
+#~ msgid "abmelden"
+#~ msgstr "log out"
+
+#~ msgid "Weitere Infos"
+#~ msgstr "Further infos"
+
+#~ msgid "Über ZEDHIA"
+#~ msgstr "About ZEDHIA"
+
+#~ msgid "Hilfreiche Links"
+#~ msgstr "Helpful links"
+
+#~ msgid "Videotutorials"
+#~ msgstr "Videotutorials"
+
+#~ msgid "Deutsch"
+#~ msgstr "German"
+
+#~ msgid "Englisch"
+#~ msgstr "English"
+
+#~ msgid "ZEDHIA ist eine Online-Plattform, ein interaktives Online-Archiv, welches historische Wirtschaftsinformationen aus Österreich und Mitteleuropa von 1812 bis 2003 zur Verfügung stellt."
+#~ msgstr "ZEDHIA is an online platform, an interactive online archive, which provides historical business information from Austria and Central Europe from 1812 to 2003."
+
+#~ msgid "ZEDHIA - Onlineportal für historische Wirtschaftsinformationen von 1812 bis 2003"
+#~ msgstr "ZEDHIA - Online Portal for Historical Business Information from 1812 to 2003"
+
+#~ msgid "Notiz"
+#~ msgstr "Note"
+
+#~ msgid "Seite hinzufügen"
+#~ msgstr "Add page"
+
+#~ msgid "Sie haben noch keine Custombooks angelegt."
+#~ msgstr "You haven’t created any custom books yet."
+
+#~ msgid "Seite bereits enthalten"
+#~ msgstr "Page already included"
+
+#~ msgid "Buch auswählen"
+#~ msgstr "Select book"
+
+#~ msgid "Seite erfolgreich hinzugefügt"
+#~ msgstr "Page successfully added"
+
+#~ msgid "Buchtitel"
+#~ msgstr "Book title"
+
+#~ msgid "Neues Buch"
+#~ msgstr "New book"
+
+#~ msgid "und"
+#~ msgstr "and"
+
+#~ msgid "oder"
+#~ msgstr "or"
+
+#~ msgid "alle Vorkommen"
+#~ msgstr "all matches"
+
+#~ msgid "genaues Vorkommen"
+#~ msgstr "exact match"
+
+#~ msgid "beginnt mit"
+#~ msgstr "begins with"
+
+#~ msgid "endet mit"
+#~ msgstr "ends with"
+
+#~ msgid "Proximity"
+#~ msgstr "Proximity"
+
+#~ msgid "enthält nicht"
+#~ msgstr "does not contain"
+
+#~ msgid "Suchoption wählen"
+#~ msgstr "Select search option"
+
+#~ msgid "Keyword"
+#~ msgstr "Keyword"
+
+#~ msgid "Keine Filter gefunden"
+#~ msgstr "No filters found"
+
+#~ msgid "Vollbild öffnen"
+#~ msgstr "Open full screen"
+
+#~ msgid "Vollbild beenden"
+#~ msgstr "Close full screen"
+
+#~ msgid "Lesezeichen für diese Seite setzen"
+#~ msgstr "Set bookmark for the current page"
+
+#~ msgid "Lesezeichen für diese Seite löschen"
+#~ msgstr "Delete bookmark for the current page"
+
+#~ msgid "Lesezeichen für dieses Buch setzen"
+#~ msgstr "Set bookmark for the current book"
+
+#~ msgid "Lesezeichen für dieses Buch löschen"
+#~ msgstr "Delete bookmark for the current book"
+
+#~ msgid "Um diese personalisierten Funktionen nutzen zu können registrieren Sie sich bitte und loggen sich anschließend mit Ihrem Passwort ein."
+#~ msgstr "For using these personalized features, please register and log in with your password."
+
+#~ msgid "Um diese Funktion nutzen zu können ist ein Premium-Zugang erforderlich."
+#~ msgstr "In order to use this function, you need a premium account."
+
+#~ msgid "Für diese Seite ist leider ist keine OCR vorhanden."
+#~ msgstr "Unfortunately there is no OCR for this page"
+
+#~ msgid "Diese Seite ist nur für berechtigte User zugänglich. Bitte melden Sie sich an, um Ihr Konto in unserem Webshop zu aktivieren."
+#~ msgstr "This page is only available to authorized users. Please log in to activate your account in our webshop."
+
+#~ msgid "Diese Seite ist nur für berechtigte User und Institutionen zugänglich. Bitte melden Sie sich bei Ihrem Administrator um diese Inhalte freischalten zu lassen."
+#~ msgstr "This page is only available to authorized users and institutions. Please contact your administrator to unlock this content."
+
+#~ msgid "Bitte teilen Sie uns Ihre Meinung mit!"
+#~ msgstr "Please tell us your opinion!"
+
+#~ msgid "Vielen Dank für Ihr Feedback!"
+#~ msgstr "Thank you for your feedback!"
+
+#~ msgid "zum Beginn des Inhalts springen"
+#~ msgstr "jump to the beginning of the content"
+
+#~ msgid "Wir verwenden Cookies, um Ihnen die bestmögliche Bedienbarkeit unserer Website bieten zu können. Wenn Sie auf unserer Webseite weitersurfen, ohne Ihre Browsereinstellungen zu ändern, gehen wir davon aus, dass Sie alle Cookies auf dieser Website empfangen möchten."
+#~ msgstr "We use cookies in order to be able to offer the best possible experience of our website. If you continue surfing our website without changing your browser settings, we will assume that you would like to receive all cookies on this website."
+
+#~ msgid "akzeptieren"
+#~ msgstr "accept"
+
+#~ msgid "erste Seite"
+#~ msgstr "first page"
+
+#~ msgid "vorherige Seite"
+#~ msgstr "previous page"
+
+#~ msgid "nächste Seite"
+#~ msgstr "next page"
+
+#~ msgid "letzte Seite"
+#~ msgstr "last page"
+
+#~ msgid "Archiv"
+#~ msgstr "Archive"
+
+#~ msgid "Filter"
+#~ msgstr "Filter"
+
+#~ msgid "Sortieren nach Datum aufsteigend"
+#~ msgstr "Sort by ascending date"
+
+#~ msgid "Sortieren nach Datum absteigend"
+#~ msgstr "Sort by descending date"
+
+#~ msgid "Sortieren nach Relevanz"
+#~ msgstr "Sort by relevance"
+
+#~ msgid "inkl. meinen Büchern"
+#~ msgstr "incl. my books"
+
+#~ msgid "nur meine Favoriten"
+#~ msgstr "only my favourites"
+
+#~ msgid "Erweiterte Suche"
+#~ msgstr "Advanced search"
+
+#~ msgid "Buchbasierter Filter"
+#~ msgstr "Book-based filter"
+
+#~ msgid "Datum"
+#~ msgstr "Date"
+
+#~ msgid "von"
+#~ msgstr "from"
+
+#~ msgid "Datum oder Jahreszahl"
+#~ msgstr "Date or year"
+
+#~ msgid "bis"
+#~ msgstr "to"
+
+#~ msgid "filtern"
+#~ msgstr "filter"
+
+#~ msgid "Seitenbasierter Filter"
+#~ msgstr "Page-based filter"
+
+#~ msgid "Filter entfernen"
+#~ msgstr "clear filter"
+
+#~ msgid "alle Filter entfernen"
+#~ msgstr "clear all filters"
+
+#~ msgid "<b>%d</b> Publikation gefunden"
+#~ msgid_plural "<b>%d</b> Publikationen gefunden"
+#~ msgstr[0] "<b>%d</b> publication found"
+#~ msgstr[1] "<b>%d</b> publications found"
+
+#~ msgid "Erweiterte Listenansicht"
+#~ msgstr "Expanded list view"
+
+#~ msgid "Kompaktansicht (&quot;Bücherregal&quot;)"
+#~ msgstr "Collapsed view (&quot;Bookshelf&quot;)"
+
+#~ msgid "Es wurden leider keine Ergebnisse gefunden"
+#~ msgstr "Sorry, no results found."
+
+#~ msgid "Gehe zur Seite"
+#~ msgstr "Go to page"
+
+#~ msgid "Seite %page% von %pageCount%"
+#~ msgstr "Page %page% of %pageCount%"
+
+#~ msgid "Seiten %pageLeft%-%pageRight% von %pageCount%"
+#~ msgstr "Pages %pageLeft%-%pageRight% of %pageCount%"
+
+#~ msgid "Buch \"%s\" bearbeiten"
+#~ msgstr "Edit book \"%s\""
+
+#~ msgid "Aktionen"
+#~ msgstr "Actions"
+
+#~ msgid "markierte Seiten löschen"
+#~ msgstr "delete marked pages"
+
+#~ msgid "Sortierung speichern"
+#~ msgstr "save sort order"
+
+#~ msgid "Buch öffnen"
+#~ msgstr "Open book"
+
+#~ msgid "Hier können Sie ihre selbst zusammengestellten Bücher aufrufen und verwalten. (Neue eigene Bücher können Sie direkt über die Vorschau oder die Lesezeichen erstellen.)"
+#~ msgstr "You can retrieve and manage your own books here. (You can create new personal books directly through the preview or the bookmarks.)"
+
+#~ msgid "Es sind noch keine Bücher vorhanden"
+#~ msgstr "There are no books available yet"
+
+#~ msgid "Beschreibung"
+#~ msgstr "Description"
+
+#~ msgid "Seitenanzahl"
+#~ msgstr "Number of pages"
+
+#~ msgid "Publikationsreihe"
+#~ msgstr "Publication series"
+
+#~ msgid "Ersteller"
+#~ msgstr "Author"
+
+#~ msgid "Herausgeber"
+#~ msgstr "Publisher"
+
+#~ msgid "Sprachen"
+#~ msgstr "Languages"
+
+#~ msgid "Reichweite"
+#~ msgstr "Coverage"
+
+#~ msgid "Themen"
+#~ msgstr "Subjects"
+
+#~ msgid "URN"
+#~ msgstr "URN"
+
+#~ msgid "Markierte Publikationen"
+#~ msgstr "Marked publications"
+
+#~ msgid "Hier können Sie die von Ihnen mit einem Lesezeichen versehenen Publikationen aufrufen und verwalten."
+#~ msgstr "You can retrieve and manage the publications you have added a bookmark to here."
+
+#~ msgid "Soll das Lesezeichen wirklich gelöscht werden?"
+#~ msgstr "Do you really want to delete the bookmark?"
+
+#~ msgid "Es sind noch keine markierten Publikationen vorhanden."
+#~ msgstr "There are no marked publications  available yet."
+
+#~ msgid "Hier können Sie die von Ihnen mit einem Lesezeichen versehenen Buchseiten aufrufen und verwalten."
+#~ msgstr "You can retrieve and manage the book pages you have added a bookmark to here."
+
+#~ msgid "Lesezeichen markiert"
+#~ msgstr "Bookmark marked"
+
+#~ msgid "Lesezeichen löschen"
+#~ msgstr "Delete bookmark"
+
+#~ msgid "Neues Buch erstellen"
+#~ msgstr "Create new book"
+
+#~ msgid "Lesezeichen zu Buch hinzufügen"
+#~ msgstr "Add bookmark to book"
+
+#~ msgid "--- Buch auswählen ---"
+#~ msgstr "--- Select book ---"
+
+#~ msgid "Lesezeichen zum Buch hinzufügen"
+#~ msgstr "Add bookmark to book"
+
+#~ msgid "Alle markierten Seiten öffnen"
+#~ msgstr "Open all marked pages"
+
+#~ msgid "Buch der markierten Seite öffnen"
+#~ msgstr "Open book of marked page"
+
+#~ msgid "Eigene Notiz zur Seite öffnen"
+#~ msgstr "Open own note on page"
+
+#~ msgid "Es sind noch keine markierten Seiten vorhanden"
+#~ msgstr "There are no marked pages available yet"
+
+#~ msgid "Ausgewählte Bookmarks wirklich löschen?"
+#~ msgstr "Are you sure you want to delete the selected bookmarks?"
+
+#~ msgid "Soll das Buch wirklich aus den Favoriten entfernt werden?"
+#~ msgstr "Do you really want to delete the book from the favourites?"
+
+#~ msgid "Sehr geehrte Damen und Herren,"
+#~ msgstr "Dear Sir/Madam,"
+
+#~ msgid "für Angehörige Ihrer Institution ist der Zugriff auf ZEDHIA grundsätzlich frei, sofern Sie über eine berechtigte, eindeutige Benutzerkennung ins Portal einsteigen."
+#~ msgstr "Access to ZEDHIA is generally free for members of your institution if they use an approved unique user identifier."
+
+#~ msgid "Sie können nun auch die erweiterten, personalisierten Funktionen (Erstellung eigener Bücher, mehrseitige PDF-Dateien, Lesezeichen etc.) von ZEDHIA nutzen, die für Ihre Institution freigeschaltet wurden."
+#~ msgstr "You are now able to use the enhanced, personalised functions (creation of own books, multi-page PDF files, bookmarks, etc.) of ZEDHIA which were activated for your institution."
+
+#~ msgid "für Angehörige Ihrer Institution ist der Zugriff auf ZEDHIA grundsätzlich frei, sofern Sie über eine berechtigte IP-Adresse einsteigen."
+#~ msgstr "Access to ZEDHIA is generally free for members of your institution if they use an approved IP address."
+
+#~ msgid "Damit Sie auch die erweiterten, personalisierten Funktionen (Erstellung eigener Bücher, mehrseitige PDF-Dateien, Lesezeichen etc.) von ZEDHIA nutzen können, registrieren Sie sich bitte mit einer gültigen E-Mailadresse. Nach erfolgter Registrierung wird Ihnen Ihr Passwort zugesandt, mit dem Sie sich in ZEDHIA einloggen können (solange Sie über eine berechtigte IP Ihrer Institution einsteigen). Als eingeloggter User haben Sie Zugriff auf <b>alle Funktionen</b>, die für Ihre Institution freigeschaltet wurden."
+#~ msgstr "Please register using a valid email address to use the enhanced, personalised functions (creation of own books, multi-page PDF files, bookmarks, etc.) from ZEDHIA. After successful registration, you will be sent your password, which will enable you to log in to ZEDHIA (provided you use an approved IP for your institution). As a logged-in user, you have access to <b>all functions</b> activated for your institution."
+
+#~ msgid "Für Fragen und Anregungen nutzen Sie bitte den Feedback Button am rechten Bildschirmrand oder schreiben an <a href=\"mailto:office@zedhia.at\">office@zedhia.at</a>."
+#~ msgstr "For questions and suggestions, please use the Feedback button on the right-hand edge of the screen or write to <a href=\"mailto:office@zedhia.at\">office@zedhia.at</a>."
+
+#~ msgid "Viel Erfolg bei Ihren Recherchen auf ZEDHIA wünscht Ihnen"
+#~ msgstr "We wish you every success with your research on ZEDHIA."
+
+#~ msgid "Ihr ZEDHIA-Team"
+#~ msgstr "Your team at ZEDHIA"
+
+#~ msgid "Willkommen bei ZEDHIA!"
+#~ msgstr "Welcome to ZEDHIA!"
+
+#~ msgid "ZEDHIA bringt Geschichte in die Gegenwart und bietet Ihnen historische Wirtschaftsinformationen österreichischer und mitteleuropäischer Unternehmen aus über 200 Jahren. Starten Sie jetzt mit Ihrer Suche nach historischen Firmen und Personen im Onlinearchiv!"
+#~ msgstr "ZEDHIA brings historic events into the present and provides you with historical business information of Austrian and Central European companies from more than 200 years. Start your search for historical firms and people in the online archive now!"
+
+#~ msgid "Ab ins Archiv!"
+#~ msgstr "Off to the archive"
+
+#~ msgid "Publikationen"
+#~ msgstr "Publications"
+
+#~ msgid "Seiten"
+#~ msgstr "Pages"
+
+#~ msgid "Wartungsarbeiten"
+#~ msgstr "Maintenance"
+
+#~ msgid "Aufgrund von Wartungsarbeiten ist ZEDHIA momentan leider nicht erreichbar."
+#~ msgstr "ZEDHIA is currently not available due to maintenance."
+
+#~ msgid "Wir versuchen die Ausfallzeit so kurz wie möglich zu halten und bitten um Ihr Verständnis."
+#~ msgstr "We try to keep the downtime as short as possible and apologize for the inconvenience."
+
+#~ msgid "Institution erstellen"
+#~ msgstr "Create institution"
+
+#~ msgid "Institution bearbeiten"
+#~ msgstr "Edit institution"
+
+#~ msgid "Stammdaten"
+#~ msgstr "Master data"
+
+#~ msgid "Berechtigungen"
+#~ msgstr "Permissions"
+
+#~ msgid "Datenfilter"
+#~ msgstr "Data filter"
+
+#~ msgid "Publikationsreihen"
+#~ msgstr "Publication series"
+
+#~ msgid "Neue Institution anlegen"
+#~ msgstr "Create new institution"
+
+#~ msgid "E-Mail (PIWIK-Login)"
+#~ msgstr "Email (PIWIK login)"
+
+#~ msgid "PIWIK Seiten-ID"
+#~ msgstr "PIWIK page ID"
+
+#~ msgid "PIWIK Passwort (erstmalig)"
+#~ msgstr "PIWIK password (first time)"
+
+#~ msgid "IP-Adresse(n)"
+#~ msgstr "IP address(es)"
+
+#~ msgid "Lizenzen aufgebraucht"
+#~ msgstr "Licences used up"
+
+#~ msgid "Alle Lizenzen sind derzeit in Verwendung. Bitte warten Sie bis eine Lizenz frei wird."
+#~ msgstr "All licences are currently in use. Please wait for a licence to become free."
+
+#~ msgid "Originalbuch"
+#~ msgstr "Original book"
+
+#~ msgid "Fortlaufende Paginierung"
+#~ msgstr "Consecutive pagination"
+
+#~ msgid "Buchbeschreibung"
+#~ msgstr "Book description"
+
+#~ msgid "Original-Paginierung"
+#~ msgstr "Original pagination"
+
+#~ msgid "Werbeseite"
+#~ msgstr "Advertising page"
+
+#~ msgid "ja"
+#~ msgstr "yes"
+
+#~ msgid "nein"
+#~ msgstr "no"
+
+#~ msgid "Kategorie"
+#~ msgid_plural "Kategorien"
+#~ msgstr[0] "Category"
+#~ msgstr[1] "Category"
+
+#~ msgid "Content"
+#~ msgstr "Content"
+
+#~ msgid "Vorschau schließen"
+#~ msgstr "Close preview"
+
+#~ msgid "Bookreader öffnen"
+#~ msgstr "Open bookreader"
+
+#~ msgid "Diese Seite zu einem eigenen Buch hinzufügen"
+#~ msgstr "Add the current page to one of your own books"
+
+#~ msgid "Permalink der Seite"
+#~ msgstr "Permalink of the page"
+
+#~ msgid "Diese Seite als PDF öffnen"
+#~ msgstr "Open the current page as a PDF"
+
+#~ msgid "Diese Seite in der Textansicht öffnen"
+#~ msgstr "Open the current page in the text view"
+
+#~ msgid "Metadaten für diese Seite öffnen"
+#~ msgstr "Open the metadata for the current page"
+
+#~ msgid "Seite veröffentlichen"
+#~ msgstr "Publish page"
+
+#~ msgid "Diese Seite im Originalbuch öffnen"
+#~ msgstr "Open the current page in the original book"
+
+#~ msgid "Vergrößern"
+#~ msgstr "Zoom in"
+
+#~ msgid "Im Uhrzeigersinn drehen"
+#~ msgstr "Rotate clockwise"
+
+#~ msgid "Gehe zur vorigen Seite"
+#~ msgstr "Go to the previous page"
+
+#~ msgid "Gehe zur nächsten Seite"
+#~ msgstr "Go to the next page"
+
+#~ msgid "Bitte beachten Sie folgende wichtige Information"
+#~ msgstr "Please be aware of these important information"
+
+#~ msgid "Suchtreffer schließen"
+#~ msgstr "Close search hits"
+
+#~ msgid "Buch mit Suchtreffern öffnen"
+#~ msgstr "Open the book with search hits"
+
+#~ msgid "Gehe zum vorigen Suchtreffer"
+#~ msgstr "Go to the previous search hit"
+
+#~ msgid "Gehe zum nächsten Suchtreffer"
+#~ msgstr "Go to the next search hit"
+
+#~ msgid "Seite"
+#~ msgstr "Page"
+
+#~ msgid "Seite öffnen"
+#~ msgstr "Open page"
+
+#~ msgid "Diese Seite wurde bereits für die Öffentlichkeit freigeschaltet."
+#~ msgstr "This page has already been released for the general public."
+
+#~ msgid "nicht mehr freischalten"
+#~ msgstr "unpublish"
+
+#~ msgid "Durch einen Klick auf den Button kann die Seite für die Öffentlichkeit freigeschalten werden."
+#~ msgstr "The page can be released for the general public by clicking on the button."
+
+#~ msgid "Seite freischalten"
+#~ msgstr "Publish page"
+
+#~ msgid "Sie können die Freischaltung dieser Seite beantragen. Bitte begründen Sie warum Sie die Seite für die Öffentlichkeit freischalten möchten."
+#~ msgstr "You can request the release of this page. Please give reasons for wanting to release the page for the general public."
+
+#~ msgid "Freischaltung beantragen"
+#~ msgstr "Request publication"
+
+#~ msgid "<b>%d</b> Ergebnis gefunden"
+#~ msgid_plural "<b>%d</b> Ergebnisse gefunden"
+#~ msgstr[0] "<b>%d</b> Result found"
+#~ msgstr[1] "<b>%d</b> Results found"
+
+#~ msgid "Bookreader"
+#~ msgstr "Bookreader"
+
+#~ msgid "Permalink"
+#~ msgstr "Permalink"
+
+#~ msgid "Metadaten anzeigen"
+#~ msgstr "Show metadata"
+
+#~ msgid "von Datum (TT.MM.JJJJ) / Jahreszahl"
+#~ msgstr "from date (yyyy-mm-dd) or year"
+
+#~ msgid "bis Datum (TT.MM.JJJJ) / Jahreszahl"
+#~ msgstr "to date (yyyy-mm-dd) or year"
+
+#~ msgid "Diese Inhalte sind nur für berechtigte User zugänglich. Bitte melden Sie sich an, um Ihr Konto in unserem Webshop zu aktivieren."
+#~ msgstr "This content is only available to authorized users. Please log in to activate your account in our webshop."
+
+#~ msgid "Buch bearbeiten"
+#~ msgstr "Edit book"
+
+#~ msgid "Infos bearbeiten"
+#~ msgstr "Edit information"
+
+#~ msgid "Buch löschen"
+#~ msgstr "Delete book"
+
+#~ msgid "Download PDF"
+#~ msgstr "Download PDF"
+
+#~ msgid "Wollen Sie das Buch wirklich löschen?"
+#~ msgstr "Are you sure you want to delete the book?"
+
+#~ msgid "Buch-Titel"
+#~ msgstr "Book title"
+
+#~ msgid "Buch-Beschreibung"
+#~ msgstr "Book description"
+
+#~ msgid "Hits auf %d Seite(n) gefunden"
+#~ msgstr "Hits found on %d page(s)"
+
+#~ msgid "Es wurden keine Seiten gefunden"
+#~ msgstr "No pages found"
+
+#~ msgid "Sie müssen sich %s oder %s bevor Sie ein Produkt kaufen oder einen Gutschein-Code einlösen können."
+#~ msgstr "You must %s or %s before you can buy a product or apply a voucher code."
+
+#~ msgid "einloggen"
+#~ msgstr "log in"
+
+#~ msgid "registrieren"
+#~ msgstr "register"
+
+#~ msgid "Privat/Professional"
+#~ msgstr "Private/Professional"
+
+#~ msgid "Gutschein einlösen"
+#~ msgstr "Apply voucher"
+
+#~ msgid "Wählen Sie das passende Angebot für sich aus – Sie können jederzeit auf ein höherwertiges Paket upgraden und bekommen den Restbetrag gutgeschrieben."
+#~ msgstr "Select the right offer for you - you can upgrade to a higher-value package at any time and receive a credit for the outstanding amount."
+
+#~ msgid "Privat"
+#~ msgstr "Private"
+
+#~ msgid "Professional"
+#~ msgstr "Professional"
+
+#~ msgid "Leistungen"
+#~ msgstr "Services"
+
+#~ msgid "Basis"
+#~ msgstr "Basic"
+
+#~ msgid "Premium"
+#~ msgstr "Premium"
+
+#~ msgid "Laufzeit und Preis"
+#~ msgstr "Duration and price"
+
+#~ msgid "48 Stunden"
+#~ msgstr "48 Hours"
+
+#~ msgid "30 Tage"
+#~ msgstr "30 days"
+
+#~ msgid "1 Jahr"
+#~ msgstr "1 year"
+
+#~ msgid "Wollen Sie einen Gutschein-Code einlösen?"
+#~ msgstr "Do you want to apply a voucher code?"
+
+#~ msgid "zurück zur Paketauswahl"
+#~ msgstr "back to package selection"
+
+#~ msgid "Überpüfen der Daten"
+#~ msgstr "Verification of the data"
+
+#~ msgid "Zahlungsdaten"
+#~ msgstr "Payment details"
+
+#~ msgid "Preis"
+#~ msgstr "Price"
+
+#~ msgid "Guthaben"
+#~ msgstr "Credit"
+
+#~ msgid "Zu zahlender Betrag"
+#~ msgstr "Amount to pay"
+
+#~ msgid "(inkl. %d%% USt.)"
+#~ msgstr "(incl. %d%% VAT)"
+
+#~ msgid "zurück"
+#~ msgstr "back"
+
+#~ msgid "Account erweitern"
+#~ msgstr "Expand account"
+
+#~ msgid "kostenpflichtig bestellen"
+#~ msgstr "place binding order"
+
+#~ msgid "Zahlung erfolgreich"
+#~ msgstr "Payment successful"
+
+#~ msgid "Vielen Dank für Ihre Zahlung."
+#~ msgstr "Thank you for your payment."
+
+#~ msgid "Wir haben Ihr Benutzerkonto entsprechend angepasst."
+#~ msgstr "We have adjusted your user account accordingly."
+
+#~ msgid "Zahlung fehlgeschlagen"
+#~ msgstr "Payment failed"
+
+#~ msgid "Bei der Zahlung ist leider ein Fehler aufgetreten."
+#~ msgstr "Sorry, an error occurred with the payment."
+
+#~ msgid "Bitte versuchen Sie es erneut."
+#~ msgstr "Please try again."
+
+#~ msgid "Zahlung abgebrochen"
+#~ msgstr "Payment cancelled"
+
+#~ msgid "Die Zahlung wurde abgebrochen."
+#~ msgstr "The payment has been cancelled."
+
+#~ msgid "Zahlung noch nicht durchgeführt"
+#~ msgstr "Payment not processed yet"
+
+#~ msgid "Die Zahlung konnte noch nicht verifiziert werden."
+#~ msgstr "The payment could not be verified yet"
+
+#~ msgid "Wir informieren Sie per E-Mail sobald sich der Status Ihrer Zahlung ändert."
+#~ msgstr "We will let you know by email as soon as the status of your payment changes."
+
+#~ msgid "Benutzer bearbeiten"
+#~ msgstr "Edit user"
+
+#~ msgid "Sie haben bereits zu viele offene Sitzungen, Ihre Sitzung wurde kurzfristig unterbrochen oder ist in einem anderen Browser geöffnet."
+#~ msgstr "You already have too many open sessions, your session was momentarily interrupted or is opened in another browser."
+
+#~ msgid "Bitte schließen Sie mindestens eine der offenen Sitzungen mit Klick auf den Button <b>Sitzung beenden</b> und melden Sie sich erneut an."
+#~ msgstr "Please close at least one of the open sessions by clicking on the button <b>Close session</b>, then log in again."
+
+#~ msgid "IP-Adresse:"
+#~ msgstr "IP address:"
+
+#~ msgid "Letzte Änderung:"
+#~ msgstr "Last modified:"
+
+#~ msgid "Sitzung beenden"
+#~ msgstr "Close session"
+
+#~ msgid "Passwort vergessen?"
+#~ msgstr "Forgot your password?"
+
+#~ msgid "Bitte geben Sie Ihre E-Mail Adresse ein und wir senden Ihnen ein neues Passwort zu."
+#~ msgstr "Please enter your email address and we’ll send you a new password."
+
+#~ msgid "Passwort zurücksetzen"
+#~ msgstr "Reset password"
+
+#~ msgid "Benutzerverwaltung"
+#~ msgstr "User administration"
+
+#~ msgid "Neuen Benutzer anlegen"
+#~ msgstr "Create new user"
+
+#~ msgid "Abo (aktiv)"
+#~ msgstr "Subscription (active)"
+
+#~ msgid "Abo (Ende)"
+#~ msgstr "Subscription (end)"
+
+#~ msgid "Registriert seit"
+#~ msgstr "Registered on"
+
+#~ msgid "Quelle"
+#~ msgstr "Source"
+
+#~ msgid "Soll der Benutzer wirklich gelöscht werden?"
+#~ msgstr "Do you really want to delete the user?"
+
+#~ msgid "Soll das Passwort wirklich neu gesetzt werden?"
+#~ msgstr "Do you really want to reset the password?"
+
+#~ msgid "Meine Daten"
+#~ msgstr "My details"
+
+#~ msgid "Passwort ändern"
+#~ msgstr "Change password"
+
+#~ msgid "Mein Account"
+#~ msgstr "My account"
+
+#~ msgid "Mitglied seit"
+#~ msgstr "Member since"
+
+#~ msgid "Zugangszeitraum"
+#~ msgstr "Access period"
+
+#~ msgid "Abo nicht verlängern"
+#~ msgstr "Do not renew subscription"
+
+#~ msgid "Meine Berechtigungen"
+#~ msgstr "My permissions"
+
+#~ msgid "Wollen Sie Ihr Abo wirklich kündigen?"
+#~ msgstr "Do you really want to cancel your subscription?"
+
+#~ msgid "Gutschein(e) anlegen"
+#~ msgstr "Create voucher(s)"
+
+#~ msgid "gültig bis"
+#~ msgstr "valid to"
+
+#~ msgid "benutzt"
+#~ msgstr "used"
+
+#~ msgid "voucher-type-"
+#~ msgstr "voucher-type-"
+
+#~ msgid "ZEDHIA bringt Geschichte in die Gegenwart und bietet Ihnen historische Wirtschaftsinformationen österreichischer und mitteleuropäischer Unternehmen aus über 200 Jahren."
+#~ msgstr "ZEDHIA brings historic events into the present and provides you with historical business information of Austrian and Central European companies from more than 200 years."
+
+#~ msgid "Datum / Jahreszahl (von TT.MM.JJJJ)"
+#~ msgstr "date or year (to yyyy-mm-dd)"
+
+#~ msgid "Datum / Jahreszahl (bis TT.MM.JJJJ)"
+#~ msgstr "date or year (from yyyy-mm-dd)"
+
+#~ msgid "Datum oder Jahreszahl (von TT.MM.JJJJ)"
+#~ msgstr "date or year (to yyyy-mm-dd)"
+
+#~ msgid "Datum oder Jahreszahl (bis TT.MM.JJJJ)"
+#~ msgstr "date or year (from yyyy-mm-dd)"
+
+#~ msgid "Datum oder Jahresanzahl (von TT.MM.JJJJ)"
+#~ msgstr "date or year (to yyyy-mm-dd)"
+
+#~ msgid "Datum oder Jahresanzahl (bis TT.MM.JJJJ)"
+#~ msgstr "date or year (from yyyy-mm-dd)"
+
+#~ msgid "Einzeltreffer Anzeige"
+#~ msgstr "Single view"
+
+#~ msgid "<b>%d</b> Buch gefunden"
+#~ msgid_plural "<b>%d</b> Bücher gefunden"
+#~ msgstr[0] "Found <b>%d</b> book"
+#~ msgstr[1] "Found <b>%d</b> books"
+
+#~ msgid "Hier können Sie die von Ihnen mit einem Lesezeichen versehenen Bücher aufrufen und verwalten."
+#~ msgstr "You can retrieve and manage the books you have added a bookmark to here."
+
+#~ msgid "Es sind noch keine markierten Bücher vorhanden."
+#~ msgstr "There are no marked books available yet."
+
+#~ msgid "Bücher"
+#~ msgstr "Books"
+
+#~ msgid "login"
+#~ msgstr "login"
+
+#~ msgid "OCR dieser Seite öffnen"
+#~ msgstr "Open OCR of the current page"
+
+#~ msgid "zum Archiv"
+#~ msgstr "Off to the archive"
+
+#~ msgid "Sie haben bereits zuviele geöffnete Sitzungen, bitte löschen Sie nicht mehr benötigte und melden sich danach neu an."
+#~ msgstr "You already have too many open sessions. Please close the ones you no longer need and then log in again."
+
+#~ msgid "löschen"
+#~ msgstr "delete"
+
+#~ msgid "Gutscheine(e) anlegen"
+#~ msgstr "Create voucher(s)"
+
+#~ msgid "Ich akzeptiere die <a href=\""
+#~ msgstr "I accept the <a href=\""
+
+#~ msgid "Home"
+#~ msgstr "Startseite"
+
+#~ msgid "All rights reserved."
+#~ msgstr "Alle Rechte vorbehalten."
+
+#~ msgid "Welcome to %sZend Framework 2%s"
+#~ msgstr "Willkommen zu dem %sZend Framework 2%s"
+
+#~ msgid "Congratulations! You have successfully installed the %sZF2 Skeleton Application%s. You are currently running Zend Framework version %s. This skeleton can serve as a simple starting point for you to begin building your application on ZF2."
+#~ msgstr "Herzlichen Glückwunsch! Sie haben die %sZF2 Skeleton Application%s erfolgreich installiert und benutzen gerade die Version %s des Zend Frameworks. Dieses Gerüst kann Ihnen als Einstiegspunkt, für Ihre weitere Entwicklung, basierend auf dem Zend Framework 2, dienen."
+
+#~ msgid "Fork Zend Framework 2 on GitHub"
+#~ msgstr "Fork Zend Framework 2 auf GitHub"
+
+#~ msgid "Follow Development"
+#~ msgstr "Folge der Entwicklung"
+
+#~ msgid "Zend Framework 2 is under active development. If you are interested in following the development of ZF2, there is a special ZF2 portal on the official Zend Framework website which provides links to the ZF2 %swiki%s, %sdev blog%s, %sissue tracker%s, and much more. This is a great resource for staying up to date with the latest developments!"
+#~ msgstr "Das Zend Framework 2 wird z.Z. aktiv weiterentwickelt.  Sollten Sie daran interessiert sein, die Entwicklung von ZF2 zu verfolgen, so bietet Ihnen die offizielle Webseite einen eigens für das Zend Framework 2 eingerichteten Bereich, auf der Sie Verlinkungen zum ZF2 %sWiki%s, %sEntwickler Blog%s, einem %sFehlerverfolgungssystem%s und noch vielem mehr finden. Dieser Bereich ist eine hervorragende Quelle um stets aktuell zu bleiben."
+
+#~ msgid "ZF2 Development Portal"
+#~ msgstr "ZF2 Entwickler Portal"
+
+#~ msgid "Discover Modules"
+#~ msgstr "Entdecken Sie Module"
+
+#~ msgid "The community is working on developing a community site to serve as a repository and gallery for ZF2 modules. The project is available %son GitHub%s. The site is currently live and currently contains a list of some of the modules already available for ZF2."
+#~ msgstr "Die Community arbeitet momentan an einer Community Seite, welche als Galerie für ZF2 Module dient. Dieses Projekt ist %sauf GitHub%s verfügbar. Die Webseite ist bereits Online und enthält eine Liste mit schon veröffentlichten Modulen für das Zend Framework 2."
+
+#~ msgid "Explore ZF2 Modules"
+#~ msgstr "Erkunden Sie ZF2 Module"
+
+#~ msgid "Help &amp; Support"
+#~ msgstr "Hilfe &amp; Support"
+
+#~ msgid "If you need any help or support while developing with ZF2, you may reach us via IRC: %s#zftalk on Freenode%s. We'd love to hear any questions or feedback you may have regarding the beta releases. Alternatively, you may subscribe and post questions to the %smailing lists%s."
+#~ msgstr "Sollten Sie Hilfe jeglicher Art bei der Entwicklung mit dem Zend Framework 2 benötigen, kontaktieren Sie uns doch einfach über das IRC: %s#zftalk on Freenode%s. Wir freuen uns darauf, Ihnen bei Ihren Fragen zu helfen oder aber auch Ihre Meinung bezüglich der Beta Versionen zu hören. Alternativ können Sie auch die %smailing lists%s abonnieren und Ihre Fragen dort stellen."
+
+#~ msgid "Ping us on IRC"
+#~ msgstr "Schreiben Sie uns im IRC an"
+
+#~ msgid "An error occurred"
+#~ msgstr "Ein Fehler ist aufgetreten"
+
+#~ msgid "A 404 error occurred"
+#~ msgstr "Es trat ein 404 Fehler auf"
+
+#~ msgid "Exception"
+#~ msgstr "Ausnahme"
