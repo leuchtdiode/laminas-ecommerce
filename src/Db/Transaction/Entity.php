@@ -54,6 +54,13 @@ class Entity
 	private $foreignId;
 
 	/**
+	 * @var int|null
+	 *
+	 * @ORM\Column(type="integer", nullable=true)
+	 */
+	private $shippingCost;
+
+	/**
 	 * @var DateTime
 	 *
 	 * @ORM\Column(type="datetime")
@@ -179,6 +186,22 @@ class Entity
 	public function setForeignId(?string $foreignId): void
 	{
 		$this->foreignId = $foreignId;
+	}
+
+	/**
+	 * @return int|null
+	 */
+	public function getShippingCost(): ?int
+	{
+		return $this->shippingCost;
+	}
+
+	/**
+	 * @param int|null $shippingCost
+	 */
+	public function setShippingCost(?int $shippingCost): void
+	{
+		$this->shippingCost = $shippingCost;
 	}
 
 	/**

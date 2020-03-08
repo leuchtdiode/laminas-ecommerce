@@ -1,22 +1,39 @@
 <?php
+
 namespace Ecommerce\Cart\Checkout;
 
+use Ecommerce\Address\Address;
+use Ecommerce\Cart\Cart;
 use Ecommerce\Cart\InvalidCartError;
 use Ecommerce\Common\DtoCreatorProvider;
+use Ecommerce\Customer\Customer;
 use Ecommerce\Db\Transaction\Entity as TransactionEntity;
 use Ecommerce\Db\Transaction\Item\Entity as TransactionItemEntity;
 use Ecommerce\Db\Transaction\Saver as TransactionEntitySaver;
 use Ecommerce\Payment\MethodHandler\InitData;
+use Ecommerce\Payment\MethodHandler\Provider as MethodHandlerProvider;
+use Ecommerce\Shipping\CostProvider;
+use Ecommerce\Shipping\GetData;
 use Ecommerce\Transaction\ReferenceNumberProvider;
 use Ecommerce\Transaction\Status;
 use Ecommerce\Transaction\Transaction;
 use Exception;
 use Log\Log;
+use Psr\Container\ContainerInterface;
 use RuntimeException;
-use Ecommerce\Payment\MethodHandler\Provider as MethodHandlerProvider;
 
 class Handler
 {
+	/**
+	 * @var array
+	 */
+	private $config;
+
+	/**
+	 * @var ContainerInterface
+	 */
+	private $container;
+
 	/**
 	 * @var MethodHandlerProvider
 	 */
@@ -48,18 +65,24 @@ class Handler
 	private $transaction;
 
 	/**
+	 * @param array $config
+	 * @param ContainerInterface $container
 	 * @param MethodHandlerProvider $methodHandlerProvider
 	 * @param TransactionEntitySaver $transactionEntitySaver
 	 * @param DtoCreatorProvider $dtoCreatorProvider
 	 * @param ReferenceNumberProvider $referenceNumberProvider
 	 */
 	public function __construct(
+		array $config,
+		ContainerInterface $container,
 		MethodHandlerProvider $methodHandlerProvider,
 		TransactionEntitySaver $transactionEntitySaver,
 		DtoCreatorProvider $dtoCreatorProvider,
 		ReferenceNumberProvider $referenceNumberProvider
 	)
 	{
+		$this->config                  = $config;
+		$this->container               = $container;
 		$this->methodHandlerProvider   = $methodHandlerProvider;
 		$this->transactionEntitySaver  = $transactionEntitySaver;
 		$this->dtoCreatorProvider      = $dtoCreatorProvider;
@@ -120,6 +143,8 @@ class Handler
 	 */
 	private function createTransaction()
 	{
+		$cart = $this->data->getCart();
+
 		try
 		{
 			$transactionEntity = new TransactionEntity();
@@ -142,22 +167,33 @@ class Handler
 					->getEntity()
 			);
 			$transactionEntity->setPaymentMethod(
-				$this->data->getPaymentMethod()->getId()
+				$this->data->getPaymentMethod()
+					->getId()
+			);
+			$transactionEntity->setShippingCost(
+				$this->getShippingCost(
+					$cart,
+					$this->data->getCustomer(),
+					$this->data->getShippingAddress()
+				)
 			);
 			$transactionEntity->setStatus(Status::NEW);
 
-			foreach ($this->data->getCart()->getItems() as $cartItem)
+			foreach ($cart->getItems() as $cartItem)
 			{
 				$product = $cartItem->getProduct();
+				$price   = $product->getPrice();
 
 				$transactionItemEntity = new TransactionItemEntity();
 				$transactionItemEntity->setTransaction($transactionEntity);
 				$transactionItemEntity->setAmount($cartItem->getQuantity());
 				$transactionItemEntity->setProduct($product->getEntity());
-				$transactionItemEntity->setPrice($product->getPrice()->getNet() * $cartItem->getQuantity());
-				$transactionItemEntity->setTax($product->getPrice()->getTaxRate()); // TODO correct?
+				$transactionItemEntity->setPrice($price->getNet() * $cartItem->getQuantity());
+				$transactionItemEntity->setTax($price->getTaxRate()); // TODO correct?
 
-				$transactionEntity->getItems()->add($transactionItemEntity);
+				$transactionEntity
+					->getItems()
+					->add($transactionItemEntity);
 			}
 
 			$this->transactionEntitySaver->save($transactionEntity);
@@ -174,5 +210,35 @@ class Handler
 		}
 
 		return false;
+	}
+
+	/**
+	 * @param Customer $customer
+	 * @param Address $shippingAddress
+	 * @return int|null
+	 * @throws Exception
+	 */
+	private function getShippingCost(Cart $cart, Customer $customer, Address $shippingAddress)
+	{
+		$shippingProviderClass = $this->config['ecommerce']['shipping']['costProvider'] ?? null;
+
+		if (!$shippingProviderClass)
+		{
+			return null;
+		}
+
+		$shippingCostProvider = $this->container->get($shippingProviderClass);
+
+		if (!$shippingCostProvider || !$shippingCostProvider instanceof CostProvider)
+		{
+			throw new Exception('Could not get instance of ' . $shippingProviderClass);
+		}
+
+		return $shippingCostProvider->get(
+			GetData::create()
+				->setCart($cart)
+				->setCustomer($customer)
+				->setShippingAddress($shippingAddress)
+		);
 	}
 }

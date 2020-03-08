@@ -4,6 +4,7 @@ namespace Ecommerce\Transaction;
 use Ecommerce\Address\Creator as AddressCreator;
 use Ecommerce\Common\EntityDtoCreator;
 use Ecommerce\Common\Price;
+use Ecommerce\Common\PriceCreator;
 use Ecommerce\Common\UrlProvider;
 use Ecommerce\Customer\Creator as CustomerCreator;
 use Ecommerce\Db\Transaction\Entity;
@@ -38,6 +39,11 @@ class Creator implements EntityDtoCreator
 	private $securityHashHandler;
 
 	/**
+	 * @var PriceCreator
+	 */
+	private $priceCreator;
+
+	/**
 	 * @var TransactionItemCreator
 	 */
 	private $transactionItemCreator;
@@ -57,18 +63,21 @@ class Creator implements EntityDtoCreator
 	 * @param PaymentMethodProvider $paymentMethodProvider
 	 * @param UrlProvider $urlProvider
 	 * @param SecurityHashHandler $securityHashHandler
+	 * @param PriceCreator $priceCreator
 	 */
 	public function __construct(
 		StatusProvider $statusProvider,
 		PaymentMethodProvider $paymentMethodProvider,
 		UrlProvider $urlProvider,
-		SecurityHashHandler $securityHashHandler
+		SecurityHashHandler $securityHashHandler,
+		PriceCreator $priceCreator
 	)
 	{
-		$this->statusProvider = $statusProvider;
+		$this->statusProvider        = $statusProvider;
 		$this->paymentMethodProvider = $paymentMethodProvider;
-		$this->urlProvider = $urlProvider;
-		$this->securityHashHandler = $securityHashHandler;
+		$this->urlProvider           = $urlProvider;
+		$this->securityHashHandler   = $securityHashHandler;
+		$this->priceCreator          = $priceCreator;
 	}
 
 	/**
@@ -107,7 +116,8 @@ class Creator implements EntityDtoCreator
 			{
 				return $this->transactionItemCreator->byEntity($entity);
 			},
-			$entity->getItems()->toArray()
+			$entity->getItems()
+				->toArray()
 		);
 
 		$status = $this->statusProvider->byId($entity->getStatus());
@@ -120,9 +130,12 @@ class Creator implements EntityDtoCreator
 			$items,
 			$this->addressCreator->byEntity($entity->getBillingAddress()),
 			$this->addressCreator->byEntity($entity->getShippingAddress()),
-			$this->getTotalPrice($items),
+			$this->getTotalPrice($items, $entity->getShippingCost()),
 			$status->is(Status::SUCCESS)
 				? $this->getInvoiceUrl($entity)
+				: null,
+			($shippingCost = $entity->getShippingCost())
+				? $this->priceCreator->fromCents($shippingCost, 0)
 				: null
 		);
 	}
@@ -135,25 +148,34 @@ class Creator implements EntityDtoCreator
 	private function getInvoiceUrl(Entity $entity)
 	{
 		return $this->urlProvider->get(
-			'ecommerce/transaction/single-item/invoice',
-			[
-				'transactionId'   => $entity->getId()->toString(),
-				'referenceNumber' => $entity->getReferenceNumber(),
-			]
-		) . '?sec=' . $this->securityHashHandler->get(self::ONE_HOUR_IN_SECONDS);
+				'ecommerce/transaction/single-item/invoice',
+				[
+					'transactionId'   => $entity
+						->getId()
+						->toString(),
+					'referenceNumber' => $entity->getReferenceNumber(),
+				]
+			) . '?sec=' . $this->securityHashHandler->get(self::ONE_HOUR_IN_SECONDS);
 	}
 
 	/**
 	 * @param Item[] $items
 	 * @return Price
 	 */
-	private function getTotalPrice(array $items)
+	private function getTotalPrice(array $items, ?int $shippingCost)
 	{
 		$cents = 0;
 
 		foreach ($items as $item)
 		{
-			$cents += (int)$item->getTotalPrice()->getGross();
+			$cents += (int)$item
+				->getTotalPrice()
+				->getGross();
+		}
+
+		if ($shippingCost)
+		{
+			$cents += $shippingCost;
 		}
 
 		return Price::fromCents($cents, 0);

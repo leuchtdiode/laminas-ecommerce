@@ -75,6 +75,13 @@ class Transaction implements ArrayHydratable
 	private $invoiceUrl;
 
 	/**
+	 * @ObjectToArrayHydratorProperty
+	 *
+	 * @var Price|null
+	 */
+	private $shippingCost;
+
+	/**
 	 * @param Entity $entity
 	 * @param Customer $customer
 	 * @param Status $status
@@ -84,6 +91,7 @@ class Transaction implements ArrayHydratable
 	 * @param Address $shippingAddress
 	 * @param Price $totalPrice
 	 * @param string|null $invoiceUrl
+	 * @param Price|null
 	 */
 	public function __construct(
 		Entity $entity,
@@ -94,7 +102,8 @@ class Transaction implements ArrayHydratable
 		Address $billingAddress,
 		Address $shippingAddress,
 		Price $totalPrice,
-		?string $invoiceUrl
+		?string $invoiceUrl,
+		?Price $shippingCost
 	)
 	{
 		$this->entity          = $entity;
@@ -106,6 +115,7 @@ class Transaction implements ArrayHydratable
 		$this->shippingAddress = $shippingAddress;
 		$this->totalPrice      = $totalPrice;
 		$this->invoiceUrl      = $invoiceUrl;
+		$this->shippingCost    = $shippingCost;
 	}
 
 	/**
@@ -130,6 +140,14 @@ class Transaction implements ArrayHydratable
 	public function getInvoiceUrl(): ?string
 	{
 		return $this->invoiceUrl;
+	}
+
+	/**
+	 * @return Price|null
+	 */
+	public function getShippingCost(): ?Price
+	{
+		return $this->shippingCost;
 	}
 
 	/**
