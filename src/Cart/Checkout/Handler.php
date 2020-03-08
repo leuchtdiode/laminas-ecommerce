@@ -6,6 +6,8 @@ use Ecommerce\Address\Address;
 use Ecommerce\Cart\Cart;
 use Ecommerce\Cart\InvalidCartError;
 use Ecommerce\Common\DtoCreatorProvider;
+use Ecommerce\Common\Event;
+use Ecommerce\Common\EventManagerTrait;
 use Ecommerce\Customer\Customer;
 use Ecommerce\Db\Transaction\Entity as TransactionEntity;
 use Ecommerce\Db\Transaction\Item\Entity as TransactionItemEntity;
@@ -18,12 +20,18 @@ use Ecommerce\Transaction\ReferenceNumberProvider;
 use Ecommerce\Transaction\Status;
 use Ecommerce\Transaction\Transaction;
 use Exception;
+use Laminas\EventManager\EventManager;
+use Laminas\EventManager\EventManagerAwareInterface;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\EventManager\SharedEventManager;
 use Log\Log;
 use Psr\Container\ContainerInterface;
 use RuntimeException;
 
-class Handler
+class Handler implements EventManagerAwareInterface
 {
+	use EventManagerTrait;
+
 	/**
 	 * @var array
 	 */
@@ -131,6 +139,10 @@ class Handler
 
 			return $result;
 		}
+
+		$this
+			->getEventManager()
+			->trigger(Event::CART_CHECKOUT_SUCCESSFUL, $this);
 
 		$result->setSuccess(true);
 		$result->setRedirectUrl($initResult->getRedirectUrl());
