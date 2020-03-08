@@ -82,6 +82,13 @@ class Transaction implements ArrayHydratable
 	private $shippingCost;
 
 	/**
+	 * @ObjectToArrayHydratorProperty
+	 *
+	 * @var PostPaymentStatus|null
+	 */
+	private $postPaymentStatus;
+
+	/**
 	 * @param Entity $entity
 	 * @param Customer $customer
 	 * @param Status $status
@@ -103,19 +110,21 @@ class Transaction implements ArrayHydratable
 		Address $shippingAddress,
 		Price $totalPrice,
 		?string $invoiceUrl,
-		?Price $shippingCost
+		?Price $shippingCost,
+		?PostPaymentStatus $postPaymentStatus
 	)
 	{
-		$this->entity          = $entity;
-		$this->customer        = $customer;
-		$this->status          = $status;
-		$this->paymentMethod   = $paymentMethod;
-		$this->items           = $items;
-		$this->billingAddress  = $billingAddress;
-		$this->shippingAddress = $shippingAddress;
-		$this->totalPrice      = $totalPrice;
-		$this->invoiceUrl      = $invoiceUrl;
-		$this->shippingCost    = $shippingCost;
+		$this->entity            = $entity;
+		$this->customer          = $customer;
+		$this->status            = $status;
+		$this->paymentMethod     = $paymentMethod;
+		$this->items             = $items;
+		$this->billingAddress    = $billingAddress;
+		$this->shippingAddress   = $shippingAddress;
+		$this->totalPrice        = $totalPrice;
+		$this->invoiceUrl        = $invoiceUrl;
+		$this->shippingCost      = $shippingCost;
+		$this->postPaymentStatus = $postPaymentStatus;
 	}
 
 	/**
@@ -156,6 +165,14 @@ class Transaction implements ArrayHydratable
 	public function getStatus(): Status
 	{
 		return $this->status;
+	}
+
+	/**
+	 * @return PostPaymentStatus|null
+	 */
+	public function getPostPaymentStatus(): ?PostPaymentStatus
+	{
+		return $this->postPaymentStatus;
 	}
 
 	/**

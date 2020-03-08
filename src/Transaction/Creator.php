@@ -18,10 +18,16 @@ use Exception;
 class Creator implements EntityDtoCreator
 {
 	const ONE_HOUR_IN_SECONDS = 3600;
+
 	/**
 	 * @var StatusProvider
 	 */
 	private $statusProvider;
+
+	/**
+	 * @var PostPaymentStatusProvider
+	 */
+	private $postPaymentStatusProvider;
 
 	/**
 	 * @var PaymentMethodProvider
@@ -60,6 +66,7 @@ class Creator implements EntityDtoCreator
 
 	/**
 	 * @param StatusProvider $statusProvider
+	 * @param PostPaymentStatusProvider $postPaymentStatusProvider
 	 * @param PaymentMethodProvider $paymentMethodProvider
 	 * @param UrlProvider $urlProvider
 	 * @param SecurityHashHandler $securityHashHandler
@@ -67,17 +74,19 @@ class Creator implements EntityDtoCreator
 	 */
 	public function __construct(
 		StatusProvider $statusProvider,
+		PostPaymentStatusProvider $postPaymentStatusProvider,
 		PaymentMethodProvider $paymentMethodProvider,
 		UrlProvider $urlProvider,
 		SecurityHashHandler $securityHashHandler,
 		PriceCreator $priceCreator
 	)
 	{
-		$this->statusProvider        = $statusProvider;
-		$this->paymentMethodProvider = $paymentMethodProvider;
-		$this->urlProvider           = $urlProvider;
-		$this->securityHashHandler   = $securityHashHandler;
-		$this->priceCreator          = $priceCreator;
+		$this->statusProvider            = $statusProvider;
+		$this->postPaymentStatusProvider = $postPaymentStatusProvider;
+		$this->paymentMethodProvider     = $paymentMethodProvider;
+		$this->urlProvider               = $urlProvider;
+		$this->securityHashHandler       = $securityHashHandler;
+		$this->priceCreator              = $priceCreator;
 	}
 
 	/**
@@ -116,7 +125,8 @@ class Creator implements EntityDtoCreator
 			{
 				return $this->transactionItemCreator->byEntity($entity);
 			},
-			$entity->getItems()
+			$entity
+				->getItems()
 				->toArray()
 		);
 
@@ -136,6 +146,9 @@ class Creator implements EntityDtoCreator
 				: null,
 			($shippingCost = $entity->getShippingCost())
 				? $this->priceCreator->fromCents($shippingCost, 0)
+				: null,
+			($postPaymentStatus = $entity->getPostPaymentStatus())
+				? $this->postPaymentStatusProvider->byId($postPaymentStatus)
 				: null
 		);
 	}

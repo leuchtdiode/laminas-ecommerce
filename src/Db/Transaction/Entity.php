@@ -40,6 +40,13 @@ class Entity
 	private $status;
 
 	/**
+	 * @var string|null
+	 *
+	 * @ORM\Column(type="string", length=50, nullable=true)
+	 */
+	private $postPaymentStatus;
+
+	/**
 	 * @var string
 	 *
 	 * @ORM\Column(type="string", length=50)
@@ -154,6 +161,22 @@ class Entity
 	public function setStatus(string $status): void
 	{
 		$this->status = $status;
+	}
+
+	/**
+	 * @return string|null
+	 */
+	public function getPostPaymentStatus(): ?string
+	{
+		return $this->postPaymentStatus;
+	}
+
+	/**
+	 * @param string|null $postPaymentStatus
+	 */
+	public function setPostPaymentStatus(?string $postPaymentStatus): void
+	{
+		$this->postPaymentStatus = $postPaymentStatus;
 	}
 
 	/**
