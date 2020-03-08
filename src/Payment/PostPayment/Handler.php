@@ -1,11 +1,16 @@
 <?php
 namespace Ecommerce\Payment\PostPayment;
 
+use Ecommerce\Common\Event;
+use Ecommerce\Common\EventManagerTrait;
 use Ecommerce\Transaction\Invoice\DefaultGenerator as DefaultInvoiceGenerator;
 use Ecommerce\Transaction\Invoice\GenerateData;
+use Laminas\EventManager\EventManagerAwareInterface;
 
-class Handler
+class Handler implements EventManagerAwareInterface
 {
+	use EventManagerTrait;
+
 	/**
 	 * @var DefaultInvoiceGenerator
 	 */
@@ -61,6 +66,16 @@ class Handler
 			$this->successMailSender->send($data->getTransaction())
 		);
 
+		$this
+			->getEventManager()
+			->trigger(
+				Event::PAYMENT_SUCCESSFUL,
+				null,
+				[
+					'transaction' => $data->getTransaction(),
+				]
+			);
+
 		return $result;
 	}
 
@@ -75,6 +90,16 @@ class Handler
 		$result->setSuccess(
 			$this->unsuccessfulMailSender->send($data->getTransaction())
 		);
+
+		$this
+			->getEventManager()
+			->trigger(
+				Event::PAYMENT_UNSUCCESSFUL,
+				null,
+				[
+					'transaction' => $data->getTransaction(),
+				]
+			);
 
 		return $result;
 	}
