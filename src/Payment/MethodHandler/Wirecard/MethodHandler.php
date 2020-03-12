@@ -9,6 +9,9 @@ use Ecommerce\Payment\MethodHandler\HandleCallbackResult;
 use Ecommerce\Payment\MethodHandler\InitData;
 use Ecommerce\Payment\MethodHandler\InitResult;
 use Ecommerce\Payment\MethodHandler\MethodHandler as MethodHandlerInterface;
+use Ecommerce\Payment\PostPayment\Handler as PostPaymentHandler;
+use Ecommerce\Payment\PostPayment\SuccessfulData;
+use Ecommerce\Payment\PostPayment\UnsuccessfulData;
 use Ecommerce\Transaction\Provider;
 use Ecommerce\Transaction\SaveData;
 use Ecommerce\Transaction\Saver;
@@ -39,17 +42,30 @@ class MethodHandler implements MethodHandlerInterface
 	private $transactionProvider;
 
 	/**
+	 * @var PostPaymentHandler
+	 */
+	private $postPaymentHandler;
+
+	/**
 	 * @param array $config
 	 * @param Saver $saver
 	 * @param UrlProvider $urlProvider
 	 * @param Provider $transactionProvider
+	 * @param PostPaymentHandler $postPaymentHandler
 	 */
-	public function __construct(array $config, Saver $saver, UrlProvider $urlProvider, Provider $transactionProvider)
+	public function __construct(
+		array $config,
+		Saver $saver,
+		UrlProvider $urlProvider,
+		Provider $transactionProvider,
+		PostPaymentHandler $postPaymentHandler
+	)
 	{
 		$this->config              = $config;
 		$this->saver               = $saver;
 		$this->urlProvider         = $urlProvider;
 		$this->transactionProvider = $transactionProvider;
+		$this->postPaymentHandler  = $postPaymentHandler;
 	}
 
 	/**
@@ -228,20 +244,33 @@ class MethodHandler implements MethodHandlerInterface
 		switch ($transactionState = $payment->{'transaction-state'})
 		{
 			case 'success':
+
 				$result->setTransactionStatus(
 					Status::SUCCESS
+				);
+
+				$this->postPaymentHandler->successful(
+					SuccessfulData::create()
+						->setTransaction($data->getTransaction())
 				);
 
 				break;
 
 			case 'failed':
+
 				$result->setTransactionStatus(
 					Status::ERROR
+				);
+
+				$this->postPaymentHandler->unsuccessful(
+					UnsuccessfulData::create()
+						->setTransaction($data->getTransaction())
 				);
 
 				break;
 
 			default: // actually this should not be possible according to wirecard support
+
 				$result->setTransactionStatus(
 					Status::PENDING
 				);
