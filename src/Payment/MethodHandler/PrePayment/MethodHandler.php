@@ -9,6 +9,8 @@ use Ecommerce\Payment\MethodHandler\InitResult;
 use Ecommerce\Payment\MethodHandler\MethodHandler as MethodHandlerInterface;
 use Ecommerce\Payment\PostPayment\Handler;
 use Ecommerce\Payment\PostPayment\SuccessfulData;
+use Ecommerce\Payment\ReturnUrl\GetData;
+use Ecommerce\Payment\ReturnUrl\Provider as ReturnUrlProvider;
 use Ecommerce\Transaction\Provider;
 use Ecommerce\Transaction\SaveData;
 use Ecommerce\Transaction\Saver;
@@ -17,11 +19,6 @@ use Exception;
 
 class MethodHandler implements MethodHandlerInterface
 {
-	/**
-	 * @var array
-	 */
-	private $config;
-
 	/**
 	 * @var Saver
 	 */
@@ -38,17 +35,27 @@ class MethodHandler implements MethodHandlerInterface
 	private $transactionProvider;
 
 	/**
-	 * @param array $config
+	 * @var ReturnUrlProvider
+	 */
+	private $returnUrlProvider;
+
+	/**
 	 * @param Saver $saver
 	 * @param Handler $postPaymentHandler
 	 * @param Provider $transactionProvider
+	 * @param ReturnUrlProvider $returnUrlProvider
 	 */
-	public function __construct(array $config, Saver $saver, Handler $postPaymentHandler, Provider $transactionProvider)
+	public function __construct(
+		Saver $saver,
+		Handler $postPaymentHandler,
+		Provider $transactionProvider,
+		ReturnUrlProvider $returnUrlProvider
+	)
 	{
-		$this->config              = $config;
 		$this->saver               = $saver;
 		$this->postPaymentHandler  = $postPaymentHandler;
 		$this->transactionProvider = $transactionProvider;
+		$this->returnUrlProvider   = $returnUrlProvider;
 	}
 
 	/**
@@ -86,7 +93,15 @@ class MethodHandler implements MethodHandlerInterface
 
 		$initResult->setSuccess(true);
 		$initResult->setRedirectUrl(
-			$this->config['ecommerce']['payment']['returnUrls'][CallbackType::PRE_PAYMENT]
+			$this->returnUrlProvider->get(
+				GetData::create()
+					->setLocale(
+						$transaction
+							->getCustomer()
+							->getLocale()
+					)
+					->setCallbackType(CallbackType::PRE_PAYMENT)
+			)
 		);
 
 		return $initResult;

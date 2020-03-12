@@ -4,6 +4,8 @@ namespace Ecommerce\Rest\Action\Payment;
 use Ecommerce\Db\Transaction\Saver as TransactionEntitySaver;
 use Ecommerce\Payment\MethodHandler\HandleCallbackData;
 use Ecommerce\Payment\MethodHandler\Provider as MethodHandlerProvider;
+use Ecommerce\Payment\ReturnUrl\GetData;
+use Ecommerce\Payment\ReturnUrl\Provider as ReturnUrlProvider;
 use Ecommerce\Rest\Action\Base;
 use Ecommerce\Rest\Action\LoginExempt;
 use Ecommerce\Transaction\Provider as TransactionProvider;
@@ -14,11 +16,6 @@ class Callback extends Base implements LoginExempt
 {
 	const METHOD = 'method';
 	const TYPE   = 'type';
-
-	/**
-	 * @var array
-	 */
-	private $config;
 
 	/**
 	 * @var TransactionProvider
@@ -36,22 +33,27 @@ class Callback extends Base implements LoginExempt
 	private $transactionEntitySaver;
 
 	/**
-	 * @param array $config
+	 * @var ReturnUrlProvider
+	 */
+	private $returnUrlProvider;
+
+	/**
 	 * @param TransactionProvider $transactionProvider
 	 * @param MethodHandlerProvider $methodHandlerProvider
 	 * @param TransactionEntitySaver $transactionEntitySaver
+	 * @param ReturnUrlProvider $returnUrlProvider
 	 */
 	public function __construct(
-		array $config,
 		TransactionProvider $transactionProvider,
 		MethodHandlerProvider $methodHandlerProvider,
-		TransactionEntitySaver $transactionEntitySaver
+		TransactionEntitySaver $transactionEntitySaver,
+		ReturnUrlProvider $returnUrlProvider
 	)
 	{
-		$this->config                 = $config;
 		$this->transactionProvider    = $transactionProvider;
 		$this->methodHandlerProvider  = $methodHandlerProvider;
 		$this->transactionEntitySaver = $transactionEntitySaver;
+		$this->returnUrlProvider      = $returnUrlProvider;
 	}
 
 	/**
@@ -104,8 +106,16 @@ class Callback extends Base implements LoginExempt
 			Log::error($ex);
 		}
 
+		$customer = $transaction->getCustomer();
+
 		return $this
 			->redirect()
-			->toUrl($this->config['ecommerce']['payment']['returnUrls'][$type]);
+			->toUrl(
+				$this->returnUrlProvider->get(
+					GetData::create()
+						->setLocale($customer->getLocale())
+						->setCallbackType($type)
+				)
+			);
 	}
 }
