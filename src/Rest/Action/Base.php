@@ -23,6 +23,22 @@ abstract class Base extends AbstractRestfulController
 	 */
 	public function onDispatch(MvcEvent $e)
 	{
+		$restConfig = $this->config()['ecommerce']['rest'] ?? [];
+
+		if ($restConfig)
+		{
+			$routeName = $e
+				->getRouteMatch()
+				->getMatchedRouteName();
+
+			$exclusions = $restConfig['nonDisabledRoutes'] ?? [];
+
+			if (($restConfig['disabled'] ?? false) && !in_array($routeName, $exclusions))
+			{
+				return $this->forbidden();
+			}
+		}
+
 		$request  = $e->getRequest();
 		$response = $e->getResponse();
 
@@ -35,13 +51,14 @@ abstract class Base extends AbstractRestfulController
 
 		if ($this->customer)
 		{
-			$response->getHeaders()->addHeaders(
-				[
-					'X-JwtToken' => $this
-						->auth()
-						->generateJwtToken($this->customer)
-				]
-			);
+			$response->getHeaders()
+				->addHeaders(
+					[
+						'X-JwtToken' => $this
+							->auth()
+							->generateJwtToken($this->customer),
+					]
+				);
 		}
 
 		return parent::onDispatch($e);
@@ -69,7 +86,8 @@ abstract class Base extends AbstractRestfulController
 			return;
 		}
 
-		$result = $this->auth()->validateJwtToken($token);
+		$result = $this->auth()
+			->validateJwtToken($token);
 
 		if (!$result->isValid())
 		{
@@ -93,7 +111,8 @@ abstract class Base extends AbstractRestfulController
 	 */
 	protected function customerCheck($customerId)
 	{
-		return $this->customer && $this->customer->getId()->toString() === $customerId;
+		return $this->customer && $this->customer->getId()
+				->toString() === $customerId;
 	}
 
 	/**
