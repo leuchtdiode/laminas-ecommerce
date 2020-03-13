@@ -25,7 +25,7 @@ class PriceCreator
 	{
 		return Price::fromCents(
 			$cents,
-			$taxRate ?? $this->config['ecommerce']['defaultTaxRate']
+			$taxRate ?? $this->config['ecommerce']['taxRate']['default']
 		);
 	}
 }
