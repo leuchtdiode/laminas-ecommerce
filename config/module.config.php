@@ -11,11 +11,15 @@ use Ecommerce\Payment\MethodHandler\PrePayment\MethodHandler as PrePaymentMethod
 use Ecommerce\Payment\MethodHandler\Wirecard\MethodHandler as WirecardMethodHandler;
 use Ecommerce\Rest\Action\Plugin\Auth;
 use Ecommerce\Rest\Action\Plugin\AuthFactory;
+use Ecommerce\Tax\AustriaMossRateProvider;
 use Ramsey\Uuid\Doctrine\UuidType;
 
 return [
 
 	'ecommerce' => [
+		'taxRate' => [
+			'provider' => AustriaMossRateProvider::class,
+		],
 		'payment' => [
 			'method' => [
 				Method::PAY_PAL     => [
@@ -49,7 +53,7 @@ return [
 						// -> secretKey
 					],
 				],
-			]
+			],
 		],
 	],
 
@@ -89,7 +93,7 @@ return [
 			'ecommerce_entities' => [
 				'class' => AnnotationDriver::class,
 				'cache' => 'array',
-				'paths' => [__DIR__ . '/../src/Db'],
+				'paths' => [ __DIR__ . '/../src/Db' ],
 			],
 			'orm_default'        => [
 				'drivers' => [

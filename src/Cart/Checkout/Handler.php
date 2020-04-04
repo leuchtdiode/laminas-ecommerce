@@ -16,17 +16,15 @@ use Ecommerce\Payment\MethodHandler\InitData;
 use Ecommerce\Payment\MethodHandler\Provider as MethodHandlerProvider;
 use Ecommerce\Shipping\CostProvider;
 use Ecommerce\Shipping\GetData;
+use Ecommerce\Tax\GetData as TaxGetData;
+use Ecommerce\Tax\RateProvider;
 use Ecommerce\Transaction\ReferenceNumberProvider;
 use Ecommerce\Transaction\Status;
 use Ecommerce\Transaction\Transaction;
 use Exception;
-use Laminas\EventManager\EventManager;
 use Laminas\EventManager\EventManagerAwareInterface;
-use Laminas\EventManager\EventManagerInterface;
-use Laminas\EventManager\SharedEventManager;
 use Log\Log;
 use Psr\Container\ContainerInterface;
-use RuntimeException;
 
 class Handler implements EventManagerAwareInterface
 {
@@ -100,7 +98,7 @@ class Handler implements EventManagerAwareInterface
 	/**
 	 * @param CheckoutData $data
 	 * @return CheckoutResult
-	 * @throws RuntimeException
+	 * @throws Exception
 	 */
 	public function checkout(CheckoutData $data)
 	{
@@ -152,10 +150,24 @@ class Handler implements EventManagerAwareInterface
 
 	/**
 	 * @return bool
+	 * @throws Exception
 	 */
 	private function createTransaction()
 	{
-		$cart = $this->data->getCart();
+		$taxRateProvider = $this->container->get(
+			$this->config['ecommerce']['taxRate']['provider']
+		);
+
+		if (!$taxRateProvider || !$taxRateProvider instanceof RateProvider)
+		{
+			throw new Exception(
+				'No valid tax rate provider set (specify class in config: ecommerce->taxRate->provider'
+			);
+		}
+
+		$cart           = $this->data->getCart();
+		$customer       = $this->data->getCustomer();
+		$billingAddress = $this->data->getBillingAddress();
 
 		try
 		{
@@ -164,14 +176,10 @@ class Handler implements EventManagerAwareInterface
 				$this->referenceNumberProvider->create()
 			);
 			$transactionEntity->setCustomer(
-				$this->data
-					->getCustomer()
-					->getEntity()
+				$customer->getEntity()
 			);
 			$transactionEntity->setBillingAddress(
-				$this->data
-					->getBillingAddress()
-					->getEntity()
+				$billingAddress->getEntity()
 			);
 			$transactionEntity->setShippingAddress(
 				$this->data
@@ -201,7 +209,15 @@ class Handler implements EventManagerAwareInterface
 				$transactionItemEntity->setAmount($cartItem->getQuantity());
 				$transactionItemEntity->setProduct($product->getEntity());
 				$transactionItemEntity->setPrice($price->getNet() * $cartItem->getQuantity());
-				$transactionItemEntity->setTax($price->getTaxRate()); // TODO correct?
+				$transactionItemEntity->setTax(
+					$taxRateProvider
+						->get(
+							TaxGetData::create()
+								->setCountry($billingAddress->getCountry())
+								->setBusiness($customer->hasCompany())
+						)
+						->getRate()
+				);
 
 				$transactionEntity
 					->getItems()

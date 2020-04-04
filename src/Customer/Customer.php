@@ -49,6 +49,16 @@ class Customer implements ArrayHydratable
 	}
 
 	/**
+	 * @return bool
+	 */
+	public function hasCompany()
+	{
+		$company = $this->getCompany();
+
+		return !empty($company);
+	}
+
+	/**
 	 * @ObjectToArrayHydratorProperty
 	 *
 	 * @return string
