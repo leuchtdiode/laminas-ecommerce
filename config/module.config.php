@@ -12,6 +12,7 @@ use Ecommerce\Payment\MethodHandler\Wirecard\MethodHandler as WirecardMethodHand
 use Ecommerce\Rest\Action\Plugin\Auth;
 use Ecommerce\Rest\Action\Plugin\AuthFactory;
 use Ecommerce\Tax\AustriaMossRateProvider;
+use Ecommerce\Transaction\Invoice\Number\DefaultGenerator as DefaultInvoiceNumberGenerator;
 use Ramsey\Uuid\Doctrine\UuidType;
 
 return [
@@ -19,6 +20,15 @@ return [
 	'ecommerce' => [
 		'taxRate' => [
 			'provider' => AustriaMossRateProvider::class,
+		],
+		'invoice' => [
+			'number' => [
+				'generator' => DefaultInvoiceNumberGenerator::class,
+				'default'   => [
+					'template'                => '%year2Digits%%consecutiveNumber%',
+					'consecutiveNumberLength' => 5,
+				],
+			],
 		],
 		'payment' => [
 			'method' => [

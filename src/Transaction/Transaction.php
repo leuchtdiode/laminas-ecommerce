@@ -230,6 +230,26 @@ class Transaction implements ArrayHydratable
 	/**
 	 * @ObjectToArrayHydratorProperty
 	 *
+	 * @return string|null
+	 */
+	public function getInvoiceNumber()
+	{
+		return $this->entity->getInvoiceNumber();
+	}
+
+	/**
+	 * @ObjectToArrayHydratorProperty
+	 *
+	 * @return int|null
+	 */
+	public function getConsecutiveSuccessNumberInYear()
+	{
+		return $this->entity->getConsecutiveSuccessNumberInYear();
+	}
+
+	/**
+	 * @ObjectToArrayHydratorProperty
+	 *
 	 * @return DateTime
 	 */
 	public function getCreatedDate()
