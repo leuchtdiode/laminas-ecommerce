@@ -33,6 +33,20 @@ class Entity
 	private $referenceNumber;
 
 	/**
+	 * @var string|null
+	 *
+	 * @ORM\Column(type="string", length=50, nullable=true)
+	 */
+	private $invoiceNumber;
+
+	/**
+	 * @var int|null
+	 *
+	 * @ORM\Column(type="integer", nullable=false)
+	 */
+	private $consecutiveSuccessNumberInYear;
+
+	/**
 	 * @var string
 	 *
 	 * @ORM\Column(type="string", length=50)
@@ -145,6 +159,38 @@ class Entity
 	public function setReferenceNumber(string $referenceNumber): void
 	{
 		$this->referenceNumber = $referenceNumber;
+	}
+
+	/**
+	 * @return string|null
+	 */
+	public function getInvoiceNumber(): ?string
+	{
+		return $this->invoiceNumber;
+	}
+
+	/**
+	 * @param string|null $invoiceNumber
+	 */
+	public function setInvoiceNumber(?string $invoiceNumber): void
+	{
+		$this->invoiceNumber = $invoiceNumber;
+	}
+
+	/**
+	 * @return int|null
+	 */
+	public function getConsecutiveSuccessNumberInYear(): ?int
+	{
+		return $this->consecutiveSuccessNumberInYear;
+	}
+
+	/**
+	 * @param int|null $consecutiveSuccessNumberInYear
+	 */
+	public function setConsecutiveSuccessNumberInYear(?int $consecutiveSuccessNumberInYear): void
+	{
+		$this->consecutiveSuccessNumberInYear = $consecutiveSuccessNumberInYear;
 	}
 
 	/**
