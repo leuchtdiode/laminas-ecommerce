@@ -36,7 +36,7 @@ class CreationYear implements Filter
 		$expr = $queryBuilder->expr();
 
 		$queryBuilder->andWhere(
-			$expr->eq('DATE_FORMAT(t.createdDate, \'%Y\')', $this->year)
+			$expr->eq('YEAR(t.createdDate)', $this->year)
 		);
 	}
 }

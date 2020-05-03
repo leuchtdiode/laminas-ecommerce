@@ -3,6 +3,7 @@ namespace Ecommerce;
 
 use Common\Router\HttpRouteCreator;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use DoctrineExtensions\Query\Mysql\Year;
 use Ecommerce\Payment\Method;
 use Ecommerce\Payment\MethodHandler\AmazonPay\MethodHandler as AmazonPayMethodHandler;
 use Ecommerce\Payment\MethodHandler\PayPal\MethodHandler as PayPalMethodHandler;
@@ -94,8 +95,11 @@ return [
 	'doctrine' => [
 		'configuration' => [
 			'orm_default' => [
-				'types' => [
+				'types'            => [
 					UuidType::NAME => UuidType::class,
+				],
+				'string_functions' => [
+					'YEAR' => Year::class,
 				],
 			],
 		],

@@ -32,6 +32,7 @@
 		"leuchtdiode/laminas-async-queue": "^0.1",
 		"leuchtdiode/laminas-assets": "^0.1.1",
 		"laminas/laminas-eventmanager": "^3.2",
+		"beberlei/doctrineextensions": "^1.2",
 		"ramsey/uuid-doctrine": "^1.5",
 		"firebase/php-jwt": "^5.0",
 		"moneyphp/money": "^3.2",
