@@ -71,7 +71,7 @@ class MethodHandler implements MethodHandlerInterface
 		$saveResult = $this->saver->save(
 			SaveData::create()
 				->setTransaction($transaction = $data->getTransaction())
-				->setStatus(Status::PENDING)
+				->setStatus(Status::SUCCESS)
 		);
 
 		if (!$saveResult->isSuccess())
