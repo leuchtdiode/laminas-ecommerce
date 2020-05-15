@@ -30,6 +30,9 @@ return [
 					'consecutiveNumberLength' => 5,
 				],
 			],
+			'bulk'   => [
+				'ghostScriptBin' => '/usr/bin/gs',
+			],
 		],
 		'payment' => [
 			'method' => [
@@ -86,6 +89,7 @@ return [
 						'cart'        => include 'routes/cart.php',
 						'payment'     => include 'routes/payment.php',
 						'transaction' => include 'routes/transaction.php',
+						'invoice'     => include 'routes/invoice.php',
 					]
 				)
 				->getConfig(),

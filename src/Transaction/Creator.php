@@ -161,7 +161,7 @@ class Creator implements EntityDtoCreator
 	private function getInvoiceUrl(Entity $entity)
 	{
 		return $this->urlProvider->get(
-				'ecommerce/transaction/single-item/invoice',
+				'ecommerce/transaction/single-item/invoice/pdf',
 				[
 					'transactionId'   => $entity
 						->getId()
