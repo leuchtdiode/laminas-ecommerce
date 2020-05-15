@@ -5,11 +5,19 @@ use Common\Router\HttpRouteCreator;
 use Ecommerce\Rest\Action\Transaction\Invoice;
 
 return HttpRouteCreator::create()
-	->setRoute('/invoice/:referenceNumber:.pdf')
-	->setConstraints(
+	->setRoute('/invoice')
+	->setMayTerminate(false)
+	->setChildRoutes(
 		[
-			'referenceNumber' => '[A-Z]+'
+			'pdf' => HttpRouteCreator::create()
+				->setRoute('/:referenceNumber:.pdf')
+				->setConstraints(
+					[
+						'referenceNumber' => '[A-Z]+',
+					]
+				)
+				->setAction(Invoice::class)
+				->getConfig(),
 		]
 	)
-	->setAction(Invoice::class)
 	->getConfig();
