@@ -1,7 +1,10 @@
 <?php
 namespace Ecommerce\Product\Attribute\Value;
 
+use Common\Db\FilterChain;
 use Ecommerce\Db\Product\Attribute\Value\Entity;
+use Ecommerce\Db\Product\Attribute\Value\Filter\Attribute as AttributeFilter;
+use Ecommerce\Db\Product\Attribute\Value\Filter\Value as ValueFilter;
 use Ecommerce\Db\Product\Attribute\Value\Saver as EntitySaver;
 use Exception;
 use Log\Log;
@@ -38,6 +41,26 @@ class Saver
 		$result->setSuccess(false);
 
 		$attributeValue = $data->getAttributeValue();
+		$value          = $data->getValue();
+		$attribute      = $data->getAttribute();
+
+		$alreadyIn = $this->provider->filter(
+			FilterChain::create()
+				->addFilter(
+					ValueFilter::is($value)
+				)
+				->addFilter(
+					AttributeFilter::is($attribute->getId())
+				)
+		);
+
+		if ($alreadyIn)
+		{
+			$result->setValue(reset($alreadyIn));
+			$result->setSuccess(true);
+
+			return $result;
+		}
 
 		try
 		{
@@ -45,13 +68,9 @@ class Saver
 				? $attributeValue->getEntity()
 				: new Entity();
 
-			$entity->setValue(
-				$data->getValue()
-			);
+			$entity->setValue($value);
 			$entity->setAttribute(
-				$data
-					->getAttribute()
-					->getEntity()
+				$attribute->getEntity()
 			);
 
 			$this->entitySaver->save($entity);
