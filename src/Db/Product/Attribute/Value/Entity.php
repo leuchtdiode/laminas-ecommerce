@@ -9,7 +9,7 @@ use Ramsey\Uuid\UuidInterface;
 
 /**
  * @ORM\Table(name="ecommerce_product_attribute_values")
- * @ORM\Entity(repositoryClass="Ecommerce\Db\Product\Repository")
+ * @ORM\Entity(repositoryClass="Ecommerce\Db\Product\Attribute\Value\Repository")
  */
 class Entity
 {

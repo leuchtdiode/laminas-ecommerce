@@ -14,7 +14,7 @@ use Ramsey\Uuid\UuidInterface;
  *     name="ecommerce_product_attributes",
  *     uniqueConstraints={@ORM\UniqueConstraint(columns={"processableId"})}
  *	 )
- * @ORM\Entity(repositoryClass="Ecommerce\Db\Product\Repository")
+ * @ORM\Entity(repositoryClass="Ecommerce\Db\Product\Attribute\Repository")
  */
 class Entity
 {
