@@ -17,7 +17,7 @@ class Entity
 	 * @var UuidInterface
 	 *
 	 * @ORM\Id
-	 * @ORM\Column(type="uuid");
+	 * @ORM\Column(type="uuid")
 	 */
 	private $id;
 
@@ -32,7 +32,7 @@ class Entity
 	 * @var ProductAttributeEntity
 	 *
 	 * @ORM\ManyToOne(targetEntity="Ecommerce\Db\Product\Attribute\Entity", inversedBy="attributes")
-	 * @ORM\JoinColumn(name="attributeId", referencedColumnName="id", nullable=false)
+	 * @ORM\JoinColumn(name="attributeId", referencedColumnName="id", nullable=false, onDelete="CASCADE")
 	 */
 	private $attribute;
 
