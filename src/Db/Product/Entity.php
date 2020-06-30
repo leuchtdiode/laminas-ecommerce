@@ -83,7 +83,7 @@ class Entity
 	 * @ORM\ManyToMany(targetEntity="Ecommerce\Db\Product\Attribute\Value\Entity")
 	 * @ORM\JoinTable(name="ecommerce_products__attribute_values",
 	 *      joinColumns={@ORM\JoinColumn(name="productId", referencedColumnName="id", onDelete="CASCADE")},
-	 *      inverseJoinColumns={@ORM\JoinColumn(name="productAttributeValueId", referencedColumnName="id")
+	 *      inverseJoinColumns={@ORM\JoinColumn(name="productAttributeValueId", referencedColumnName="id")}
 	 *      )
 	 */
 	private $attributeValues;
