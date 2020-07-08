@@ -47,6 +47,8 @@ class Remover
 			throw new Exception('Neither image nor product given');
 		}
 
+		$imagesToRemove = [];
+
 		if ($image)
 		{
 			$imagesToRemove = [ $image ];
@@ -67,6 +69,8 @@ class Remover
 				$this->entityDeleter->delete(
 					$imageToRemove->getEntity()
 				);
+
+				// TODO remove assets file
 			}
 			catch (Exception $ex)
 			{
