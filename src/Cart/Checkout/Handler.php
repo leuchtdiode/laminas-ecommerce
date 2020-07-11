@@ -14,6 +14,8 @@ use Ecommerce\Db\Transaction\Item\Entity as TransactionItemEntity;
 use Ecommerce\Db\Transaction\Saver as TransactionEntitySaver;
 use Ecommerce\Payment\MethodHandler\InitData;
 use Ecommerce\Payment\MethodHandler\Provider as MethodHandlerProvider;
+use Ecommerce\Product\Price\GetPriceData;
+use Ecommerce\Product\Price\Provider as PriceProvider;
 use Ecommerce\Shipping\CostProvider;
 use Ecommerce\Shipping\GetData;
 use Ecommerce\Tax\GetData as TaxGetData;
@@ -199,10 +201,24 @@ class Handler implements EventManagerAwareInterface
 			);
 			$transactionEntity->setStatus(Status::NEW);
 
+			/**
+			 * @var PriceProvider $priceProvider
+			 */
+			$priceProvider = $this->container->get(
+				$this->config['ecommerce']['price']['provider']
+			);
+
 			foreach ($cart->getItems() as $cartItem)
 			{
 				$product = $cartItem->getProduct();
-				$price   = $product->getPrice();
+
+				$priceResult = $priceProvider->get(
+					GetPriceData::create()
+						->setProduct($product)
+						->setQuantity($cartItem->getQuantity())
+				);
+
+				$price = $priceResult->getPrice();
 
 				$transactionItemEntity = new TransactionItemEntity();
 				$transactionItemEntity->setTransaction($transactionEntity);
