@@ -20,6 +20,7 @@ use Ecommerce\Shipping\CostProvider;
 use Ecommerce\Shipping\GetData;
 use Ecommerce\Tax\GetData as TaxGetData;
 use Ecommerce\Tax\RateProvider;
+use Ecommerce\Transaction\Provider as TransactionProvider;
 use Ecommerce\Transaction\ReferenceNumberProvider;
 use Ecommerce\Transaction\Status;
 use Ecommerce\Transaction\Transaction;
@@ -46,6 +47,11 @@ class Handler implements EventManagerAwareInterface
 	 * @var MethodHandlerProvider
 	 */
 	private $methodHandlerProvider;
+
+	/**
+	 * @var TransactionProvider
+	 */
+	private $transactionProvider;
 
 	/**
 	 * @var TransactionEntitySaver
@@ -76,6 +82,7 @@ class Handler implements EventManagerAwareInterface
 	 * @param array $config
 	 * @param ContainerInterface $container
 	 * @param MethodHandlerProvider $methodHandlerProvider
+	 * @param TransactionProvider $transactionProvider
 	 * @param TransactionEntitySaver $transactionEntitySaver
 	 * @param DtoCreatorProvider $dtoCreatorProvider
 	 * @param ReferenceNumberProvider $referenceNumberProvider
@@ -84,6 +91,7 @@ class Handler implements EventManagerAwareInterface
 		array $config,
 		ContainerInterface $container,
 		MethodHandlerProvider $methodHandlerProvider,
+		TransactionProvider $transactionProvider,
 		TransactionEntitySaver $transactionEntitySaver,
 		DtoCreatorProvider $dtoCreatorProvider,
 		ReferenceNumberProvider $referenceNumberProvider
@@ -92,6 +100,7 @@ class Handler implements EventManagerAwareInterface
 		$this->config                  = $config;
 		$this->container               = $container;
 		$this->methodHandlerProvider   = $methodHandlerProvider;
+		$this->transactionProvider     = $transactionProvider;
 		$this->transactionEntitySaver  = $transactionEntitySaver;
 		$this->dtoCreatorProvider      = $dtoCreatorProvider;
 		$this->referenceNumberProvider = $referenceNumberProvider;
@@ -145,7 +154,11 @@ class Handler implements EventManagerAwareInterface
 			->trigger(Event::CART_CHECKOUT_SUCCESSFUL, $this);
 
 		$result->setSuccess(true);
-		$result->setTransaction($this->transaction);
+		$result->setTransaction(
+			$this->transactionProvider->byId(
+				$this->transaction->getId()
+			)
+		);
 		$result->setRedirectUrl($initResult->getRedirectUrl());
 
 		return $result;
