@@ -145,6 +145,7 @@ class Handler implements EventManagerAwareInterface
 			->trigger(Event::CART_CHECKOUT_SUCCESSFUL, $this);
 
 		$result->setSuccess(true);
+		$result->setTransaction($this->transaction);
 		$result->setRedirectUrl($initResult->getRedirectUrl());
 
 		return $result;
