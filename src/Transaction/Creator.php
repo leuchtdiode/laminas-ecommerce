@@ -141,6 +141,7 @@ class Creator implements EntityDtoCreator
 			$this->addressCreator->byEntity($entity->getBillingAddress()),
 			$this->addressCreator->byEntity($entity->getShippingAddress()),
 			$this->getTotalPrice($items, $entity->getShippingCost()),
+			$this->getTaxAmount($items),
 			$status->is(Status::SUCCESS)
 				? $this->getInvoiceUrl($entity)
 				: null,
@@ -173,6 +174,7 @@ class Creator implements EntityDtoCreator
 
 	/**
 	 * @param Item[] $items
+	 * @param int|null $shippingCost
 	 * @return Price
 	 */
 	private function getTotalPrice(array $items, ?int $shippingCost)
@@ -192,5 +194,23 @@ class Creator implements EntityDtoCreator
 		}
 
 		return Price::fromCents($cents, 0);
+	}
+
+	/**
+	 * @param Item[] $items
+	 * @return Price
+	 */
+	private function getTaxAmount(array $items)
+	{
+		$taxAmountCents = 0;
+
+		foreach ($items as $item)
+		{
+			$taxAmountCents += (int)$item
+				->getTotalPrice()
+				->getTaxAmount();
+		}
+
+		return Price::fromCents($taxAmountCents, 0);
 	}
 }

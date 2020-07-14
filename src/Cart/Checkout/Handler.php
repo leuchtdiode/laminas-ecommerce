@@ -19,7 +19,7 @@ use Ecommerce\Product\Price\Provider as PriceProvider;
 use Ecommerce\Shipping\CostProvider;
 use Ecommerce\Shipping\GetData;
 use Ecommerce\Tax\GetData as TaxGetData;
-use Ecommerce\Tax\RateProvider;
+use Ecommerce\Tax\GetProvider as GetTaxRateProvider;
 use Ecommerce\Transaction\Provider as TransactionProvider;
 use Ecommerce\Transaction\ReferenceNumberProvider;
 use Ecommerce\Transaction\Status;
@@ -69,6 +69,11 @@ class Handler implements EventManagerAwareInterface
 	private $referenceNumberProvider;
 
 	/**
+	 * @var GetTaxRateProvider
+	 */
+	private $getTaxRateProvider;
+
+	/**
 	 * @var CheckoutData
 	 */
 	private $data;
@@ -86,6 +91,7 @@ class Handler implements EventManagerAwareInterface
 	 * @param TransactionEntitySaver $transactionEntitySaver
 	 * @param DtoCreatorProvider $dtoCreatorProvider
 	 * @param ReferenceNumberProvider $referenceNumberProvider
+	 * @param GetTaxRateProvider $getTaxRateProvider
 	 */
 	public function __construct(
 		array $config,
@@ -94,7 +100,8 @@ class Handler implements EventManagerAwareInterface
 		TransactionProvider $transactionProvider,
 		TransactionEntitySaver $transactionEntitySaver,
 		DtoCreatorProvider $dtoCreatorProvider,
-		ReferenceNumberProvider $referenceNumberProvider
+		ReferenceNumberProvider $referenceNumberProvider,
+		GetTaxRateProvider $getTaxRateProvider
 	)
 	{
 		$this->config                  = $config;
@@ -104,6 +111,7 @@ class Handler implements EventManagerAwareInterface
 		$this->transactionEntitySaver  = $transactionEntitySaver;
 		$this->dtoCreatorProvider      = $dtoCreatorProvider;
 		$this->referenceNumberProvider = $referenceNumberProvider;
+		$this->getTaxRateProvider      = $getTaxRateProvider;
 	}
 
 	/**
@@ -170,16 +178,7 @@ class Handler implements EventManagerAwareInterface
 	 */
 	private function createTransaction()
 	{
-		$taxRateProvider = $this->container->get(
-			$this->config['ecommerce']['taxRate']['provider']
-		);
-
-		if (!$taxRateProvider || !$taxRateProvider instanceof RateProvider)
-		{
-			throw new Exception(
-				'No valid tax rate provider set (specify class in config: ecommerce->taxRate->provider'
-			);
-		}
+		$taxRateProvider = $this->getTaxRateProvider->get();
 
 		$cart           = $this->data->getCart();
 		$customer       = $this->data->getCustomer();
