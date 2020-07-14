@@ -29,6 +29,11 @@ class Price implements ArrayHydratable
 	private $taxRate;
 
 	/**
+	 * @var Money
+	 */
+	private $taxAmount;
+
+	/**
 	 * @var MoneyFormatter
 	 */
 	private $formatter;
@@ -43,6 +48,7 @@ class Price implements ArrayHydratable
 		$this->taxRate = $taxRate;
 
 		$this->grossMoney = $money->multiply(1 + ($this->taxRate / 100));
+		$this->taxAmount = $this->grossMoney->subtract($this->money);
 
 		$currencies = new ISOCurrencies();
 
@@ -123,5 +129,25 @@ class Price implements ArrayHydratable
 	public function getGrossFormatted()
 	{
 		return $this->formatter->format($this->grossMoney);
+	}
+
+	/**
+	 * @ObjectToArrayHydratorProperty
+	 *
+	 * @return string
+	 */
+	public function getTaxAmount()
+	{
+		return $this->taxAmount->getAmount();
+	}
+
+	/**
+	 * @ObjectToArrayHydratorProperty
+	 *
+	 * @return string
+	 */
+	public function getTaxAmountFormatted()
+	{
+		return $this->formatter->format($this->taxAmount);
 	}
 }
