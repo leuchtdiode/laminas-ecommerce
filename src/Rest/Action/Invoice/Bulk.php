@@ -1,6 +1,7 @@
 <?php
 namespace Ecommerce\Rest\Action\Invoice;
 
+use Exception;
 use DateTime;
 use Ecommerce\Rest\Action\Base;
 use Ecommerce\Rest\Action\LoginExempt;
@@ -30,8 +31,7 @@ class Bulk extends Base implements LoginExempt
 	}
 
 	/**
-	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public function executeAction()
 	{

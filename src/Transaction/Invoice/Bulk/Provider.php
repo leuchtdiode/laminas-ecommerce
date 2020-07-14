@@ -56,10 +56,18 @@ class Provider
 		$transactions = $this->transactionProvider->filter(
 			FilterChain::create()
 				->addFilter(
-					CreatedDateFilter::min($data->getDateStart())
+					CreatedDateFilter::min(
+						$data
+							->getDateStart()
+							->setTime(0, 0, 0)
+					)
 				)
 				->addFilter(
-					CreatedDateFilter::max($data->getDateEnd())
+					CreatedDateFilter::max(
+						$data
+							->getDateEnd()
+							->setTime(23, 59, 59)
+					)
 				)
 				->addFilter(
 					StatusFilter::is(
