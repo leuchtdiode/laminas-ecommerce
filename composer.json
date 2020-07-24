@@ -36,8 +36,11 @@
 		"ramsey/uuid-doctrine": "^1.5",
 		"firebase/php-jwt": "^5.0",
 		"moneyphp/money": "^3.2",
-		"paypal/rest-api-sdk-php": "^1.14",
 		"spipu/html2pdf": "^5.2"
+	},
+	"suggest": {
+		"mpay24/mpay24-php": "Mandatory if using mpay24 method handler",
+		"paypal/rest-api-sdk-php": "Mandatory if using PayPal method handler"
 	},
 	"autoload": {
 		"psr-4": {
