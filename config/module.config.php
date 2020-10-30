@@ -10,6 +10,7 @@ use Ecommerce\Payment\MethodHandler\PayPal\MethodHandler as PayPalMethodHandler;
 use Ecommerce\Payment\MethodHandler\PayPal\PendingCheckProcessor;
 use Ecommerce\Payment\MethodHandler\PrePayment\MethodHandler as PrePaymentMethodHandler;
 use Ecommerce\Payment\MethodHandler\Wirecard\MethodHandler as WirecardMethodHandler;
+use Ecommerce\Payment\MethodHandler\Mpay24\MethodHandler as Mpay24MethodHandler;
 use Ecommerce\Product\Price\DefaultProvider as DefaultPriceProvider;
 use Ecommerce\Rest\Action\Plugin\Auth;
 use Ecommerce\Rest\Action\Plugin\AuthFactory;
