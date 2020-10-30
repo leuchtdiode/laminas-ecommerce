@@ -71,6 +71,15 @@ return [
 						// -> secretKey
 					],
 				],
+				Method::MPAY_24     => [
+					'handler' => Mpay24MethodHandler::class,
+					'options' => [
+						// ... local config
+						// -> sandbox (true|false)
+						// -> merchantId
+						// -> soapPassword
+					],
+				],
 			],
 		],
 	],
