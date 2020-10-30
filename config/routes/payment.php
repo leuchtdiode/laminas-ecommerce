@@ -8,6 +8,7 @@ $callbackTypes = [
 	CallbackType::SUCCESS,
 	CallbackType::CANCEL,
 	CallbackType::ERROR,
+	CallbackType::CONFIRMATION,
 ];
 
 return HttpRouteCreator::create()
