@@ -39,7 +39,7 @@
 		"spipu/html2pdf": "^5.2"
 	},
 	"suggest": {
-		"mpay24/mpay24-php": "Mandatory if using mpay24 method handler",
+		"mpay24/mpay24-php": "Mandatory if using mpay24/Unzer method handler",
 		"paypal/rest-api-sdk-php": "Mandatory if using PayPal method handler"
 	},
 	"autoload": {
