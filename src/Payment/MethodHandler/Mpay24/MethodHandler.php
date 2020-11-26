@@ -1,6 +1,8 @@
 <?php
 namespace Ecommerce\Payment\MethodHandler\Mpay24;
 
+use AsyncQueue\Queue\AddData as AsyncQueueAddData;
+use AsyncQueue\Queue\Adder as AsyncQueueAdder;
 use Ecommerce\Common\UrlProvider;
 use Ecommerce\Payment\CallbackType;
 use Ecommerce\Payment\Method;
@@ -9,9 +11,6 @@ use Ecommerce\Payment\MethodHandler\HandleCallbackResult;
 use Ecommerce\Payment\MethodHandler\InitData;
 use Ecommerce\Payment\MethodHandler\InitResult;
 use Ecommerce\Payment\MethodHandler\MethodHandler as MethodHandlerInterface;
-use Ecommerce\Payment\PostPayment\Handler as PostPaymentHandler;
-use Ecommerce\Payment\PostPayment\SuccessfulData;
-use Ecommerce\Payment\PostPayment\UnsuccessfulData;
 use Ecommerce\Transaction\Provider;
 use Ecommerce\Transaction\SaveData;
 use Ecommerce\Transaction\Saver;
@@ -44,30 +43,30 @@ class MethodHandler implements MethodHandlerInterface
 	private $transactionProvider;
 
 	/**
-	 * @var PostPaymentHandler
+	 * @var AsyncQueueAdder
 	 */
-	private $postPaymentHandler;
+	private $asyncQueueAdder;
 
 	/**
 	 * @param array $config
 	 * @param Saver $saver
 	 * @param UrlProvider $urlProvider
 	 * @param Provider $transactionProvider
-	 * @param PostPaymentHandler $postPaymentHandler
+	 * @param AsyncQueueAdder $asyncQueueAdder
 	 */
 	public function __construct(
 		array $config,
 		Saver $saver,
 		UrlProvider $urlProvider,
 		Provider $transactionProvider,
-		PostPaymentHandler $postPaymentHandler
+		AsyncQueueAdder $asyncQueueAdder
 	)
 	{
 		$this->config              = $config;
 		$this->saver               = $saver;
 		$this->urlProvider         = $urlProvider;
 		$this->transactionProvider = $transactionProvider;
-		$this->postPaymentHandler  = $postPaymentHandler;
+		$this->asyncQueueAdder     = $asyncQueueAdder;
 	}
 
 	/**
@@ -80,11 +79,9 @@ class MethodHandler implements MethodHandlerInterface
 		$initResult = new InitResult();
 		$initResult->setSuccess(false);
 
-		$class = Mpay24::class;
-
-		if (!class_exists($class))
+		if (!class_exists('Mpay24\Mpay24'))
 		{
-			throw new Exception('Class ' . $class . ' does not exist, please install with composer');
+			throw new Exception('Class Mpay24\Mpay24 does not exist, please install with composer');
 		}
 
 		$transaction = $data->getTransaction();
@@ -111,14 +108,13 @@ class MethodHandler implements MethodHandlerInterface
 
 		$mpay24 = $this->buildClient();
 
-		$mdxi                           = new Mpay24Order();
-		$mdxi->Order->Tid               = $transaction->getReferenceNumber();
-		$mdxi->Order->Price             = $transaction
+		$mdxi                      = new Mpay24Order();
+		$mdxi->Order->Tid          = $transaction->getReferenceNumber();
+		$mdxi->Order->Price        = $transaction
 				->getTotalPrice()
 				->getGross() / 100;
-		$mdxi->Order->URL->Success      = $this->getUrl(CallbackType::SUCCESS, $transactionId);
-		$mdxi->Order->URL->Error        = $this->getUrl(CallbackType::ERROR, $transactionId);
-		$mdxi->Order->URL->Confirmation = $this->getUrl(CallbackType::CONFIRMATION, $transactionId);
+		$mdxi->Order->URL->Success = $this->getUrl(CallbackType::SUCCESS, $transactionId);
+		$mdxi->Order->URL->Error   = $this->getUrl(CallbackType::ERROR, $transactionId);
 
 		$paymentPage = $mpay24->paymentPage($mdxi);
 
@@ -146,7 +142,7 @@ class MethodHandler implements MethodHandlerInterface
 	public function handleCallback(HandleCallbackData $data): HandleCallbackResult
 	{
 		$result = new HandleCallbackResult();
-		$result->setTransactionStatus(Status::ERROR);
+		$result->setTransactionStatus(Status::PENDING);
 
 		$transaction = $data->getTransaction();
 
@@ -172,47 +168,34 @@ class MethodHandler implements MethodHandlerInterface
 
 		$mpay24 = $this->buildClient();
 
-		$paymentStatus = $mpay24->paymentStatusByTid($transactionRefNumber);
+		$paymentStatus = $mpay24->paymentStatusByTid($transaction->getReferenceNumber());
 
 		Log::debug(var_export($paymentStatus, true));
 
-		if ($paymentStatus->getStatus() !== 'OK')
+		// abort right now if cancelled
+		if ($paymentStatus->getStatus() === 'OK')
 		{
-			$this->postPaymentHandler->unsuccessful(
-				UnsuccessfulData::create()
-					->setTransaction($data->getTransaction())
-			);
+			$mpay24TransactionStatus = $paymentStatus
+				->getParam('STATUS');
 
-			return $result;
+			if ($mpay24TransactionStatus === 'REVERSED')
+			{
+				$result->setTransactionStatus(Status::CANCELLED);
+
+				return $result;
+			}
 		}
 
-		$result->setForeignId($paymentStatus->getParam('MPAYTID'));
-
-		$mpay24TransactionStatus = $paymentStatus
-			->getParam('STATUS');
-
-		if (in_array($mpay24TransactionStatus, ['BILLED', 'RESERVED']))
-		{
-			$this->postPaymentHandler->successful(
-				SuccessfulData::create()
-					->setTransaction($data->getTransaction())
-			);
-
-			$result->setTransactionStatus(Status::SUCCESS);
-
-			return $result;
-		}
-
-		if (in_array($mpay24TransactionStatus, ['REVERSED']))
-		{
-			$result->setTransactionStatus(Status::CANCELLED);
-
-			return $result;
-		}
-
-		$this->postPaymentHandler->unsuccessful(
-			UnsuccessfulData::create()
-				->setTransaction($data->getTransaction())
+		$this->asyncQueueAdder->add(
+			AsyncQueueAddData::create()
+				->setType(PendingCheckProcessor::ID)
+				->setPayLoad(
+					[
+						'transactionId' => $transaction
+							->getId()
+							->toString(),
+					]
+				)
 		);
 
 		return $result;
