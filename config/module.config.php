@@ -6,12 +6,11 @@ use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use DoctrineExtensions\Query\Mysql\Year;
 use Ecommerce\Payment\Method;
 use Ecommerce\Payment\MethodHandler\AmazonPay\MethodHandler as AmazonPayMethodHandler;
+use Ecommerce\Payment\MethodHandler\Mpay24\MethodHandler as Mpay24MethodHandler;
 use Ecommerce\Payment\MethodHandler\PayPal\MethodHandler as PayPalMethodHandler;
 use Ecommerce\Payment\MethodHandler\PayPal\PendingCheckProcessor as PayPalPendingCheckProcessor;
 use Ecommerce\Payment\MethodHandler\PrePayment\MethodHandler as PrePaymentMethodHandler;
 use Ecommerce\Payment\MethodHandler\Wirecard\MethodHandler as WirecardMethodHandler;
-use Ecommerce\Payment\MethodHandler\Mpay24\MethodHandler as Mpay24MethodHandler;
-use Ecommerce\Payment\MethodHandler\Mpay24\PendingCheckProcessor as Mpay24PendingCheckProcessor;
 use Ecommerce\Product\Price\DefaultProvider as DefaultPriceProvider;
 use Ecommerce\Rest\Action\Plugin\Auth;
 use Ecommerce\Rest\Action\Plugin\AuthFactory;
@@ -89,7 +88,6 @@ return [
 	'async-queue' => [
 		'processors' => [
 			PayPalPendingCheckProcessor::ID => PayPalPendingCheckProcessor::class,
-			Mpay24PendingCheckProcessor::ID => Mpay24PendingCheckProcessor::class,
 		],
 	],
 

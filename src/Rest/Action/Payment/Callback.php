@@ -69,7 +69,8 @@ class Callback extends Base implements LoginExempt
 
 		if (!$transaction)
 		{
-			$this->getResponse()->setStatusCode(400);
+			$this->getResponse()
+				->setStatusCode(400);
 
 			return $this->getResponse();
 		}
@@ -104,6 +105,15 @@ class Callback extends Base implements LoginExempt
 		catch (Exception $ex)
 		{
 			Log::error($ex);
+		}
+
+		if (!$handleCallbackResult->isRedirect())
+		{
+			$response = $this->getResponse();
+
+			$response->setStatusCode(204);
+
+			return $response;
 		}
 
 		$customer = $transaction->getCustomer();

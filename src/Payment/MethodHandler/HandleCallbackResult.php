@@ -14,6 +14,11 @@ class HandleCallbackResult
 	private $transactionStatus;
 
 	/**
+	 * @var bool
+	 */
+	private $redirect = true;
+
+	/**
 	 * @return string|null
 	 */
 	public function getForeignId(): ?string
@@ -43,5 +48,21 @@ class HandleCallbackResult
 	public function setTransactionStatus(string $transactionStatus): void
 	{
 		$this->transactionStatus = $transactionStatus;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isRedirect(): bool
+	{
+		return $this->redirect;
+	}
+
+	/**
+	 * @param bool $redirect
+	 */
+	public function setRedirect(bool $redirect): void
+	{
+		$this->redirect = $redirect;
 	}
 }
