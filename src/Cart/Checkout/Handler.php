@@ -214,6 +214,11 @@ class Handler implements EventManagerAwareInterface
 			);
 			$transactionEntity->setStatus(Status::NEW);
 
+			if (($transactionCreatedDate = $this->data->getTransactionCreatedDate()))
+			{
+				$transactionEntity->setCreatedDate($transactionCreatedDate);
+			}
+
 			/**
 			 * @var PriceProvider $priceProvider
 			 */

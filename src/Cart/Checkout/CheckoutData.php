@@ -1,6 +1,7 @@
 <?php
 namespace Ecommerce\Cart\Checkout;
 
+use DateTime;
 use Ecommerce\Address\Address;
 use Ecommerce\Cart\Cart;
 use Ecommerce\Customer\Customer;
@@ -32,6 +33,11 @@ class CheckoutData
 	 * @var Address
 	 */
 	private $shippingAddress;
+
+	/**
+	 * @var DateTime|null
+	 */
+	private $transactionCreatedDate;
 
 	/**
 	 * @return CheckoutData
@@ -128,6 +134,24 @@ class CheckoutData
 	public function setShippingAddress(Address $shippingAddress): CheckoutData
 	{
 		$this->shippingAddress = $shippingAddress;
+		return $this;
+	}
+
+	/**
+	 * @return DateTime|null
+	 */
+	public function getTransactionCreatedDate(): ?DateTime
+	{
+		return $this->transactionCreatedDate;
+	}
+
+	/**
+	 * @param DateTime|null $transactionCreatedDate
+	 * @return CheckoutData
+	 */
+	public function setTransactionCreatedDate(?DateTime $transactionCreatedDate): CheckoutData
+	{
+		$this->transactionCreatedDate = $transactionCreatedDate;
 		return $this;
 	}
 }
