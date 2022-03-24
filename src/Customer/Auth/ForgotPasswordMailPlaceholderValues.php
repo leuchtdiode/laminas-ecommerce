@@ -7,48 +7,28 @@ use Mail\Mail\PlaceholderValues;
 
 class ForgotPasswordMailPlaceholderValues implements PlaceholderValues
 {
-	/**
-	 * @var Customer
-	 */
-	private $customer;
+	private Customer $customer;
 
-	/**
-	 * @var string
-	 */
-	private $hash;
+	private string $hash;
 
-	/**
-	 * @return ForgotPasswordMailPlaceholderValues
-	 */
-	public static function create()
+	public static function create(): self
 	{
 		return new self();
 	}
 
-	/**
-	 * @param Customer $customer
-	 * @return ForgotPasswordMailPlaceholderValues
-	 */
 	public function setCustomer(Customer $customer): ForgotPasswordMailPlaceholderValues
 	{
 		$this->customer = $customer;
 		return $this;
 	}
 
-	/**
-	 * @param string $hash
-	 * @return ForgotPasswordMailPlaceholderValues
-	 */
 	public function setHash(string $hash): ForgotPasswordMailPlaceholderValues
 	{
 		$this->hash = $hash;
 		return $this;
 	}
 
-	/**
-	 * @return array
-	 */
-	public function asArray()
+	public function asArray(): array
 	{
 		return ArrayCreator::create()
 			->add($this->customer, 'customer')

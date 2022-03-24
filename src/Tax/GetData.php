@@ -5,54 +5,31 @@ use Common\Country\Country;
 
 class GetData
 {
-	/**
-	 * @var Country
-	 */
-	private $country;
+	private Country $country;
 
-	/**
-	 * @var bool
-	 */
-	private $business;
+	private bool $business;
 
-	/**
-	 * @return GetData
-	 */
-	public static function create()
+	public static function create(): self
 	{
 		return new self();
 	}
 
-	/**
-	 * @return Country
-	 */
 	public function getCountry(): Country
 	{
 		return $this->country;
 	}
 
-	/**
-	 * @param Country $country
-	 * @return GetData
-	 */
 	public function setCountry(Country $country): GetData
 	{
 		$this->country = $country;
 		return $this;
 	}
 
-	/**
-	 * @return bool
-	 */
 	public function isBusiness(): bool
 	{
 		return $this->business;
 	}
 
-	/**
-	 * @param bool $business
-	 * @return GetData
-	 */
 	public function setBusiness(bool $business): GetData
 	{
 		$this->business = $business;

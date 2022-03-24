@@ -12,44 +12,18 @@ use Log\Log;
 
 class RegisterHandler
 {
-	/**
-	 * @var Provider
-	 */
-	private $customerProvider;
+	private Provider $customerProvider;
 
-	/**
-	 * @var DtoCreatorProvider
-	 */
-	private $dtoCreatorProvider;
+	private DtoCreatorProvider $dtoCreatorProvider;
 
-	/**
-	 * @var Saver
-	 */
-	private $entitySaver;
+	private Saver $entitySaver;
 
-	/**
-	 * @var PasswordHandler
-	 */
-	private $passwordHandler;
+	private PasswordHandler $passwordHandler;
 
-	/**
-	 * @var ActivateMailSender
-	 */
-	private $activateMailSender;
+	private ActivateMailSender $activateMailSender;
 
-	/**
-	 * @var AddressAddModifyHandler
-	 */
-	private $addressAddModifyHandler;
+	private AddressAddModifyHandler $addressAddModifyHandler;
 
-	/**
-	 * @param Provider $customerProvider
-	 * @param DtoCreatorProvider $dtoCreatorProvider
-	 * @param Saver $entitySaver
-	 * @param PasswordHandler $passwordHandler
-	 * @param ActivateMailSender $activateMailSender
-	 * @param AddressAddModifyHandler $addressAddModifyHandler
-	 */
 	public function __construct(
 		Provider $customerProvider,
 		DtoCreatorProvider $dtoCreatorProvider,
@@ -67,11 +41,7 @@ class RegisterHandler
 		$this->addressAddModifyHandler = $addressAddModifyHandler;
 	}
 
-	/**
-	 * @param RegisterData $data
-	 * @return RegisterResult
-	 */
-	public function register(RegisterData $data)
+	public function register(RegisterData $data): RegisterResult
 	{
 		$result = new RegisterResult();
 		$result->setSuccess(false);

@@ -23,38 +23,16 @@ use Mpay24\Mpay24Order;
 
 class MethodHandler implements MethodHandlerInterface
 {
-	/**
-	 * @var array
-	 */
-	private $config;
+	private array $config;
 
-	/**
-	 * @var Saver
-	 */
-	private $saver;
+	private Saver $saver;
 
-	/**
-	 * @var UrlProvider
-	 */
-	private $urlProvider;
+	private UrlProvider $urlProvider;
 
-	/**
-	 * @var Provider
-	 */
-	private $transactionProvider;
+	private Provider $transactionProvider;
 
-	/**
-	 * @var PostPaymentHandler
-	 */
-	private $postPaymentHandler;
+	private PostPaymentHandler $postPaymentHandler;
 
-	/**
-	 * @param array $config
-	 * @param Saver $saver
-	 * @param UrlProvider $urlProvider
-	 * @param Provider $transactionProvider
-	 * @param PostPaymentHandler $postPaymentHandler
-	 */
 	public function __construct(
 		array $config,
 		Saver $saver,
@@ -71,8 +49,6 @@ class MethodHandler implements MethodHandlerInterface
 	}
 
 	/**
-	 * @param InitData $data
-	 * @return InitResult
 	 * @throws Exception
 	 */
 	public function init(InitData $data): InitResult
@@ -84,8 +60,6 @@ class MethodHandler implements MethodHandlerInterface
 		{
 			throw new Exception('Class Mpay24\Mpay24 does not exist, please install with composer');
 		}
-
-		$transaction = $data->getTransaction();
 
 		$saveResult = $this->saver->save(
 			SaveData::create()
@@ -137,10 +111,6 @@ class MethodHandler implements MethodHandlerInterface
 		return $initResult;
 	}
 
-	/**
-	 * @param HandleCallbackData $data
-	 * @return HandleCallbackResult
-	 */
 	public function handleCallback(HandleCallbackData $data): HandleCallbackResult
 	{
 		$result = new HandleCallbackResult();
@@ -218,7 +188,7 @@ class MethodHandler implements MethodHandlerInterface
 			return $result;
 		}
 
-		if (in_array($mpay24TransactionStatus, [ 'REVERSED' ]))
+		if ($mpay24TransactionStatus == 'REVERSED')
 		{
 			$result->setTransactionStatus(Status::CANCELLED);
 
@@ -235,30 +205,19 @@ class MethodHandler implements MethodHandlerInterface
 		return $result;
 	}
 
-	/**
-	 * @return Mpay24
-	 */
-	private function buildClient()
+	private function buildClient(): Mpay24
 	{
 		$options = $this->getOptions();
 
 		return new Mpay24($options['merchantId'], $options['soapPassword'], $options['sandbox']);
 	}
 
-	/**
-	 * @return array
-	 */
-	private function getOptions()
+	private function getOptions(): array
 	{
 		return $this->config['ecommerce']['payment']['method'][Method::MPAY_24]['options'];
 	}
 
-	/**
-	 * @param string $type
-	 * @param string $transactionId
-	 * @return string $type
-	 */
-	private function getUrl($type, $transactionId)
+	private function getUrl(string $type, string $transactionId): string
 	{
 		return $this->urlProvider->get(
 			'ecommerce/payment/callback',

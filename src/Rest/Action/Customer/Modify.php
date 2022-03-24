@@ -4,45 +4,32 @@ namespace Ecommerce\Rest\Action\Customer;
 use Common\Hydration\ObjectToArrayHydrator;
 use Ecommerce\Customer\Modifier;
 use Ecommerce\Customer\ModifyData as CustomerModifyData;
-use Ecommerce\Customer\Provider;
 use Ecommerce\Rest\Action\Base;
 use Ecommerce\Rest\Action\Response;
 use Exception;
+use Laminas\Stdlib\ResponseInterface;
+use Laminas\View\Model\JsonModel;
 
 class Modify extends Base
 {
-	/**
-	 * @var ModifyData
-	 */
-	private $data;
-	/**
-	 * @var Provider
-	 */
-	private $provider;
+	private ModifyData $data;
 
-	/**
-	 * @var Modifier
-	 */
-	private $modifier;
+	private Modifier $modifier;
 
-	/**
-	 * @param ModifyData $data
-	 * @param Provider $provider
-	 * @param Modifier $modifier
-	 */
-	public function __construct(ModifyData $data, Provider $provider, Modifier $modifier)
+	public function __construct(ModifyData $data, Modifier $modifier)
 	{
 		$this->data     = $data;
-		$this->provider = $provider;
 		$this->modifier = $modifier;
 	}
 
 	/**
 	 * @throws Exception
 	 */
-	public function executeAction()
+	public function executeAction(): JsonModel|ResponseInterface
 	{
-		$customerId = $this->params()->fromRoute('id');
+		$customerId = $this
+			->params()
+			->fromRoute('id');
 
 		if (!$this->customerCheck($customerId))
 		{

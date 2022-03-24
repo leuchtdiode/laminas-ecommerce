@@ -12,26 +12,12 @@ use Log\Log;
 
 class AddModifyHandler
 {
-	/**
-	 * @var Saver
-	 */
-	private $entitySaver;
+	private Saver $entitySaver;
 
-	/**
-	 * @var DtoCreatorProvider
-	 */
-	private $dtoCreatorProvider;
+	private DtoCreatorProvider $dtoCreatorProvider;
 
-	/**
-	 * @var Provider
-	 */
-	private $addressProvider;
+	private Provider $addressProvider;
 
-	/**
-	 * @param Saver $entitySaver
-	 * @param DtoCreatorProvider $dtoCreatorProvider
-	 * @param Provider $addressProvider
-	 */
 	public function __construct(Saver $entitySaver, DtoCreatorProvider $dtoCreatorProvider, Provider $addressProvider)
 	{
 		$this->entitySaver        = $entitySaver;
@@ -39,11 +25,7 @@ class AddModifyHandler
 		$this->addressProvider    = $addressProvider;
 	}
 
-	/**
-	 * @param AddModifyData $data
-	 * @return AddModifyResult
-	 */
-	public function addOrModify(AddModifyData $data)
+	public function addOrModify(AddModifyData $data): AddModifyResult
 	{
 		$result = new AddModifyResult();
 		$result->setSuccess(false);
@@ -83,11 +65,7 @@ class AddModifyHandler
 		return $result;
 	}
 
-	/**
-	 * @param Entity $addressEntity
-	 * @throws Exception
-	 */
-	private function ensureOnlyOneDefaultAddressPerType(string $customerId, Entity $addressEntity)
+	private function ensureOnlyOneDefaultAddressPerType(string $customerId, Entity $addressEntity): void
 	{
 		$otherCustomerAddresses = $this->addressProvider->filter(
 			FilterChain::create()

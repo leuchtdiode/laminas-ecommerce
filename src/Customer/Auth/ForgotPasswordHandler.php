@@ -8,31 +8,17 @@ use Log\Log;
 
 class ForgotPasswordHandler
 {
-	/**
-	 * @var ForgotPasswordMailSender
-	 */
-	private $mailSender;
+	private ForgotPasswordMailSender $mailSender;
 
-	/**
-	 * @var Saver
-	 */
-	private $entitySaver;
+	private Saver $entitySaver;
 
-	/**
-	 * @param ForgotPasswordMailSender $mailSender
-	 * @param Saver $entitySaver
-	 */
 	public function __construct(ForgotPasswordMailSender $mailSender, Saver $entitySaver)
 	{
 		$this->mailSender  = $mailSender;
 		$this->entitySaver = $entitySaver;
 	}
 
-	/**
-	 * @param Customer $customer
-	 * @return ForgotPasswordResult
-	 */
-	public function forgotPassword(Customer $customer)
+	public function forgotPassword(Customer $customer): ForgotPasswordResult
 	{
 		$result = new ForgotPasswordResult();
 
@@ -57,10 +43,7 @@ class ForgotPasswordHandler
 		return $result;
 	}
 
-	/**
-	 * @return string
-	 */
-	private function generateHash()
+	private function generateHash(): string
 	{
 		return bin2hex(
 			openssl_random_pseudo_bytes(10)

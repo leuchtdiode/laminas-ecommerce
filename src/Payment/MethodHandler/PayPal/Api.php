@@ -10,9 +10,6 @@ class Api extends ApiContext
 	const SANDBOX = 'sandbox';
 	const LIVE    = 'live';
 	
-	/**
-	 * @param array $config
-	 */
 	public function __construct(array $config)
 	{
 		$payPalConfig = $config['ecommerce']['payment']['method'][Method::PAY_PAL]['options'];

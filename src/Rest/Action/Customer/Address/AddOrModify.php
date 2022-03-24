@@ -8,29 +8,17 @@ use Ecommerce\Address\Provider as AddressProvider;
 use Ecommerce\Rest\Action\Base;
 use Ecommerce\Rest\Action\Response;
 use Exception;
+use Laminas\Stdlib\ResponseInterface;
+use Laminas\View\Model\JsonModel;
 
 class AddOrModify extends Base
 {
-	/**
-	 * @var AddOrModifyData
-	 */
-	private $data;
+	private AddOrModifyData $data;
 
-	/**
-	 * @var AddModifyHandler
-	 */
-	private $addModifyHandler;
+	private AddModifyHandler $addModifyHandler;
 
-	/**
-	 * @var AddressProvider
-	 */
-	private $addressProvider;
+	private AddressProvider $addressProvider;
 
-	/**
-	 * @param AddOrModifyData $data
-	 * @param AddModifyHandler $addModifyHandler
-	 * @param AddressProvider $addressProvider
-	 */
 	public function __construct(
 		AddOrModifyData $data,
 		AddModifyHandler $addModifyHandler,
@@ -43,10 +31,9 @@ class AddOrModify extends Base
 	}
 
 	/**
-	 * @return string
 	 * @throws Exception
 	 */
-	public function executeAction()
+	public function executeAction(): JsonModel|ResponseInterface
 	{
 		$customerId = $this
 			->params()

@@ -2,37 +2,24 @@
 namespace Ecommerce\Rest\Action\Customer;
 
 use Common\Hydration\ArrayHydratable;
+use Common\Hydration\ObjectToArrayHydratorProperty;
 use Ecommerce\Customer\Customer;
 
 class GetSuccessData implements ArrayHydratable
 {
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @var Customer
-	 */
-	private $customer;
+	#[ObjectToArrayHydratorProperty]
+	private Customer $customer;
 
-	/**
-	 * @return GetSuccessData
-	 */
-	public static function create()
+	public static function create(): self
 	{
 		return new self();
 	}
 
-	/**
-	 * @return Customer
-	 */
 	public function getCustomer(): Customer
 	{
 		return $this->customer;
 	}
 
-	/**
-	 * @param Customer $customer
-	 * @return GetSuccessData
-	 */
 	public function setCustomer(Customer $customer): GetSuccessData
 	{
 		$this->customer = $customer;

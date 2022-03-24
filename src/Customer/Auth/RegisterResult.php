@@ -8,22 +8,13 @@ class RegisterResult
 {
 	use ResultTrait;
 
-	/**
-	 * @var Customer|null
-	 */
-	private $customer;
+	private ?Customer $customer = null;
 
-	/**
-	 * @return Customer|null
-	 */
 	public function getCustomer(): ?Customer
 	{
 		return $this->customer;
 	}
 
-	/**
-	 * @param Customer|null $customer
-	 */
 	public function setCustomer(?Customer $customer): void
 	{
 		$this->customer = $customer;

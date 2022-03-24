@@ -1,7 +1,9 @@
 <?php
 namespace Ecommerce\Product;
 
+use Common\Dto\Dto;
 use Common\Hydration\ArrayHydratable;
+use Common\Hydration\ObjectToArrayHydratorProperty;
 use Ecommerce\Common\Equals;
 use Ecommerce\Common\Price;
 use Ecommerce\Db\Product\Entity;
@@ -9,55 +11,30 @@ use Ecommerce\Product\Attribute\Value\Value;
 use Ecommerce\Product\Image\Image;
 use Ramsey\Uuid\UuidInterface;
 
-class Product implements ArrayHydratable, Equals
+class Product implements Dto, ArrayHydratable, Equals
 {
-	/**
-	 * @var Entity
-	 */
-	private $entity;
+	private Entity $entity;
+
+	#[ObjectToArrayHydratorProperty]
+	private Status $status;
+
+	#[ObjectToArrayHydratorProperty]
+	private Price $price;
 
 	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @var Status
-	 */
-	private $status;
-
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @var Price
-	 */
-	private $price;
-
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
 	 * @var Value[]
 	 */
-	private $attributeValues;
+	#[ObjectToArrayHydratorProperty]
+	private array $attributeValues;
+
+	#[ObjectToArrayHydratorProperty]
+	private ?Image $mainImage = null;
+
+	#[ObjectToArrayHydratorProperty]
+	private ?string $url = null;
 
 	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @var Image|null
-	 */
-	private $mainImage;
-
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @var string|null
-	 */
-	private $url;
-
-	/**
-	 * @param Entity $entity
-	 * @param Status $status
-	 * @param Price $price
 	 * @param Value[] $attributeValues
-	 * @param Image|null $mainImag
-	 * @param string|null $url
 	 */
 	public function __construct(
 		Entity $entity,
@@ -76,45 +53,30 @@ class Product implements ArrayHydratable, Equals
 		$this->url = $url;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function __toString()
+	public function __toString(): string
 	{
 		return $this->getTitle();
 	}
 
 	/**
 	 * @param Product $toCompare
-	 * @return bool
 	 */
-	public function equals($toCompare)
+	public function equals($toCompare): bool
 	{
 		return $this->getId()->compareTo($toCompare->getId()) === 0;
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return bool
-	 */
-	public function isActive()
+	#[ObjectToArrayHydratorProperty]
+	public function isActive(): bool
 	{
 		return $this->getStatus()->is(Status::ACTIVE);
 	}
 
-	/**
-	 * @param $quantity
-	 * @return bool
-	 */
-	public function hasEnoughStock($quantity)
+	public function hasEnoughStock(int $quantity): bool
 	{
 		return $this->isInStock() && $quantity <= $this->getStock();
 	}
 
-	/**
-	 * @return Status
-	 */
 	public function getStatus(): Status
 	{
 		return $this->status;
@@ -128,93 +90,57 @@ class Product implements ArrayHydratable, Equals
 		return $this->attributeValues;
 	}
 
-	/**
-	 * @return Image|null
-	 */
 	public function getMainImage(): ?Image
 	{
 		return $this->mainImage;
 	}
 
-	/**
-	 * @return string|null
-	 */
 	public function getUrl(): ?string
 	{
 		return $this->url;
 	}
 
-	/**
-	 * @return Price
-	 */
 	public function getPrice(): Price
 	{
 		return $this->price;
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return bool
-	 */
-	public function isInStock()
+	#[ObjectToArrayHydratorProperty]
+	public function isInStock(): bool
 	{
 		return $this->getStock() > 0;
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return UuidInterface
-	 */
-	public function getId()
+	#[ObjectToArrayHydratorProperty]
+	public function getId(): UuidInterface
 	{
 		return $this->entity->getId();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getNumber()
+	#[ObjectToArrayHydratorProperty]
+	public function getNumber(): string
 	{
 		return $this->entity->getNumber();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getTitle()
+	#[ObjectToArrayHydratorProperty]
+	public function getTitle(): string
 	{
 		return $this->entity->getTitle();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return null|string
-	 */
-	public function getDescription()
+	#[ObjectToArrayHydratorProperty]
+	public function getDescription(): ?string
 	{
 		return $this->entity->getDescription();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return integer
-	 */
-	public function getStock()
+	#[ObjectToArrayHydratorProperty]
+	public function getStock(): int
 	{
 		return $this->entity->getStock();
 	}
 
-	/**
-	 * @return Entity
-	 */
 	public function getEntity(): Entity
 	{
 		return $this->entity;

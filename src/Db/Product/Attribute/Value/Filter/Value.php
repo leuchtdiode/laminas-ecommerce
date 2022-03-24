@@ -5,19 +5,8 @@ use Common\Db\Filter\Equals;
 
 class Value extends Equals
 {
-	/**
-	 * @inheritDoc
-	 */
-	protected function getField()
+	protected function getField(): string
 	{
 		return 't.value';
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	protected function getParameterName()
-	{
-		return 'productAttributeValueValue';
 	}
 }

@@ -10,39 +10,25 @@ use Ecommerce\Rest\Action\Base;
 use Ecommerce\Rest\Action\LoginExempt;
 use Ecommerce\Transaction\Provider as TransactionProvider;
 use Exception;
+use Laminas\Stdlib\ResponseInterface;
+use Laminas\View\Model\JsonModel;
 use Log\Log;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class Callback extends Base implements LoginExempt
 {
 	const METHOD = 'method';
 	const TYPE   = 'type';
 
-	/**
-	 * @var TransactionProvider
-	 */
-	private $transactionProvider;
+	private TransactionProvider $transactionProvider;
 
-	/**
-	 * @var MethodHandlerProvider
-	 */
-	private $methodHandlerProvider;
+	private MethodHandlerProvider $methodHandlerProvider;
 
-	/**
-	 * @var TransactionEntitySaver
-	 */
-	private $transactionEntitySaver;
+	private TransactionEntitySaver $transactionEntitySaver;
 
-	/**
-	 * @var ReturnUrlProvider
-	 */
-	private $returnUrlProvider;
+	private ReturnUrlProvider $returnUrlProvider;
 
-	/**
-	 * @param TransactionProvider $transactionProvider
-	 * @param MethodHandlerProvider $methodHandlerProvider
-	 * @param TransactionEntitySaver $transactionEntitySaver
-	 * @param ReturnUrlProvider $returnUrlProvider
-	 */
 	public function __construct(
 		TransactionProvider $transactionProvider,
 		MethodHandlerProvider $methodHandlerProvider,
@@ -57,9 +43,10 @@ class Callback extends Base implements LoginExempt
 	}
 
 	/**
-	 * @throws Exception
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
-	public function executeAction()
+	public function executeAction(): JsonModel|ResponseInterface
 	{
 		$transaction = $this->transactionProvider->byId(
 			$this

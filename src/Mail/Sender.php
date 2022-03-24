@@ -12,50 +12,25 @@ use Mail\Queue\Queue;
 
 abstract class Sender
 {
-	/**
-	 * @var array
-	 */
-	private $config;
+	private array $config;
 
-	/**
-	 * @var Queue
-	 */
-	private $mailQueue;
+	private Queue $mailQueue;
 
-	/**
-	 * @param array $config
-	 * @param Queue $mailQueue
-	 */
 	public function __construct(array $config, Queue $mailQueue)
 	{
 		$this->config    = $config;
 		$this->mailQueue = $mailQueue;
 	}
 
-	/**
-	 * @return Recipient
-	 */
-	abstract protected function getRecipient();
+	abstract protected function getRecipient(): Recipient;
 
-	/**
-	 * @return string
-	 */
-	abstract protected function getContentTemplate();
+	abstract protected function getContentTemplate(): string;
 
-	/**
-	 * @return string
-	 */
-	abstract protected function getSubject();
+	abstract protected function getSubject(): string;
 
-	/**
-	 * @return PlaceholderValues
-	 */
-	abstract protected function getPlaceholderValues();
+	abstract protected function getPlaceholderValues(): PlaceholderValues;
 
-	/**
-	 * @return mixed
-	 */
-	protected function getEcommerceMailConfig()
+	protected function getEcommerceMailConfig(): mixed
 	{
 		return $this->config['ecommerce']['mail'];
 	}
@@ -63,15 +38,12 @@ abstract class Sender
 	/**
 	 * @return Attachment[]
 	 */
-	protected function getAttachments()
+	protected function getAttachments(): array
 	{
 		return [];
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function addToQueue()
+	public function addToQueue(): bool
 	{
 		$mailConfig = $this->config['mail'];
 		$config     = $this->getEcommerceMailConfig();

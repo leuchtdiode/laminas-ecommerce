@@ -5,7 +5,6 @@ use Ecommerce\Cart\Adder as CartAdder;
 use Ecommerce\Cart\Cart;
 use Ecommerce\Cart\Provider as CartProvider;
 use Ecommerce\Db\Cart\Item\Entity as ItemEntity;
-use Ecommerce\Db\Cart\Saver as CartEntitySaver;
 use Ecommerce\Db\Cart\Item\Saver as CartItemEntitySaver;
 use Ecommerce\Product\CouldNotFindProductError;
 use Ecommerce\Product\Product;
@@ -16,66 +15,29 @@ use Log\Log;
 
 class Adder
 {
-	/**
-	 * @var CartAdder
-	 */
-	private $cartAdder;
+	private CartAdder $cartAdder;
 
-	/**
-	 * @var CartProvider
-	 */
-	private $cartProvider;
+	private CartProvider $cartProvider;
 
-	/**
-	 * @var ProductProvider
-	 */
-	private $productProvider;
+	private ProductProvider $productProvider;
 
-	/**
-	 * @var CartEntitySaver
-	 */
-	private $cartEntitySaver;
+	private CartItemEntitySaver $cartItemEntitySaver;
 
-	/**
-	 * @var CartItemEntitySaver
-	 */
-	private $cartItemEntitySaver;
-
-	/**
-	 * @var AddData
-	 */
-	private $addData;
-
-	/**
-	 * @param CartAdder $cartAdder
-	 * @param CartProvider $cartProvider
-	 * @param ProductProvider $productProvider
-	 * @param CartEntitySaver $cartEntitySaver
-	 * @param CartItemEntitySaver $cartItemEntitySaver
-	 */
 	public function __construct(
 		CartAdder $cartAdder,
 		CartProvider $cartProvider,
 		ProductProvider $productProvider,
-		CartEntitySaver $cartEntitySaver,
 		CartItemEntitySaver $cartItemEntitySaver
 	)
 	{
 		$this->cartAdder           = $cartAdder;
 		$this->cartProvider        = $cartProvider;
 		$this->productProvider     = $productProvider;
-		$this->cartEntitySaver     = $cartEntitySaver;
 		$this->cartItemEntitySaver = $cartItemEntitySaver;
 	}
 
-	/**
-	 * @param AddData $addData
-	 * @return AddResult
-	 */
-	public function add(AddData $addData)
+	public function add(AddData $addData): AddResult
 	{
-		$this->addData = $addData;
-
 		$result = new AddResult();
 		$result->setSuccess(false);
 
@@ -126,17 +88,15 @@ class Adder
 		return $result;
 	}
 
-	/**
-	 * @param Cart $cart
-	 * @param Product $product
-	 * @return ItemEntity
-	 * @throws Exception
-	 */
-	private function findOrCreateItemEntity(Cart $cart, Product $product)
+	private function findOrCreateItemEntity(Cart $cart, Product $product): ItemEntity
 	{
 		foreach ($cart->getItems() as $cartItem)
 		{
-			if ($cartItem->getProduct()->equals($product))
+			if (
+				$cartItem
+					->getProduct()
+					->equals($product)
+			)
 			{
 				return $cartItem->getEntity();
 			}

@@ -2,34 +2,24 @@
 namespace Ecommerce\Customer\Password;
 
 use Common\Error;
+use Common\Hydration\ObjectToArrayHydratorProperty;
 use Common\Translator;
 
 class InvalidHashError extends Error
 {
-	/**
-	 * @return InvalidHashError
-	 */
-	public static function create()
+	public static function create(): self
 	{
 		return new self();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getCode()
+	#[ObjectToArrayHydratorProperty]
+	public function getCode(): string
 	{
 		return 'INVALID_HASH_ERROR';
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getMessage()
+	#[ObjectToArrayHydratorProperty]
+	public function getMessage(): string
 	{
 		return Translator::translate('Der Link ist abgelaufen, bitte fordere einen neuen an');
 	}

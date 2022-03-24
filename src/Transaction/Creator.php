@@ -1,6 +1,7 @@
 <?php
 namespace Ecommerce\Transaction;
 
+use Common\Db\Entity as DbEntity;
 use Ecommerce\Address\Creator as AddressCreator;
 use Ecommerce\Common\EntityDtoCreator;
 use Ecommerce\Common\Price;
@@ -19,59 +20,24 @@ class Creator implements EntityDtoCreator
 {
 	const ONE_HOUR_IN_SECONDS = 3600;
 
-	/**
-	 * @var StatusProvider
-	 */
-	private $statusProvider;
+	private StatusProvider $statusProvider;
 
-	/**
-	 * @var PostPaymentStatusProvider
-	 */
-	private $postPaymentStatusProvider;
+	private PostPaymentStatusProvider $postPaymentStatusProvider;
 
-	/**
-	 * @var PaymentMethodProvider
-	 */
-	private $paymentMethodProvider;
+	private PaymentMethodProvider $paymentMethodProvider;
 
-	/**
-	 * @var UrlProvider
-	 */
-	private $urlProvider;
+	private UrlProvider $urlProvider;
 
-	/**
-	 * @var SecurityHashHandler
-	 */
-	private $securityHashHandler;
+	private SecurityHashHandler $securityHashHandler;
 
-	/**
-	 * @var PriceCreator
-	 */
-	private $priceCreator;
+	private PriceCreator $priceCreator;
 
-	/**
-	 * @var TransactionItemCreator
-	 */
-	private $transactionItemCreator;
+	private TransactionItemCreator $transactionItemCreator;
 
-	/**
-	 * @var AddressCreator
-	 */
-	private $addressCreator;
+	private AddressCreator $addressCreator;
 
-	/**
-	 * @var CustomerCreator
-	 */
-	private $customerCreator;
+	private CustomerCreator $customerCreator;
 
-	/**
-	 * @param StatusProvider $statusProvider
-	 * @param PostPaymentStatusProvider $postPaymentStatusProvider
-	 * @param PaymentMethodProvider $paymentMethodProvider
-	 * @param UrlProvider $urlProvider
-	 * @param SecurityHashHandler $securityHashHandler
-	 * @param PriceCreator $priceCreator
-	 */
 	public function __construct(
 		StatusProvider $statusProvider,
 		PostPaymentStatusProvider $postPaymentStatusProvider,
@@ -89,25 +55,16 @@ class Creator implements EntityDtoCreator
 		$this->priceCreator              = $priceCreator;
 	}
 
-	/**
-	 * @param TransactionItemCreator $transactionItemCreator
-	 */
 	public function setTransactionItemCreator(TransactionItemCreator $transactionItemCreator): void
 	{
 		$this->transactionItemCreator = $transactionItemCreator;
 	}
 
-	/**
-	 * @param AddressCreator $addressCreator
-	 */
 	public function setAddressCreator(AddressCreator $addressCreator): void
 	{
 		$this->addressCreator = $addressCreator;
 	}
 
-	/**
-	 * @param CustomerCreator $customerCreator
-	 */
 	public function setCustomerCreator(CustomerCreator $customerCreator): void
 	{
 		$this->customerCreator = $customerCreator;
@@ -115,10 +72,9 @@ class Creator implements EntityDtoCreator
 
 	/**
 	 * @param Entity $entity
-	 * @return Transaction
 	 * @throws Exception
 	 */
-	public function byEntity($entity)
+	public function byEntity(DbEntity $entity): Transaction
 	{
 		$items = array_map(
 			function (TransactionItemEntity $entity)
@@ -155,11 +111,9 @@ class Creator implements EntityDtoCreator
 	}
 
 	/**
-	 * @param Entity $entity
-	 * @return string
 	 * @throws Exception
 	 */
-	private function getInvoiceUrl(Entity $entity)
+	private function getInvoiceUrl(Entity $entity): string
 	{
 		return $this->urlProvider->get(
 				'ecommerce/transaction/single-item/invoice/pdf',
@@ -174,10 +128,8 @@ class Creator implements EntityDtoCreator
 
 	/**
 	 * @param Item[] $items
-	 * @param int|null $shippingCost
-	 * @return Price
 	 */
-	private function getTotalPrice(array $items, ?int $shippingCost)
+	private function getTotalPrice(array $items, ?int $shippingCost): Price
 	{
 		$cents = 0;
 
@@ -198,9 +150,8 @@ class Creator implements EntityDtoCreator
 
 	/**
 	 * @param Item[] $items
-	 * @return Price
 	 */
-	private function getTaxAmount(array $items)
+	private function getTaxAmount(array $items): Price
 	{
 		$taxAmountCents = 0;
 

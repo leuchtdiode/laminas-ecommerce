@@ -1,68 +1,45 @@
 <?php
 namespace Ecommerce\Product\Attribute;
 
+use Common\Dto\Dto;
 use Common\Hydration\ArrayHydratable;
+use Common\Hydration\ObjectToArrayHydratorProperty;
 use Ecommerce\Db\Product\Attribute\Entity;
 use Ramsey\Uuid\UuidInterface;
 
-class Attribute implements ArrayHydratable
+class Attribute implements Dto, ArrayHydratable
 {
-	/**
-	 * @var Entity
-	 */
-	private $entity;
+	private Entity $entity;
 
-	/**
-	 * @param Entity $entity
-	 */
 	public function __construct(Entity $entity)
 	{
 		$this->entity = $entity;
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return UuidInterface
-	 */
-	public function getId()
+	#[ObjectToArrayHydratorProperty]
+	public function getId(): UuidInterface
 	{
 		return $this->entity->getId();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getProcessableId()
+	#[ObjectToArrayHydratorProperty]
+	public function getProcessableId(): string
 	{
 		return $this->entity->getProcessableId();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getDescription()
+	#[ObjectToArrayHydratorProperty]
+	public function getDescription(): string
 	{
 		return $this->entity->getDescription();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string|null
-	 */
-	public function getUnit()
+	#[ObjectToArrayHydratorProperty]
+	public function getUnit(): ?string
 	{
 		return $this->entity->getUnit();
 	}
 
-	/**
-	 * @return Entity
-	 */
 	public function getEntity(): Entity
 	{
 		return $this->entity;

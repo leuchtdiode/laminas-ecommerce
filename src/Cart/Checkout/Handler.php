@@ -1,5 +1,4 @@
 <?php
-
 namespace Ecommerce\Cart\Checkout;
 
 use Ecommerce\Address\Address;
@@ -27,72 +26,34 @@ use Ecommerce\Transaction\Transaction;
 use Exception;
 use Laminas\EventManager\EventManagerAwareInterface;
 use Log\Log;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class Handler implements EventManagerAwareInterface
 {
 	use EventManagerTrait;
 
-	/**
-	 * @var array
-	 */
-	private $config;
+	private array $config;
 
-	/**
-	 * @var ContainerInterface
-	 */
-	private $container;
+	private ContainerInterface $container;
 
-	/**
-	 * @var MethodHandlerProvider
-	 */
-	private $methodHandlerProvider;
+	private MethodHandlerProvider $methodHandlerProvider;
 
-	/**
-	 * @var TransactionProvider
-	 */
-	private $transactionProvider;
+	private TransactionProvider $transactionProvider;
 
-	/**
-	 * @var TransactionEntitySaver
-	 */
-	private $transactionEntitySaver;
+	private TransactionEntitySaver $transactionEntitySaver;
 
-	/**
-	 * @var DtoCreatorProvider
-	 */
-	private $dtoCreatorProvider;
+	private DtoCreatorProvider $dtoCreatorProvider;
 
-	/**
-	 * @var ReferenceNumberProvider
-	 */
-	private $referenceNumberProvider;
+	private ReferenceNumberProvider $referenceNumberProvider;
 
-	/**
-	 * @var GetTaxRateProvider
-	 */
-	private $getTaxRateProvider;
+	private GetTaxRateProvider $getTaxRateProvider;
 
-	/**
-	 * @var CheckoutData
-	 */
-	private $data;
+	private CheckoutData $data;
 
-	/**
-	 * @var Transaction
-	 */
-	private $transaction;
+	private Transaction $transaction;
 
-	/**
-	 * @param array $config
-	 * @param ContainerInterface $container
-	 * @param MethodHandlerProvider $methodHandlerProvider
-	 * @param TransactionProvider $transactionProvider
-	 * @param TransactionEntitySaver $transactionEntitySaver
-	 * @param DtoCreatorProvider $dtoCreatorProvider
-	 * @param ReferenceNumberProvider $referenceNumberProvider
-	 * @param GetTaxRateProvider $getTaxRateProvider
-	 */
 	public function __construct(
 		array $config,
 		ContainerInterface $container,
@@ -115,11 +76,10 @@ class Handler implements EventManagerAwareInterface
 	}
 
 	/**
-	 * @param CheckoutData $data
-	 * @return CheckoutResult
-	 * @throws Exception
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
-	public function checkout(CheckoutData $data)
+	public function checkout(CheckoutData $data): CheckoutResult
 	{
 		$this->data = $data;
 
@@ -173,10 +133,10 @@ class Handler implements EventManagerAwareInterface
 	}
 
 	/**
-	 * @return bool
-	 * @throws Exception
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
-	private function createTransaction()
+	private function createTransaction(): bool
 	{
 		$taxRateProvider = $this->getTaxRateProvider->get();
 
@@ -275,12 +235,11 @@ class Handler implements EventManagerAwareInterface
 	}
 
 	/**
-	 * @param Customer $customer
-	 * @param Address $shippingAddress
-	 * @return int|null
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 * @throws Exception
 	 */
-	private function getShippingCost(Cart $cart, Customer $customer, Address $shippingAddress)
+	private function getShippingCost(Cart $cart, Customer $customer, Address $shippingAddress): ?int
 	{
 		$shippingProviderClass = $this->config['ecommerce']['shipping']['costProvider'] ?? null;
 
@@ -291,7 +250,7 @@ class Handler implements EventManagerAwareInterface
 
 		$shippingCostProvider = $this->container->get($shippingProviderClass);
 
-		if (!$shippingCostProvider || !$shippingCostProvider instanceof CostProvider)
+		if (!$shippingCostProvider instanceof CostProvider)
 		{
 			throw new Exception('Could not get instance of ' . $shippingProviderClass);
 		}

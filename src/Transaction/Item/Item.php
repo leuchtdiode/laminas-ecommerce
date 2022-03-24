@@ -1,38 +1,24 @@
 <?php
 namespace Ecommerce\Transaction\Item;
 
+use Common\Dto\Dto;
 use Common\Hydration\ArrayHydratable;
+use Common\Hydration\ObjectToArrayHydratorProperty;
 use Ecommerce\Common\Price;
 use Ecommerce\Db\Transaction\Item\Entity;
 use Ecommerce\Product\Product;
 use Ramsey\Uuid\UuidInterface;
 
-class Item implements ArrayHydratable
+class Item implements Dto, ArrayHydratable
 {
-	/**
-	 * @var Entity
-	 */
-	private $entity;
+	private Entity $entity;
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @var Price
-	 */
-	private $totalPrice;
+	#[ObjectToArrayHydratorProperty]
+	private Price $totalPrice;
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @var Product
-	 */
-	private $product;
+	#[ObjectToArrayHydratorProperty]
+	private Product $product;
 
-	/**
-	 * @param Entity $entity
-	 * @param Price $price
-	 * @param Product $product
-	 */
 	public function __construct(Entity $entity, Price $totalPrice, Product $product)
 	{
 		$this->entity     = $entity;
@@ -40,20 +26,13 @@ class Item implements ArrayHydratable
 		$this->product    = $product;
 	}
 
-	/**
-	 * @return Product
-	 */
 	public function getProduct(): Product
 	{
 		return $this->product;
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return Price
-	 */
-	public function getPrice()
+	#[ObjectToArrayHydratorProperty]
+	public function getPrice(): Price
 	{
 		$cents = $this->getTotalPrice()->getNet();
 
@@ -63,37 +42,23 @@ class Item implements ArrayHydratable
 		);
 	}
 
-	/**
-	 * @return Price
-	 */
 	public function getTotalPrice(): Price
 	{
 		return $this->totalPrice;
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return UuidInterface
-	 */
-	public function getId()
+	#[ObjectToArrayHydratorProperty]
+	public function getId(): UuidInterface
 	{
 		return $this->entity->getId();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return int
-	 */
-	public function getAmount()
+	#[ObjectToArrayHydratorProperty]
+	public function getAmount(): int
 	{
 		return $this->entity->getAmount();
 	}
 
-	/**
-	 * @return Entity
-	 */
 	public function getEntity(): Entity
 	{
 		return $this->entity;

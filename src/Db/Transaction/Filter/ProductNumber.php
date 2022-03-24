@@ -6,31 +6,17 @@ use Doctrine\ORM\QueryBuilder;
 
 class ProductNumber extends Equals
 {
-	/**
-	 * @var string
-	 */
-	private $alias;
+	private string $alias;
 
 	/**
 	 * @return string
 	 */
-	protected function getField()
+	protected function getField(): string
 	{
 		return $this->alias . '.number';
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getParameterName()
-	{
-		return 'transactionProductNumber';
-	}
-
-	/**
-	 * @param QueryBuilder $queryBuilder
-	 */
-	public function addClause(QueryBuilder $queryBuilder)
+	public function addClause(QueryBuilder $queryBuilder): void
 	{
 		$this->alias = uniqid('p');
 

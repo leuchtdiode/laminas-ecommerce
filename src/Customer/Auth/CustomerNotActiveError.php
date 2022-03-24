@@ -2,34 +2,24 @@
 namespace Ecommerce\Customer\Auth;
 
 use Common\Error;
+use Common\Hydration\ObjectToArrayHydratorProperty;
 use Common\Translator;
 
 class CustomerNotActiveError extends Error
 {
-	/**
-	 * @return CustomerNotActiveError
-	 */
-	public static function create()
+	public static function create(): self
 	{
 		return new self();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getCode()
+	#[ObjectToArrayHydratorProperty]
+	public function getCode(): string
 	{
 		return 'CUSTOMER_NOT_ACTIVE';
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getMessage()
+	#[ObjectToArrayHydratorProperty]
+	public function getMessage(): string
 	{
 		return Translator::translate('Kunde nicht aktiv');
 	}

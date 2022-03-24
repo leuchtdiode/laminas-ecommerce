@@ -5,10 +5,7 @@ use Common\Db\Order\AscOrDesc;
 
 class Sort extends AscOrDesc
 {
-	/**
-	 * @return string
-	 */
-	protected function getField()
+	protected function getField(): string
 	{
 		return 't.sort';
 	}

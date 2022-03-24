@@ -21,38 +21,16 @@ use Log\Log;
 
 class MethodHandler implements MethodHandlerInterface
 {
-	/**
-	 * @var array
-	 */
-	private $config;
+	private array $config;
 
-	/**
-	 * @var Saver
-	 */
-	private $saver;
+	private Saver $saver;
 
-	/**
-	 * @var UrlProvider
-	 */
-	private $urlProvider;
+	private UrlProvider $urlProvider;
 
-	/**
-	 * @var Provider
-	 */
-	private $transactionProvider;
+	private Provider $transactionProvider;
 
-	/**
-	 * @var PostPaymentHandler
-	 */
-	private $postPaymentHandler;
+	private PostPaymentHandler $postPaymentHandler;
 
-	/**
-	 * @param array $config
-	 * @param Saver $saver
-	 * @param UrlProvider $urlProvider
-	 * @param Provider $transactionProvider
-	 * @param PostPaymentHandler $postPaymentHandler
-	 */
 	public function __construct(
 		array $config,
 		Saver $saver,
@@ -69,8 +47,6 @@ class MethodHandler implements MethodHandlerInterface
 	}
 
 	/**
-	 * @param InitData $data
-	 * @return InitResult
 	 * @throws Exception
 	 */
 	public function init(InitData $data): InitResult
@@ -183,10 +159,6 @@ class MethodHandler implements MethodHandlerInterface
 		return $initResult;
 	}
 
-	/**
-	 * @param HandleCallbackData $data
-	 * @return HandleCallbackResult
-	 */
 	public function handleCallback(HandleCallbackData $data): HandleCallbackResult
 	{
 		$result = new HandleCallbackResult();
@@ -283,20 +255,12 @@ class MethodHandler implements MethodHandlerInterface
 		return $result;
 	}
 
-	/**
-	 * @return array
-	 */
-	private function getOptions()
+	private function getOptions(): array
 	{
 		return $this->config['ecommerce']['payment']['method'][Method::WIRECARD]['options'];
 	}
 
-	/**
-	 * @param string $type
-	 * @param string $transactionId
-	 * @return string $type
-	 */
-	private function getUrl($type, $transactionId)
+	private function getUrl(string $type, string $transactionId): string
 	{
 		return $this->urlProvider->get(
 			'ecommerce/payment/callback',

@@ -12,7 +12,7 @@ class RequestData extends Data
 	/**
 	 * @return PropertyDefinition[]
 	 */
-	protected function getDefinitions()
+	protected function getDefinitions(): array
 	{
 		return [
 			Email::create()

@@ -7,22 +7,11 @@ use Mail\Mail\Recipient;
 
 class ForgotPasswordMailSender extends Sender
 {
-	/**
-	 * @var Customer
-	 */
-	private $customer;
+	private Customer $customer;
 
-	/**
-	 * @var string
-	 */
-	private $hash;
+	private string $hash;
 
-	/**
-	 * @param Customer $customer
-	 * @param string $hash
-	 * @return bool
-	 */
-	public function send(Customer $customer, string $hash)
+	public function send(Customer $customer, string $hash): bool
 	{
 		$this->customer = $customer;
 		$this->hash     = $hash;
@@ -30,10 +19,7 @@ class ForgotPasswordMailSender extends Sender
 		return $this->addToQueue();
 	}
 
-	/**
-	 * @return Recipient
-	 */
-	protected function getRecipient()
+	protected function getRecipient(): Recipient
 	{
 		return Recipient::create(
 			$this->customer->getEmail(),
@@ -41,26 +27,17 @@ class ForgotPasswordMailSender extends Sender
 		);
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getContentTemplate()
+	protected function getContentTemplate(): string
 	{
 		return $this->getEcommerceMailConfig()['customer']['forgotPassword']['template'];
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getSubject()
+	protected function getSubject(): string
 	{
 		return $this->getEcommerceMailConfig()['customer']['forgotPassword']['subject'];
 	}
 
-	/**
-	 * @return ForgotPasswordMailPlaceholderValues
-	 */
-	protected function getPlaceholderValues()
+	protected function getPlaceholderValues(): ForgotPasswordMailPlaceholderValues
 	{
 		return ForgotPasswordMailPlaceholderValues::create()
 			->setCustomer($this->customer)

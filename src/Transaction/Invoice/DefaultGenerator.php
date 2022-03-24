@@ -9,26 +9,12 @@ use Laminas\View\Renderer\PhpRenderer;
 
 class DefaultGenerator implements Generator
 {
-	/**
-	 * @var array
-	 */
-	private $config;
+	private array $config;
 
-	/**
-	 * @var PhpRenderer
-	 */
-	private $renderer;
+	private PhpRenderer $renderer;
 
-	/**
-	 * @var FileSystemPathProvider
-	 */
-	private $fileSystemPathProvider;
+	private FileSystemPathProvider $fileSystemPathProvider;
 
-	/**
-	 * @param array $config
-	 * @param PhpRenderer $renderer
-	 * @param FileSystemPathProvider $fileSystemPathProvider
-	 */
 	public function __construct(array $config, PhpRenderer $renderer, FileSystemPathProvider $fileSystemPathProvider)
 	{
 		$this->config                 = $config;
@@ -36,10 +22,6 @@ class DefaultGenerator implements Generator
 		$this->fileSystemPathProvider = $fileSystemPathProvider;
 	}
 
-	/**
-	 * @param GenerateData $data
-	 * @return GenerateResult
-	 */
 	public function generate(GenerateData $data): GenerateResult
 	{
 		$result = new GenerateResult();

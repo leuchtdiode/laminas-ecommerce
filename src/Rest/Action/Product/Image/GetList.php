@@ -17,20 +17,10 @@ use Laminas\View\Model\JsonModel;
 
 class GetList extends Base implements LoginExempt
 {
-	/**
-	 * @var ProductProvider
-	 */
-	private $productProvider;
+	private ProductProvider $productProvider;
 
-	/**
-	 * @var ImageProvider
-	 */
-	private $imageProvider;
+	private ImageProvider $imageProvider;
 
-	/**
-	 * @param ProductProvider $productProvider
-	 * @param ImageProvider $imageProvider
-	 */
 	public function __construct(ProductProvider $productProvider, ImageProvider $imageProvider)
 	{
 		$this->productProvider = $productProvider;
@@ -38,10 +28,9 @@ class GetList extends Base implements LoginExempt
 	}
 
 	/**
-	 * @return JsonModel
 	 * @throws Exception
 	 */
-	public function executeAction()
+	public function executeAction(): JsonModel
 	{
 		$product = $this->productProvider->byId(
 			$this

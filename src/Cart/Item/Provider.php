@@ -7,42 +7,24 @@ use Ecommerce\Db\Cart\Item\Repository;
 
 class Provider
 {
-	/**
-	 * @var DtoCreatorProvider
-	 */
-	private $dtoCreatorProvider;
+	private DtoCreatorProvider $dtoCreatorProvider;
 
-	/**
-	 * @var Repository
-	 */
-	private $repository;
+	private Repository $repository;
 
-	/**
-	 * @param DtoCreatorProvider $dtoCreatorProvider
-	 * @param Repository $repository
-	 */
 	public function __construct(DtoCreatorProvider $dtoCreatorProvider, Repository $repository)
 	{
 		$this->dtoCreatorProvider = $dtoCreatorProvider;
 		$this->repository         = $repository;
 	}
 
-	/**
-	 * @param string $id
-	 * @return Item|null
-	 */
-	public function byId($id)
+	public function byId($id): ?Item
 	{
 		return ($entity = $this->repository->find($id))
 			? $this->createDto($entity)
 			: null;
 	}
 
-	/**
-	 * @param Entity $entity
-	 * @return Item
-	 */
-	private function createDto(Entity $entity)
+	private function createDto(Entity $entity): Item
 	{
 		return $this->dtoCreatorProvider
 			->getCartItemCreator()

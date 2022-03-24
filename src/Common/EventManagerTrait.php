@@ -5,14 +5,8 @@ use Laminas\EventManager\EventManagerInterface;
 
 trait EventManagerTrait
 {
-	/**
-	 * @var EventManagerInterface
-	 */
-	private $eventManager;
+	private EventManagerInterface $eventManager;
 
-	/**
-	 * @param EventManagerInterface $eventManager
-	 */
 	public function setEventManager(EventManagerInterface $eventManager)
 	{
 		$eventManager->setIdentifiers([ Event::ID ]);
@@ -20,10 +14,7 @@ trait EventManagerTrait
 		$this->eventManager = $eventManager;
 	}
 
-	/**
-	 * @return EventManagerInterface
-	 */
-	public function getEventManager()
+	public function getEventManager(): EventManagerInterface
 	{
 		return $this->eventManager;
 	}

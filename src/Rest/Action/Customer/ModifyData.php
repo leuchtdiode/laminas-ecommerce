@@ -2,9 +2,10 @@
 namespace Ecommerce\Rest\Action\Customer;
 
 use Common\RequestData\Data;
-use Common\RequestData\PropertyDefinition\PropertyDefinition;
 use Common\RequestData\PropertyDefinition\Text;
 use Ecommerce\Customer\SalutationValidator;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class ModifyData extends Data
 {
@@ -16,9 +17,11 @@ class ModifyData extends Data
 	const TAX_NUMBER = 'taxNumber';
 
 	/**
-	 * @return PropertyDefinition[]
+	 * @return array
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
-	protected function getDefinitions()
+	protected function getDefinitions(): array
 	{
 		return [
 			Text::create()

@@ -5,19 +5,8 @@ use Common\Db\Filter\Equals;
 
 class Id extends Equals
 {
-	/**
-	 * @return string
-	 */
-	protected function getField()
+	protected function getField(): string
 	{
 		return 't.id';
-	}
-
-	/**
-	 * @return string
-	 */
-	protected function getParameterName()
-	{
-		return 'addressId';
 	}
 }

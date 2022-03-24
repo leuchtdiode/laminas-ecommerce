@@ -7,24 +7,14 @@ use Log\Log;
 
 class Saver
 {
-	/**
-	 * @var EntitySaver
-	 */
-	private $entitySaver;
+	private EntitySaver $entitySaver;
 
-	/**
-	 * @param EntitySaver $entitySaver
-	 */
 	public function __construct(EntitySaver $entitySaver)
 	{
 		$this->entitySaver = $entitySaver;
 	}
 
-	/**
-	 * @param SaveData $data
-	 * @return SaveResult
-	 */
-	public function save(SaveData $data)
+	public function save(SaveData $data): SaveResult
 	{
 		$result = new SaveResult();
 		$result->setSuccess(false);

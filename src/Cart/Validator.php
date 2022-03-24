@@ -5,22 +5,13 @@ use Ecommerce\Cart\Item\Validator as ItemValidator;
 
 class Validator
 {
-	/**
-	 * @var ItemValidator
-	 */
-	private $itemValidator;
+	private ItemValidator $itemValidator;
 
-	/**
-	 * @param ItemValidator $itemValidator
-	 */
 	public function __construct(ItemValidator $itemValidator)
 	{
 		$this->itemValidator = $itemValidator;
 	}
 
-	/**
-	 * @param Cart $cart
-	 */
 	public function validate(Cart $cart)
 	{
 		foreach ($cart->getItems() as $item)

@@ -8,30 +8,17 @@ use Log\Log;
 
 class Adder
 {
-	/**
-	 * @var Creator
-	 */
-	private $creator;
+	private Creator $creator;
 
-	/**
-	 * @var Saver
-	 */
-	private $entitySaver;
+	private Saver $entitySaver;
 
-	/**
-	 * @param Creator $creator
-	 * @param Saver $entitySaver
-	 */
 	public function __construct(Creator $creator, Saver $entitySaver)
 	{
 		$this->creator     = $creator;
 		$this->entitySaver = $entitySaver;
 	}
 
-	/**
-	 * @return Cart|null
-	 */
-	public function add()
+	public function add(): ?Cart
 	{
 		try
 		{

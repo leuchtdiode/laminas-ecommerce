@@ -11,31 +11,17 @@ use Log\Log;
 
 class Saver
 {
-	/**
-	 * @var Provider
-	 */
-	private $provider;
+	private Provider $provider;
 
-	/**
-	 * @var EntitySaver
-	 */
-	private $entitySaver;
+	private EntitySaver $entitySaver;
 
-	/**
-	 * @param Provider $provider
-	 * @param EntitySaver $entitySaver
-	 */
 	public function __construct(Provider $provider, EntitySaver $entitySaver)
 	{
 		$this->provider    = $provider;
 		$this->entitySaver = $entitySaver;
 	}
 
-	/**
-	 * @param SaveData $data
-	 * @return SaveResult
-	 */
-	public function save(SaveData $data)
+	public function save(SaveData $data): SaveResult
 	{
 		$result = new SaveResult();
 		$result->setSuccess(false);

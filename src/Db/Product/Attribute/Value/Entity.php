@@ -1,40 +1,27 @@
 <?php
 namespace Ecommerce\Db\Product\Attribute\Value;
 
+use Common\Db\Entity as DbEntity;
 use Doctrine\ORM\Mapping as ORM;
 use Ecommerce\Db\Product\Attribute\Entity as ProductAttributeEntity;
 use Exception;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-/**
- * @ORM\Table(name="ecommerce_product_attribute_values")
- * @ORM\Entity(repositoryClass="Ecommerce\Db\Product\Attribute\Value\Repository")
- */
-class Entity
+#[ORM\Table(name: 'ecommerce_product_attribute_values')]
+#[ORM\Entity(repositoryClass: Repository::class)]
+class Entity implements DbEntity
 {
-	/**
-	 * @var UuidInterface
-	 *
-	 * @ORM\Id
-	 * @ORM\Column(type="uuid")
-	 */
-	private $id;
+	#[ORM\Id]
+	#[ORM\Column(type: 'uuid')]
+	private UuidInterface $id;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(type="string", length=255)
-	 */
-	private $value;
+	#[ORM\Column(type: 'string', length: 255)]
+	private string $value;
 
-	/**
-	 * @var ProductAttributeEntity
-	 *
-	 * @ORM\ManyToOne(targetEntity="Ecommerce\Db\Product\Attribute\Entity", inversedBy="attributes")
-	 * @ORM\JoinColumn(name="attributeId", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-	 */
-	private $attribute;
+	#[ORM\ManyToOne(targetEntity: ProductAttributeEntity::class, inversedBy: 'attributes')]
+	#[ORM\JoinColumn(name: 'attributeId', nullable: false, onDelete: 'CASCADE')]
+	private ProductAttributeEntity $attribute;
 
 	/**
 	 * @throws Exception
@@ -44,49 +31,31 @@ class Entity
 		$this->id = Uuid::uuid4();
 	}
 
-	/**
-	 * @return UuidInterface
-	 */
 	public function getId(): UuidInterface
 	{
 		return $this->id;
 	}
 
-	/**
-	 * @param UuidInterface $id
-	 */
 	public function setId(UuidInterface $id): void
 	{
 		$this->id = $id;
 	}
 
-	/**
-	 * @return string
-	 */
 	public function getValue(): string
 	{
 		return $this->value;
 	}
 
-	/**
-	 * @param string $value
-	 */
 	public function setValue(string $value): void
 	{
 		$this->value = $value;
 	}
 
-	/**
-	 * @return ProductAttributeEntity
-	 */
 	public function getAttribute(): ProductAttributeEntity
 	{
 		return $this->attribute;
 	}
 
-	/**
-	 * @param ProductAttributeEntity $attribute
-	 */
 	public function setAttribute(ProductAttributeEntity $attribute): void
 	{
 		$this->attribute = $attribute;

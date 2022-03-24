@@ -1,26 +1,18 @@
 <?php
 namespace Ecommerce\Payment\MethodHandler;
 
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use RuntimeException;
 use Ecommerce\Payment\Method;
 use Psr\Container\ContainerInterface;
 
 class Provider
 {
-	/**
-	 * @var array
-	 */
-	private $config;
+	private array $config;
 
-	/**
-	 * @var ContainerInterface
-	 */
-	private $container;
+	private ContainerInterface $container;
 
-	/**
-	 * @param array $config
-	 * @param ContainerInterface $container
-	 */
 	public function __construct(array $config, ContainerInterface $container)
 	{
 		$this->config    = $config;
@@ -28,11 +20,10 @@ class Provider
 	}
 
 	/**
-	 * @param Method $paymentMethod
-	 * @return MethodHandler
-	 * @throws RuntimeException
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
-	public function getHandler(Method $paymentMethod)
+	public function getHandler(Method $paymentMethod): MethodHandler
 	{
 		$id = $paymentMethod->getId();
 

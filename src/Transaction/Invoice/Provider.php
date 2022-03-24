@@ -6,25 +6,17 @@ use Exception;
 
 class Provider
 {
-	/**
-	 * @var FileSystemPathProvider
-	 */
-	private $fileSystemPathProvider;
+	private FileSystemPathProvider $fileSystemPathProvider;
 
-	/**
-	 * @param FileSystemPathProvider $fileSystemPathProvider
-	 */
 	public function __construct(FileSystemPathProvider $fileSystemPathProvider)
 	{
 		$this->fileSystemPathProvider = $fileSystemPathProvider;
 	}
 
 	/**
-	 * @param Transaction $transaction
-	 * @return Invoice
 	 * @throws Exception
 	 */
-	public function get(Transaction $transaction)
+	public function get(Transaction $transaction): Invoice
 	{
 		$path = $this->fileSystemPathProvider->get($transaction);
 

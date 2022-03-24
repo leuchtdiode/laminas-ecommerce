@@ -3,23 +3,13 @@ namespace Ecommerce\Transaction\Invoice\Number;
 
 class DefaultGenerator implements Generator
 {
-	/**
-	 * @var array
-	 */
-	private $config;
+	private array $config;
 
-	/**
-	 * @param array $config
-	 */
 	public function __construct(array $config)
 	{
 		$this->config = $config;
 	}
 
-	/**
-	 * @param GenerateData $data
-	 * @return GenerateResult
-	 */
 	public function generate(GenerateData $data): GenerateResult
 	{
 		$result = new GenerateResult();

@@ -2,34 +2,24 @@
 namespace Ecommerce\Customer;
 
 use Common\Error;
+use Common\Hydration\ObjectToArrayHydratorProperty;
 use Common\Translator;
 
 class CouldNotFindCustomerError extends Error
 {
-	/**
-	 * @return CouldNotFindCustomerError
-	 */
-	public static function create()
+	public static function create(): self
 	{
 		return new self();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getCode()
+	#[ObjectToArrayHydratorProperty]
+	public function getCode(): string
 	{
 		return 'COULD_NOT_FIND_CUSTOMER';
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getMessage()
+	#[ObjectToArrayHydratorProperty]
+	public function getMessage(): string
 	{
 		return Translator::translate('Kunde konnte nicht gefunden werden');
 	}

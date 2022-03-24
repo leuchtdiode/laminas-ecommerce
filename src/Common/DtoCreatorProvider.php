@@ -14,68 +14,26 @@ use Ecommerce\Transaction\Item\Creator as TransactionItemCreator;
 
 class DtoCreatorProvider
 {
-	/**
-	 * @var CustomerCreator
-	 */
-	private $customerCreator;
+	private CustomerCreator $customerCreator;
 
-	/**
-	 * @var AddressCreator
-	 */
-	private $addressCreator;
+	private AddressCreator $addressCreator;
 
-	/**
-	 * @var ProductCreator
-	 */
-	private $productCreator;
+	private ProductCreator $productCreator;
 
-	/**
-	 * @var ProductAttributeCreator
-	 */
-	private $productAttributeCreator;
+	private ProductAttributeCreator $productAttributeCreator;
 
-	/**
-	 * @var ProductAttributeValueCreator
-	 */
-	private $productAttributeValueCreator;
+	private ProductAttributeValueCreator $productAttributeValueCreator;
 
-	/**
-	 * @var ProductImageCreator
-	 */
-	private $productImageCreator;
+	private ProductImageCreator $productImageCreator;
 
-	/**
-	 * @var TransactionCreator
-	 */
-	private $transactionCreator;
+	private TransactionCreator $transactionCreator;
 
-	/**
-	 * @var TransactionItemCreator
-	 */
-	private $transactionItemCreator;
+	private TransactionItemCreator $transactionItemCreator;
 
-	/**
-	 * @var CartCreator
-	 */
-	private $cartCreator;
+	private CartCreator $cartCreator;
 
-	/**
-	 * @var CartItemCreator
-	 */
-	private $cartItemCreator;
+	private CartItemCreator $cartItemCreator;
 
-	/**
-	 * @param CustomerCreator $customerCreator
-	 * @param AddressCreator $addressCreator
-	 * @param ProductCreator $productCreator
-	 * @param ProductAttributeCreator $productAttributeCreator
-	 * @param ProductAttributeValueCreator $productAttributeValueCreator
-	 * @param ProductImageCreator $productImageCreator
-	 * @param TransactionCreator $transactionCreator
-	 * @param TransactionItemCreator $transactionItemCreator
-	 * @param CartCreator $cartCreator
-	 * @param CartItemCreator $cartItemCreator
-	 */
 	public function __construct(
 		CustomerCreator $customerCreator,
 		AddressCreator $addressCreator,
@@ -103,9 +61,6 @@ class DtoCreatorProvider
 		$this->handleDependencies();
 	}
 
-	/**
-	 *
-	 */
 	private function handleDependencies()
 	{
 		$this->productAttributeValueCreator->setProductAttributeCreator($this->productAttributeCreator);
@@ -119,81 +74,51 @@ class DtoCreatorProvider
 		$this->cartItemCreator->setProductCreator($this->productCreator);
 	}
 
-	/**
-	 * @return CustomerCreator
-	 */
 	public function getCustomerCreator(): CustomerCreator
 	{
 		return $this->customerCreator;
 	}
 
-	/**
-	 * @return AddressCreator
-	 */
 	public function getAddressCreator(): AddressCreator
 	{
 		return $this->addressCreator;
 	}
 
-	/**
-	 * @return ProductCreator
-	 */
 	public function getProductCreator(): ProductCreator
 	{
 		return $this->productCreator;
 	}
 
-	/**
-	 * @return ProductAttributeCreator
-	 */
 	public function getProductAttributeCreator(): ProductAttributeCreator
 	{
 		return $this->productAttributeCreator;
 	}
 
-	/**
-	 * @return ProductAttributeValueCreator
-	 */
 	public function getProductAttributeValueCreator(): ProductAttributeValueCreator
 	{
 		return $this->productAttributeValueCreator;
 	}
 
-	/**
-	 * @return ProductImageCreator
-	 */
 	public function getProductImageCreator(): ProductImageCreator
 	{
 		return $this->productImageCreator;
 	}
 
-	/**
-	 * @return TransactionCreator
-	 */
 	public function getTransactionCreator(): TransactionCreator
 	{
 		return $this->transactionCreator;
 	}
 
-	/**
-	 * @return TransactionItemCreator
-	 */
 	public function getTransactionItemCreator(): TransactionItemCreator
 	{
 		return $this->transactionItemCreator;
 	}
 
-	/**
-	 * @return CartCreator
-	 */
 	public function getCartCreator(): CartCreator
 	{
 		return $this->cartCreator;
 	}
 
-	/**
-	 * @return CartItemCreator
-	 */
 	public function getCartItemCreator(): CartItemCreator
 	{
 		return $this->cartItemCreator;

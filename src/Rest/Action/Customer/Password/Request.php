@@ -12,26 +12,12 @@ use Laminas\View\Model\JsonModel;
 
 class Request extends Base implements LoginExempt
 {
-	/**
-	 * @var RequestData
-	 */
-	private $data;
+	private RequestData $data;
 
-	/**
-	 * @var Provider
-	 */
-	private $customerProvider;
+	private Provider $customerProvider;
 
-	/**
-	 * @var ForgotPasswordHandler
-	 */
-	private $forgotPasswordHandler;
+	private ForgotPasswordHandler $forgotPasswordHandler;
 
-	/**
-	 * @param RequestData $data
-	 * @param Provider $customerProvider
-	 * @param ForgotPasswordHandler $forgotPasswordHandler
-	 */
 	public function __construct(
 		RequestData $data,
 		Provider $customerProvider,
@@ -44,10 +30,9 @@ class Request extends Base implements LoginExempt
 	}
 
 	/**
-	 * @return JsonModel
 	 * @throws Exception
 	 */
-	public function executeAction()
+	public function executeAction(): JsonModel
 	{
 		$values = $this->data
 			->setRequest($this->getRequest())

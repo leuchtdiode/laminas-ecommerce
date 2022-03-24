@@ -9,31 +9,17 @@ use Log\Log;
 
 class ResetHandler
 {
-	/**
-	 * @var Saver
-	 */
-	private $entitySaver;
+	private Saver $entitySaver;
 
-	/**
-	 * @var PasswordHandler
-	 */
-	private $passwordHandler;
+	private PasswordHandler $passwordHandler;
 
-	/**
-	 * @param Saver $entitySaver
-	 * @param PasswordHandler $passwordHandler
-	 */
 	public function __construct(Saver $entitySaver, PasswordHandler $passwordHandler)
 	{
 		$this->entitySaver     = $entitySaver;
 		$this->passwordHandler = $passwordHandler;
 	}
 
-	/**
-	 * @param ResetData $data
-	 * @return ResetResult
-	 */
-	public function reset(ResetData $data)
+	public function reset(ResetData $data): ResetResult
 	{
 		$result = new ResetResult();
 		$result->setSuccess(false);

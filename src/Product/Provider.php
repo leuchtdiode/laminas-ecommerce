@@ -9,67 +9,46 @@ use Ecommerce\Db\Product\Repository;
 
 class Provider
 {
-	/**
-	 * @var DtoCreatorProvider
-	 */
-	private $dtoCreatorProvider;
+	private DtoCreatorProvider $dtoCreatorProvider;
 
-	/**
-	 * @var Repository
-	 */
-	private $repository;
+	private Repository $repository;
 
-	/**
-	 * @param DtoCreatorProvider $dtoCreatorProvider
-	 * @param Repository $repository
-	 */
 	public function __construct(DtoCreatorProvider $dtoCreatorProvider, Repository $repository)
 	{
 		$this->dtoCreatorProvider = $dtoCreatorProvider;
 		$this->repository         = $repository;
 	}
 
-	/**
-	 * @param string $id
-	 * @return Product|null
-	 */
-	public function byId($id)
+	public function byId(string $id): ?Product
 	{
 		return ($entity = $this->repository->find($id))
 			? $this->createDto($entity)
 			: null;
 	}
 
-	/**
-	 * @param string $number
-	 * @return Product|null
-	 */
-	public function byNumber($number)
+	public function byNumber(string $number): ?Product
 	{
-		return ($entity = $this->repository->findOneBy(['number' => $number]))
+		return ($entity = $this->repository->findOneBy([ 'number' => $number ]))
 			? $this->createDto($entity)
 			: null;
 	}
 
 	/**
-	 * @param FilterChain $filterChain
-	 * @param OrderChain|null $orderChain
-	 * @param int $offset
-	 * @param int $limit
 	 * @return Product[]
 	 */
-	public function filter(FilterChain $filterChain, ?OrderChain $orderChain = null, $offset = 0, $limit = PHP_INT_MAX)
+	public function filter(
+		FilterChain $filterChain,
+		?OrderChain $orderChain = null,
+		int $offset = 0,
+		int $limit = PHP_INT_MAX
+	): array
 	{
 		return $this->createDtos(
 			$this->repository->filter($filterChain, $orderChain, $offset, $limit)
 		);
 	}
 
-	/**
-	 * @param Entity $entity
-	 * @return Product
-	 */
-	private function createDto(Entity $entity)
+	private function createDto(Entity $entity): Product
 	{
 		return $this->dtoCreatorProvider
 			->getProductCreator()
@@ -77,10 +56,10 @@ class Provider
 	}
 
 	/**
-	 * @param array $entities
+	 * @param Entity[] $entities
 	 * @return Product[]
 	 */
-	private function createDtos(array $entities)
+	private function createDtos(array $entities): array
 	{
 		return array_map(
 			function (Entity $entity)

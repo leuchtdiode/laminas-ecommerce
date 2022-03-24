@@ -12,10 +12,7 @@ class CheckoutData extends Data
 	const BILLING_ADDRESS_ID  = 'billingAddressId';
 	const SHIPPING_ADDRESS_ID = 'shippingAddressId';
 
-	/**
-	 * @return array
-	 */
-	public function getDefinitions()
+	public function getDefinitions(): array
 	{
 		return [
 			Text::create()

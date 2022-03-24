@@ -8,27 +8,22 @@ use Ecommerce\Db\Address\Filter\Customer;
 use Ecommerce\Rest\Action\Base;
 use Ecommerce\Rest\Action\Response;
 use Exception;
+use Laminas\Stdlib\ResponseInterface;
+use Laminas\View\Model\JsonModel;
 
 class GetList extends Base
 {
-	/**
-	 * @var Provider
-	 */
-	private $provider;
+	private Provider $provider;
 
-	/**
-	 * @param Provider $provider
-	 */
 	public function __construct(Provider $provider)
 	{
 		$this->provider = $provider;
 	}
 
 	/**
-	 * @return string
 	 * @throws Exception
 	 */
-	public function executeAction()
+	public function executeAction(): JsonModel|ResponseInterface
 	{
 		$customerId = $this
 			->params()

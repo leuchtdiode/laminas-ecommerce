@@ -7,33 +7,20 @@ use Mail\Mail\PlaceholderValues;
 
 class ActivateMailPlaceholderValues implements PlaceholderValues
 {
-	/**
-	 * @var Customer
-	 */
-	private $customer;
+	private Customer $customer;
 
-	/**
-	 * @return ActivateMailPlaceholderValues
-	 */
-	public static function create()
+	public static function create(): self
 	{
 		return new self();
 	}
 
-	/**
-	 * @param Customer $customer
-	 * @return ActivateMailPlaceholderValues
-	 */
 	public function setCustomer(Customer $customer): ActivateMailPlaceholderValues
 	{
 		$this->customer = $customer;
 		return $this;
 	}
 
-	/**
-	 * @return array
-	 */
-	public function asArray()
+	public function asArray(): array
 	{
 		return ArrayCreator::create()
 			->add($this->customer, 'customer')

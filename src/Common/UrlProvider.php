@@ -5,20 +5,10 @@ use Laminas\Router\Http\TreeRouteStack;
 
 class UrlProvider
 {
-	/**
-	 * @var array
-	 */
-	private $config;
+	private array $config;
 
-	/**
-	 * @var TreeRouteStack
-	 */
-	private $router;
+	private TreeRouteStack $router;
 
-	/**
-	 * @param array $config
-	 * @param TreeRouteStack $router
-	 */
 	public function __construct(array $config, TreeRouteStack $router)
 	{
 		$this->config = $config;
@@ -26,11 +16,9 @@ class UrlProvider
 	}
 
 	/**
-	 * @param string $routeName
 	 * @param string[] $params
-	 * @return string
 	 */
-	public function get($routeName, $params = [])
+	public function get(string $routeName, array $params = []): string
 	{
 		return sprintf(
 			'%s://%s%s',

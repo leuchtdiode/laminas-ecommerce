@@ -13,26 +13,12 @@ use Exception;
 
 class Provider
 {
-	/**
-	 * @var array
-	 */
-	private $config;
+	private array $config;
 
-	/**
-	 * @var TransactionProvider
-	 */
-	private $transactionProvider;
+	private TransactionProvider $transactionProvider;
 
-	/**
-	 * @var FileSystemPathProvider
-	 */
-	private $fileSystemPathProvider;
+	private FileSystemPathProvider $fileSystemPathProvider;
 
-	/**
-	 * @param array $config
-	 * @param TransactionProvider $transactionProvider
-	 * @param FileSystemPathProvider $fileSystemPathProvider
-	 */
 	public function __construct(
 		array $config,
 		TransactionProvider $transactionProvider,
@@ -45,11 +31,9 @@ class Provider
 	}
 
 	/**
-	 * @param GetData $data
-	 * @return GetResult
 	 * @throws Exception
 	 */
-	public function get(GetData $data)
+	public function get(GetData $data): GetResult
 	{
 		$result = new GetResult();
 

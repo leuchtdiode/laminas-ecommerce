@@ -2,7 +2,7 @@
 namespace Ecommerce;
 
 use Common\Router\HttpRouteCreator;
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use DoctrineExtensions\Query\Mysql\Year;
 use Ecommerce\Payment\Method;
 use Ecommerce\Payment\MethodHandler\AmazonPay\MethodHandler as AmazonPayMethodHandler;
@@ -123,7 +123,7 @@ return [
 		],
 		'driver'        => [
 			'ecommerce_entities' => [
-				'class' => AnnotationDriver::class,
+				'class' => AttributeDriver::class,
 				'cache' => 'array',
 				'paths' => [ __DIR__ . '/../src/Db' ],
 			],

@@ -3,24 +3,14 @@ namespace Ecommerce\Product;
 
 class UrlProvider
 {
-	/**
-	 * @var array
-	 */
-	private $config;
+	private array $config;
 
-	/**
-	 * @param array $config
-	 */
 	public function __construct(array $config)
 	{
 		$this->config = $config;
 	}
 
-	/**
-	 * @param $productId
-	 * @param $productTitle
-	 */
-	public function get($productId)
+	public function get(string $productId): ?String
 	{
 		$urlConfig = $this->config['ecommerce']['frontend']['url'] ?? null;
 

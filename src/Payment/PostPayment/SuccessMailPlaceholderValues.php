@@ -8,48 +8,28 @@ use Mail\Mail\PlaceholderValues;
 
 class SuccessMailPlaceholderValues implements PlaceholderValues
 {
-	/**
-	 * @var Customer
-	 */
-	private $customer;
+	private Customer $customer;
 
-	/**
-	 * @var Transaction
-	 */
-	private $transaction;
+	private Transaction $transaction;
 
-	/**
-	 * @return SuccessMailPlaceholderValues
-	 */
-	public static function create()
+	public static function create(): self
 	{
 		return new self();
 	}
 
-	/**
-	 * @param Customer $customer
-	 * @return SuccessMailPlaceholderValues
-	 */
 	public function setCustomer(Customer $customer): SuccessMailPlaceholderValues
 	{
 		$this->customer = $customer;
 		return $this;
 	}
 
-	/**
-	 * @param Transaction $transaction
-	 * @return SuccessMailPlaceholderValues
-	 */
 	public function setTransaction(Transaction $transaction): SuccessMailPlaceholderValues
 	{
 		$this->transaction = $transaction;
 		return $this;
 	}
 
-	/**
-	 * @return array
-	 */
-	public function asArray()
+	public function asArray(): array
 	{
 		return ArrayCreator::create()
 			->add($this->customer, 'customer')

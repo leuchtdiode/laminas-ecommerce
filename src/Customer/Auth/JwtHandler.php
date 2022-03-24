@@ -5,37 +5,24 @@ use Ecommerce\Customer\Customer;
 use Ecommerce\Customer\Provider;
 use Exception;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use Log\Log;
 
 class JwtHandler
 {
 	const ALGORITHM = 'HS512';
 
-	/**
-	 * @var array
-	 */
-	private $config;
+	private array $config;
 
-	/**
-	 * @var Provider
-	 */
-	private $customerProvider;
+	private Provider $customerProvider;
 
-	/**
-	 * @param array $config
-	 * @param Provider $customerProvider
-	 */
 	public function __construct(array $config, Provider $customerProvider)
 	{
 		$this->config           = $config;
 		$this->customerProvider = $customerProvider;
 	}
 
-	/**
-	 * @param Customer $customer
-	 * @return string
-	 */
-	public function generate(Customer $customer)
+	public function generate(Customer $customer): string
 	{
 		$tokenId    = base64_encode(
 			openssl_random_pseudo_bytes(32)
@@ -68,18 +55,14 @@ class JwtHandler
 		);
 	}
 
-	/**
-	 * @param $token
-	 * @return JwtValidationResult
-	 */
-	public function validate($token)
+	public function validate(string $token): JwtValidationResult
 	{
 		$result = new JwtValidationResult();
 		$result->setValid(false);
 
 		try
 		{
-			$decoded = JWT::decode($token, $this->getKey(), [self::ALGORITHM]);
+			$decoded = JWT::decode($token, new Key($this->getKey(), self::ALGORITHM));
 
 			$customer = $this->customerProvider->byId(
 				$decoded->data->customerId
@@ -103,10 +86,7 @@ class JwtHandler
 		return $result;
 	}
 
-	/**
-	 * @return string
-	 */
-	private function getKey()
+	private function getKey(): string
 	{
 		return base64_decode(
 			$this->config['ecommerce']['customer']['auth']['jwt']['key']

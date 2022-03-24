@@ -10,20 +10,10 @@ use function unserialize;
 
 class SecurityHashHandler
 {
-	/**
-	 * @var array
-	 */
-	private $config;
+	private array $config;
 
-	/**
-	 * @var EncryptDecryptHandler
-	 */
-	private $encryptDecryptHandler;
+	private EncryptDecryptHandler $encryptDecryptHandler;
 
-	/**
-	 * @param array $config
-	 * @param EncryptDecryptHandler $encryptDecryptHandler
-	 */
 	public function __construct(array $config, EncryptDecryptHandler $encryptDecryptHandler)
 	{
 		$this->config                = $config;
@@ -31,11 +21,9 @@ class SecurityHashHandler
 	}
 
 	/**
-	 * @param int $lifeTimeInSeconds
-	 * @return string
 	 * @throws Exception
 	 */
-	public function get(int $lifeTimeInSeconds)
+	public function get(int $lifeTimeInSeconds): string
 	{
 		$data = serialize(
 			[
@@ -49,11 +37,9 @@ class SecurityHashHandler
 	}
 
 	/**
-	 * @param $hash
-	 * @return bool
 	 * @throws Exception
 	 */
-	public function valid($hash)
+	public function valid(string $hash): bool
 	{
 		$data = unserialize(
 			$this->encryptDecryptHandler->decrypt($hash, $this->getOptions())
@@ -62,10 +48,7 @@ class SecurityHashHandler
 		return $data && $data['validUntil'] >= time();
 	}
 
-	/**
-	 * @return EncryptDecryptOptions
-	 */
-	private function getOptions()
+	private function getOptions(): EncryptDecryptOptions
 	{
 		$config = $this->config['ecommerce']['transaction']['invoice']['securityHash'];
 

@@ -10,20 +10,10 @@ use Ecommerce\Db\Transaction\Repository;
 
 class Provider
 {
-	/**
-	 * @var DtoCreatorProvider
-	 */
-	private $dtoCreatorProvider;
+	private DtoCreatorProvider $dtoCreatorProvider;
 
-	/**
-	 * @var Repository
-	 */
-	private $repository;
+	private Repository $repository;
 
-	/**
-	 * @param DtoCreatorProvider $dtoCreatorProvider
-	 * @param Repository $repository
-	 */
 	public function __construct(DtoCreatorProvider $dtoCreatorProvider, Repository $repository)
 	{
 		$this->dtoCreatorProvider = $dtoCreatorProvider;
@@ -31,11 +21,9 @@ class Provider
 	}
 
 	/**
-	 * @param string $id
-	 * @return Transaction|null
 	 * @throws Exception
 	 */
-	public function byId($id)
+	public function byId(string $id): ?Transaction
 	{
 		return ($entity = $this->repository->find($id))
 			? $this->createDto($entity)
@@ -43,11 +31,10 @@ class Provider
 	}
 
 	/**
-	 * @param FilterChain $filterChain
-	 * @param OrderChain|null $orderChain
 	 * @return Transaction[]
+	 * @throws Exception
 	 */
-	public function filter(FilterChain $filterChain, ?OrderChain $orderChain = null)
+	public function filter(FilterChain $filterChain, ?OrderChain $orderChain = null): array
 	{
 		return $this->createDtos(
 			$this->repository->filter($filterChain, $orderChain)
@@ -57,8 +44,9 @@ class Provider
 	/**
 	 * @param Entity[] $entities
 	 * @return Transaction[]
+	 * @throws Exception
 	 */
-	private function createDtos(array $entities)
+	private function createDtos(array $entities): array
 	{
 		return array_map(
 			function (Entity $entity)
@@ -70,11 +58,9 @@ class Provider
 	}
 
 	/**
-	 * @param Entity $entity
-	 * @return Transaction
 	 * @throws Exception
 	 */
-	private function createDto(Entity $entity)
+	private function createDto(Entity $entity): Transaction
 	{
 		return $this->dtoCreatorProvider
 			->getTransactionCreator()

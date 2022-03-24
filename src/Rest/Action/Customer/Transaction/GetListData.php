@@ -13,7 +13,7 @@ class GetListData extends Data
 	/**
 	 * @return PropertyDefinition[]
 	 */
-	protected function getDefinitions()
+	protected function getDefinitions(): array
 	{
 		return [
 			ArrayList::create()

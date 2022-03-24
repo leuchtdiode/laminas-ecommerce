@@ -7,25 +7,17 @@ use function file_exists;
 
 class FileSystemPathProvider
 {
-	/**
-	 * @var array
-	 */
-	private $config;
+	private array $config;
 
-	/**
-	 * @param array $config
-	 */
 	public function __construct(array $config)
 	{
 		$this->config = $config;
 	}
 
 	/**
-	 * @param Transaction $transaction
-	 * @return string
 	 * @throws Exception
 	 */
-	public function get(Transaction $transaction)
+	public function get(Transaction $transaction): string
 	{
 		$directory = $this->config['ecommerce']['transaction']['invoice']['storeDirectory'] ?? null;
 

@@ -8,14 +8,8 @@ class SalutationValidator extends AbstractValidator
 {
 	const INVALID = 'invalid';
 
-	/**
-	 * @var SalutationProvider
-	 */
-	private $salutationProvider;
+	private SalutationProvider $salutationProvider;
 
-	/**
-	 * @param SalutationProvider $salutationProvider
-	 */
 	public function __construct(SalutationProvider $salutationProvider)
 	{
 		$this->salutationProvider = $salutationProvider;
@@ -29,11 +23,7 @@ class SalutationValidator extends AbstractValidator
 		);
 	}
 
-	/**
-	 * @param string $value
-	 * @return bool
-	 */
-	public function isValid($value)
+	public function isValid($value): bool
 	{
 		if ($this->salutationProvider->byId($value) === null)
 		{

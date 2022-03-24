@@ -5,54 +5,31 @@ use Ecommerce\Product\Product;
 
 class RemoveData
 {
-	/**
-	 * @var Image|null
-	 */
-	private $image;
+	private ?Image $image = null;
 
-	/**
-	 * @var Product|null
-	 */
-	private $product;
+	private ?Product $product = null;
 
-	/**
-	 * @return RemoveData
-	 */
-	public static function create()
+	public static function create(): self
 	{
 		return new self();
 	}
 
-	/**
-	 * @return Image|null
-	 */
 	public function getImage(): ?Image
 	{
 		return $this->image;
 	}
 
-	/**
-	 * @param Image|null $image
-	 * @return RemoveData
-	 */
 	public function setImage(?Image $image): RemoveData
 	{
 		$this->image = $image;
 		return $this;
 	}
 
-	/**
-	 * @return Product|null
-	 */
 	public function getProduct(): ?Product
 	{
 		return $this->product;
 	}
 
-	/**
-	 * @param Product|null $product
-	 * @return RemoveData
-	 */
 	public function setProduct(?Product $product): RemoveData
 	{
 		$this->product = $product;

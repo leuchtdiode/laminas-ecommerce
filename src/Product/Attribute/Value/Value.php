@@ -1,66 +1,43 @@
 <?php
 namespace Ecommerce\Product\Attribute\Value;
 
+use Common\Dto\Dto;
 use Common\Hydration\ArrayHydratable;
+use Common\Hydration\ObjectToArrayHydratorProperty;
 use Ecommerce\Db\Product\Attribute\Value\Entity;
 use Ecommerce\Product\Attribute\Attribute;
 use Ramsey\Uuid\UuidInterface;
 
-class Value implements ArrayHydratable
+class Value implements Dto, ArrayHydratable
 {
-	/**
-	 * @var Entity
-	 */
-	private $entity;
+	private Entity $entity;
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @var Attribute
-	 */
-	private $attribute;
+	#[ObjectToArrayHydratorProperty]
+	private Attribute $attribute;
 
-	/**
-	 * @param Entity $entity
-	 * @param Attribute $attribute
-	 */
 	public function __construct(Entity $entity, Attribute $attribute)
 	{
 		$this->entity    = $entity;
 		$this->attribute = $attribute;
 	}
 
-	/**
-	 * @return Attribute
-	 */
 	public function getAttribute(): Attribute
 	{
 		return $this->attribute;
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return UuidInterface
-	 */
-	public function getId()
+	#[ObjectToArrayHydratorProperty]
+	public function getId(): UuidInterface
 	{
 		return $this->entity->getId();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return mixed
-	 */
-	public function getValue()
+	#[ObjectToArrayHydratorProperty]
+	public function getValue(): string
 	{
 		return $this->entity->getValue();
 	}
 
-		/**
-	 * @return Entity
-	 */
 	public function getEntity(): Entity
 	{
 		return $this->entity;

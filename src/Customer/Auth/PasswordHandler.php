@@ -3,21 +3,12 @@ namespace Ecommerce\Customer\Auth;
 
 class PasswordHandler
 {
-	/**
-	 * @param string $password
-	 * @return string
-	 */
-	public function hash($password)
+	public function hash(string $password): string
 	{
 		return password_hash($password, PASSWORD_DEFAULT);
 	}
 
-	/**
-	 * @param string $password
-	 * @param string $hash
-	 * @return string
-	 */
-	public function verify($password, $hash)
+	public function verify(string $password, string $hash): string
 	{
 		return password_verify($password, $hash);
 	}

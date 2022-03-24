@@ -5,31 +5,18 @@ use Ecommerce\Transaction\Transaction;
 
 class UnsuccessfulData
 {
-	/**
-	 * @var Transaction
-	 */
-	private $transaction;
+	private Transaction $transaction;
 
-	/**
-	 * @return UnsuccessfulData
-	 */
-	public static function create()
+	public static function create(): self
 	{
 		return new self();
 	}
 
-	/**
-	 * @return Transaction
-	 */
 	public function getTransaction(): Transaction
 	{
 		return $this->transaction;
 	}
 
-	/**
-	 * @param Transaction $transaction
-	 * @return UnsuccessfulData
-	 */
 	public function setTransaction(Transaction $transaction): UnsuccessfulData
 	{
 		$this->transaction = $transaction;

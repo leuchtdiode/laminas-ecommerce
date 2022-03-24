@@ -9,21 +9,11 @@ use Mail\Mail\Recipient;
 
 class UnsuccessfulMailSender extends Sender
 {
-	/**
-	 * @var Transaction
-	 */
-	private $transaction;
+	private Transaction $transaction;
 
-	/**
-	 * @var Customer
-	 */
-	private $customer;
+	private Customer $customer;
 
-	/**
-	 * @param Transaction $transaction
-	 * @return bool
-	 */
-	public function send(Transaction $transaction)
+	public function send(Transaction $transaction): bool
 	{
 		Log::debug('Sending unsuccessful payment mail for ' . $transaction->getId()->toString());
 
@@ -33,10 +23,7 @@ class UnsuccessfulMailSender extends Sender
 		return $this->addToQueue();
 	}
 
-	/**
-	 * @return Recipient
-	 */
-	protected function getRecipient()
+	protected function getRecipient(): Recipient
 	{
 		return Recipient::create(
 			$this->customer->getEmail(),
@@ -44,26 +31,17 @@ class UnsuccessfulMailSender extends Sender
 		);
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getContentTemplate()
+	protected function getContentTemplate(): string
 	{
 		return $this->getEcommerceMailConfig()['payment']['unsuccessful']['template'];
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getSubject()
+	protected function getSubject(): string
 	{
 		return $this->getEcommerceMailConfig()['payment']['unsuccessful']['subject'];
 	}
 
-	/**
-	 * @return UnsuccessfulMailPlaceholderValues
-	 */
-	protected function getPlaceholderValues()
+	protected function getPlaceholderValues(): UnsuccessfulMailPlaceholderValues
 	{
 		return UnsuccessfulMailPlaceholderValues::create()
 			->setTransaction($this->transaction)

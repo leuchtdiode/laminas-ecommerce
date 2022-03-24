@@ -36,10 +36,6 @@ class AustriaMossRateProvider implements RateProvider
 
 	const AUSTRIA = 'AT';
 
-	/**
-	 * @param GetData $data
-	 * @return GetResult
-	 */
 	public function get(GetData $data): GetResult
 	{
 		$result = new GetResult();

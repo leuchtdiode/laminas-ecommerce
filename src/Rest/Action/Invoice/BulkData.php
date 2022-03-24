@@ -13,7 +13,7 @@ class BulkData extends Data
 	/**
 	 * @return PropertyDefinition[]
 	 */
-	protected function getDefinitions()
+	protected function getDefinitions(): array
 	{
 		return [
 			Date::create()

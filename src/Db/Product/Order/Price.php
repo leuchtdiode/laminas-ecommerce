@@ -5,10 +5,7 @@ use Common\Db\Order\AscOrDesc;
 
 class Price extends AscOrDesc
 {
-	/**
-	 * @inheritDoc
-	 */
-	protected function getField()
+	protected function getField(): string
 	{
 		return 't.price';
 	}

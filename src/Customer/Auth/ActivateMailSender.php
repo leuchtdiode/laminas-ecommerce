@@ -7,26 +7,16 @@ use Mail\Mail\Recipient;
 
 class ActivateMailSender extends Sender
 {
-	/**
-	 * @var Customer
-	 */
-	private $customer;
+	private Customer $customer;
 
-	/**
-	 * @param Customer $customer
-	 * @return bool
-	 */
-	public function send(Customer $customer)
+	public function send(Customer $customer): bool
 	{
 		$this->customer = $customer;
 
 		return $this->addToQueue();
 	}
 
-	/**
-	 * @return Recipient
-	 */
-	protected function getRecipient()
+	protected function getRecipient(): Recipient
 	{
 		return Recipient::create(
 			$this->customer->getEmail(),
@@ -34,26 +24,17 @@ class ActivateMailSender extends Sender
 		);
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getContentTemplate()
+	protected function getContentTemplate(): string
 	{
 		return $this->getEcommerceMailConfig()['customer']['activate']['template'];
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getSubject()
+	protected function getSubject(): string
 	{
 		return $this->getEcommerceMailConfig()['customer']['activate']['subject'];
 	}
 
-	/**
-	 * @return ActivateMailPlaceholderValues
-	 */
-	protected function getPlaceholderValues()
+	protected function getPlaceholderValues(): ActivateMailPlaceholderValues
 	{
 		return ActivateMailPlaceholderValues::create()
 			->setCustomer($this->customer);

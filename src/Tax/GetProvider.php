@@ -2,24 +2,16 @@
 namespace Ecommerce\Tax;
 
 use Exception;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class GetProvider
 {
-	/**
-	 * @var array
-	 */
-	private $config;
+	private array $config;
 
-	/**
-	 * @var ContainerInterface
-	 */
-	private $container;
+	private ContainerInterface $container;
 
-	/**
-	 * @param array $config
-	 * @param ContainerInterface $container
-	 */
 	public function __construct(array $config, ContainerInterface $container)
 	{
 		$this->config    = $config;
@@ -27,16 +19,16 @@ class GetProvider
 	}
 
 	/**
-	 * @return RateProvider
-	 * @throws Exception
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
-	public function get()
+	public function get(): RateProvider
 	{
 		$taxRateProvider = $this->container->get(
 			$this->config['ecommerce']['taxRate']['provider']
 		);
 
-		if (!$taxRateProvider || !$taxRateProvider instanceof RateProvider)
+		if (!$taxRateProvider instanceof RateProvider)
 		{
 			throw new Exception(
 				'No valid tax rate provider set (specify class in config: ecommerce->taxRate->provider'

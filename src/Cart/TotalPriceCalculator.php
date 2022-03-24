@@ -7,14 +7,8 @@ use Ecommerce\Db\Cart\Item\Entity as CartItemEntity;
 
 class TotalPriceCalculator
 {
-	/**
-	 * @var PriceCreator
-	 */
-	private $priceCreator;
+	private PriceCreator $priceCreator;
 
-	/**
-	 * @param PriceCreator $priceCreator
-	 */
 	public function __construct(PriceCreator $priceCreator)
 	{
 		$this->priceCreator = $priceCreator;
@@ -22,9 +16,8 @@ class TotalPriceCalculator
 
 	/**
 	 * @param CartItemEntity[] $items
-	 * @return Price
 	 */
-	public function calculate(array $items)
+	public function calculate(array $items): Price
 	{
 		$totalCents = 0;
 

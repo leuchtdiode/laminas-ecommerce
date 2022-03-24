@@ -1,15 +1,16 @@
 <?php
 namespace Ecommerce\Product\Attribute;
 
+use Common\Db\Entity as DbEntity;
 use Ecommerce\Common\EntityDtoCreator;
+use Ecommerce\Db\Product\Attribute\Entity;
 
 class Creator implements EntityDtoCreator
 {
 	/**
-	 * @param $entity
-	 * @return Attribute
+	 * @param Entity $entity
 	 */
-	public function byEntity($entity)
+	public function byEntity(DbEntity $entity): Attribute
 	{
 		return new Attribute($entity);
 	}

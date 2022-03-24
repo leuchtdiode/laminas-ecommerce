@@ -2,19 +2,14 @@
 namespace Ecommerce\Product\Image;
 
 use Assets\Common\DtoCreatorProvider as AssetsDtoCreatorProvider;
+use Common\Db\Entity as DbEntity;
 use Ecommerce\Common\EntityDtoCreator;
 use Ecommerce\Db\Product\Image\Entity;
 
 class Creator implements EntityDtoCreator
 {
-	/**
-	 * @var AssetsDtoCreatorProvider
-	 */
-	private $assetsDtoCreatorProvider;
+	private AssetsDtoCreatorProvider $assetsDtoCreatorProvider;
 
-	/**
-	 * @param AssetsDtoCreatorProvider $assetsDtoCreatorProvider
-	 */
 	public function __construct(AssetsDtoCreatorProvider $assetsDtoCreatorProvider)
 	{
 		$this->assetsDtoCreatorProvider = $assetsDtoCreatorProvider;
@@ -22,9 +17,8 @@ class Creator implements EntityDtoCreator
 
 	/**
 	 * @param Entity $entity
-	 * @return Image
 	 */
-	public function byEntity($entity)
+	public function byEntity(DbEntity $entity): Image
 	{
 		return new Image(
 			$entity,

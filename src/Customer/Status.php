@@ -11,18 +11,12 @@ class Status implements ArrayHydratable
 
 	use IdLabelObject;
 
-	/**
-	 * @return bool
-	 */
-	public function isPendingVerification()
+	public function isPendingVerification(): bool
 	{
 		return $this->is(self::PENDING_VERIFICATION);
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function isActive()
+	public function isActive(): bool
 	{
 		return $this->is(self::ACTIVE);
 	}

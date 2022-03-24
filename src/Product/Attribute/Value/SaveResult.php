@@ -7,22 +7,13 @@ class SaveResult
 {
 	use ResultTrait;
 
-	/**
-	 * @var Value|null
-	 */
-	private $value;
+	private ?Value $value = null;
 
-	/**
-	 * @return Value|null
-	 */
 	public function getValue(): ?Value
 	{
 		return $this->value;
 	}
 
-	/**
-	 * @param Value|null $value
-	 */
 	public function setValue(?Value $value): void
 	{
 		$this->value = $value;

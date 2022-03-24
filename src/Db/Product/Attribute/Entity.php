@@ -1,65 +1,42 @@
 <?php
 namespace Ecommerce\Db\Product\Attribute;
 
+use Common\Db\Entity as DbEntity;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ecommerce\Db\Product\Attribute\Value\Entity as ProductAttributeValueEntity;
 use Exception;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-/**
- * @ORM\Table(
- *     name="ecommerce_product_attributes",
- *     uniqueConstraints={@ORM\UniqueConstraint(columns={"processableId"})}
- *	 )
- * @ORM\Entity(repositoryClass="Ecommerce\Db\Product\Attribute\Repository")
- */
-class Entity
+#[ORM\Table(name: 'ecommerce_product_attributes')]
+#[ORM\UniqueConstraint(columns: [ 'processableId' ])]
+#[ORM\Entity(repositoryClass: Repository::class)]
+class Entity implements DbEntity
 {
-	/**
-	 * @var UuidInterface
-	 *
-	 * @ORM\Id
-	 * @ORM\Column(type="uuid");
-	 */
-	private $id;
+	#[ORM\Id]
+	#[ORM\Column(type: 'uuid')]
+	private UuidInterface $id;
+
+	#[ORM\Column(type: 'string', length: 150)]
+	private string $processableId;
+
+	#[ORM\Column(type: 'string', length: 255)]
+	private string $description;
+
+	#[ORM\Column(type: 'string', length: 255, nullable: true)]
+	private ?string $unit = null;
+
+	#[ORM\Column(type: 'datetime')]
+	private DateTime $createdDate;
 
 	/**
-	 * @var string
-	 *
-	 * @ORM\Column(type="string", length=150)
+	 * @var Collection|ProductAttributeValueEntity[]
 	 */
-	private $processableId;
-
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(type="string", length=255)
-	 */
-	private $description;
-
-	/**
-	 * @var string|null
-	 *
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $unit;
-
-	/**
-	 * @var DateTime
-	 *
-	 * @ORM\Column(type="datetime");
-	 */
-	private $createdDate;
-
-	/**
-	 * @var ArrayCollection|ProductAttributeValueEntity[]
-	 *
-	 * @ORM\OneToMany(targetEntity="Ecommerce\Db\Product\Attribute\Value\Entity", mappedBy="attribute")
-	 */
-	private $attributeValues;
+	#[ORM\OneToMany(mappedBy: 'attribute', targetEntity: ProductAttributeValueEntity::class)]
+	private Collection|array $attributeValues;
 
 	/**
 	 * @throws Exception
@@ -71,98 +48,68 @@ class Entity
 		$this->attributeValues = new ArrayCollection();
 	}
 
-	/**
-	 * @return UuidInterface
-	 */
 	public function getId(): UuidInterface
 	{
 		return $this->id;
 	}
 
-	/**
-	 * @param UuidInterface $id
-	 */
 	public function setId(UuidInterface $id): void
 	{
 		$this->id = $id;
 	}
 
-	/**
-	 * @return string
-	 */
 	public function getProcessableId(): string
 	{
 		return $this->processableId;
 	}
 
-	/**
-	 * @param string $processableId
-	 */
 	public function setProcessableId(string $processableId): void
 	{
 		$this->processableId = $processableId;
 	}
 
-	/**
-	 * @return string
-	 */
 	public function getDescription(): string
 	{
 		return $this->description;
 	}
 
-	/**
-	 * @param string $description
-	 */
 	public function setDescription(string $description): void
 	{
 		$this->description = $description;
 	}
 
-	/**
-	 * @return string|null
-	 */
 	public function getUnit(): ?string
 	{
 		return $this->unit;
 	}
 
-	/**
-	 * @param string|null $unit
-	 */
 	public function setUnit(?string $unit): void
 	{
 		$this->unit = $unit;
 	}
 
-	/**
-	 * @return DateTime
-	 */
 	public function getCreatedDate(): DateTime
 	{
 		return $this->createdDate;
 	}
 
-	/**
-	 * @param DateTime $createdDate
-	 */
 	public function setCreatedDate(DateTime $createdDate): void
 	{
 		$this->createdDate = $createdDate;
 	}
 
 	/**
-	 * @return ArrayCollection|ProductAttributeValueEntity[]
+	 * @return ProductAttributeValueEntity[]|Collection
 	 */
-	public function getAttributeValues()
+	public function getAttributeValues(): array|Collection
 	{
 		return $this->attributeValues;
 	}
 
 	/**
-	 * @param ArrayCollection|ProductAttributeValueEntity[] $attributeValues
+	 * @param ProductAttributeValueEntity[]|Collection $attributeValues
 	 */
-	public function setAttributeValues($attributeValues): void
+	public function setAttributeValues(array|Collection $attributeValues): void
 	{
 		$this->attributeValues = $attributeValues;
 	}

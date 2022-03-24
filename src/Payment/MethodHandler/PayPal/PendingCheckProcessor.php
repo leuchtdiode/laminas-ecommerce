@@ -18,32 +18,14 @@ class PendingCheckProcessor implements Processor
 {
 	const ID = 'payPalPendingCheck';
 
-	/**
-	 * @var TransactionProvider
-	 */
-	private $transactionProvider;
+	private TransactionProvider $transactionProvider;
 
-	/**
-	 * @var TransactionEntitySaver
-	 */
-	private $transactionEntitySaver;
+	private TransactionEntitySaver $transactionEntitySaver;
 
-	/**
-	 * @var Api
-	 */
-	private $api;
+	private Api $api;
 
-	/**
-	 * @var PostPaymentHandler
-	 */
-	private $postPaymentHandler;
+	private PostPaymentHandler $postPaymentHandler;
 
-	/**
-	 * @param TransactionProvider $transactionProvider
-	 * @param TransactionEntitySaver $transactionEntitySaver
-	 * @param Api $api
-	 * @param PostPaymentHandler $postPaymentHandler
-	 */
 	public function __construct(
 		TransactionProvider $transactionProvider,
 		TransactionEntitySaver $transactionEntitySaver,
@@ -57,11 +39,7 @@ class PendingCheckProcessor implements Processor
 		$this->postPaymentHandler     = $postPaymentHandler;
 	}
 
-	/**
-	 * @param ProcessData $data
-	 * @return ProcessResult
-	 */
-	public function process(ProcessData $data)
+	public function process(ProcessData $data): ProcessResult
 	{
 		$result = new ProcessResult();
 

@@ -12,20 +12,10 @@ use Laminas\View\Model\JsonModel;
 
 class Remove extends Base implements LoginExempt
 {
-	/**
-	 * @var Provider
-	 */
-	private $provider;
+	private Provider $provider;
 
-	/**
-	 * @var Remover
-	 */
-	private $remover;
+	private Remover $remover;
 
-	/**
-	 * @param Provider $provider
-	 * @param Remover $remover
-	 */
 	public function __construct(Provider $provider, Remover $remover)
 	{
 		$this->provider = $provider;
@@ -33,10 +23,9 @@ class Remove extends Base implements LoginExempt
 	}
 
 	/**
-	 * @return JsonModel
 	 * @throws Exception
 	 */
-	public function executeAction()
+	public function executeAction(): JsonModel
 	{
 		$cartItem = $this->provider->byId(
 			$this->params()->fromRoute('cartItemId')

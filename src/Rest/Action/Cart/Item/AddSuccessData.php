@@ -2,37 +2,24 @@
 namespace Ecommerce\Rest\Action\Cart\Item;
 
 use Common\Hydration\ArrayHydratable;
+use Common\Hydration\ObjectToArrayHydratorProperty;
 use Ecommerce\Cart\Cart;
 
 class AddSuccessData implements ArrayHydratable
 {
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @var Cart
-	 */
-	private $cart;
+	#[ObjectToArrayHydratorProperty]
+	private Cart $cart;
 
-	/**
-	 * @return AddSuccessData
-	 */
-	public static function create()
+	public static function create(): self
 	{
 		return new self();
 	}
 
-	/**
-	 * @return Cart
-	 */
 	public function getCart(): Cart
 	{
 		return $this->cart;
 	}
 
-	/**
-	 * @param Cart $cart
-	 * @return AddSuccessData
-	 */
 	public function setCart(Cart $cart): AddSuccessData
 	{
 		$this->cart = $cart;

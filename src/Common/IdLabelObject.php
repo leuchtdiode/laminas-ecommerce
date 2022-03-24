@@ -1,21 +1,15 @@
 <?php
 namespace Ecommerce\Common;
 
+use Common\Hydration\ObjectToArrayHydratorProperty;
+
 trait IdLabelObject
 {
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @var string
-	 */
-	private $id;
+	#[ObjectToArrayHydratorProperty]
+	private string $id;
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @var string
-	 */
-	private $label;
+	#[ObjectToArrayHydratorProperty]
+	private string $label;
 
 	/**
 	 * @param string $id
@@ -27,34 +21,21 @@ trait IdLabelObject
 		$this->label = $label;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function __toString()
+	public function __toString(): string
 	{
 		return $this->getLabel();
 	}
 
-	/**
-	 * @param $id
-	 * @return bool
-	 */
-	public function is($id)
+	public function is(string $id): bool
 	{
 		return $this->id === $id;
 	}
 
-	/**
-	 * @return string
-	 */
 	public function getId(): string
 	{
 		return $this->id;
 	}
 
-	/**
-	 * @return string
-	 */
 	public function getLabel(): string
 	{
 		return $this->label;

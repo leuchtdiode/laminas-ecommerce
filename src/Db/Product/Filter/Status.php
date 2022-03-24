@@ -5,19 +5,8 @@ use Common\Db\Filter\Equals;
 
 class Status extends Equals
 {
-	/**
-	 * @return string
-	 */
-	protected function getField()
+	protected function getField(): string
 	{
 		return 't.status';
-	}
-
-	/**
-	 * @return string
-	 */
-	protected function getParameterName()
-	{
-		return 'ecommerceProductStatus';
 	}
 }

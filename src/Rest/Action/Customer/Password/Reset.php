@@ -13,26 +13,12 @@ use Laminas\View\Model\JsonModel;
 
 class Reset extends Base implements LoginExempt
 {
-	/**
-	 * @var ResetData
-	 */
-	private $data;
+	private ResetData $data;
 
-	/**
-	 * @var Provider
-	 */
-	private $customerProvider;
+	private Provider $customerProvider;
 
-	/**
-	 * @var ResetHandler
-	 */
-	private $resetHandler;
+	private ResetHandler $resetHandler;
 
-	/**
-	 * @param ResetData $data
-	 * @param Provider $customerProvider
-	 * @param ResetHandler $resetHandler
-	 */
 	public function __construct(ResetData $data, Provider $customerProvider, ResetHandler $resetHandler)
 	{
 		$this->data             = $data;
@@ -41,10 +27,9 @@ class Reset extends Base implements LoginExempt
 	}
 
 	/**
-	 * @return JsonModel
 	 * @throws Exception
 	 */
-	public function executeAction()
+	public function executeAction(): JsonModel
 	{
 		$values = $this->data
 			->setRequest($this->getRequest())

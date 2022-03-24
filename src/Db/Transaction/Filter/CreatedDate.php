@@ -5,10 +5,7 @@ use Common\Db\Filter\Date;
 
 class CreatedDate extends Date
 {
-	/**
-	 * @return string
-	 */
-	protected function getColumn()
+	protected function getColumn(): string
 	{
 		return 't.createdDate';
 	}

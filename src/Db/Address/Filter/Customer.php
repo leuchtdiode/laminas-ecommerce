@@ -5,19 +5,8 @@ use Common\Db\Filter\Equals;
 
 class Customer extends Equals
 {
-	/**
-	 * @return string
-	 */
-	protected function getField()
+	protected function getField(): string
 	{
 		return 't.customer';
-	}
-
-	/**
-	 * @return string
-	 */
-	protected function getParameterName()
-	{
-		return 'addressCustomer';
 	}
 }

@@ -8,32 +8,17 @@ use Log\Log;
 
 class Modifier
 {
-	/**
-	 * @var Saver
-	 */
-	private $entitySaver;
+	private Saver $entitySaver;
 
-	/**
-	 * @var DtoCreatorProvider
-	 */
-	private $dtoCreatorProvider;
+	private DtoCreatorProvider $dtoCreatorProvider;
 
-	/**
-	 * @param Saver $entitySaver
-	 * @param DtoCreatorProvider $dtoCreatorProvider
-	 */
 	public function __construct(Saver $entitySaver, DtoCreatorProvider $dtoCreatorProvider)
 	{
 		$this->entitySaver        = $entitySaver;
 		$this->dtoCreatorProvider = $dtoCreatorProvider;
 	}
 
-	/**
-	 * @param Customer $customer
-	 * @param ModifyData $data
-	 * @return ModifyResult
-	 */
-	public function modify(Customer $customer, ModifyData $data)
+	public function modify(Customer $customer, ModifyData $data): ModifyResult
 	{
 		$result = new ModifyResult();
 		$result->setSuccess(false);

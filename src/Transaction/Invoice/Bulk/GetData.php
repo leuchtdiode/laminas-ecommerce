@@ -5,54 +5,31 @@ use DateTime;
 
 class GetData
 {
-	/**
-	 * @var DateTime
-	 */
-	private $dateStart;
+	private DateTime $dateStart;
 
-	/**
-	 * @var DateTime
-	 */
-	private $dateEnd;
+	private DateTime $dateEnd;
 
-	/**
-	 * @return GetData
-	 */
-	public static function create()
+	public static function create(): self
 	{
 		return new self();
 	}
 
-	/**
-	 * @return DateTime
-	 */
 	public function getDateStart(): DateTime
 	{
 		return $this->dateStart;
 	}
 
-	/**
-	 * @param DateTime $dateStart
-	 * @return GetData
-	 */
 	public function setDateStart(DateTime $dateStart): GetData
 	{
 		$this->dateStart = $dateStart;
 		return $this;
 	}
 
-	/**
-	 * @return DateTime
-	 */
 	public function getDateEnd(): DateTime
 	{
 		return $this->dateEnd;
 	}
 
-	/**
-	 * @param DateTime $dateEnd
-	 * @return GetData
-	 */
 	public function setDateEnd(DateTime $dateEnd): GetData
 	{
 		$this->dateEnd = $dateEnd;

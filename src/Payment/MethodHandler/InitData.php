@@ -5,31 +5,21 @@ use Ecommerce\Transaction\Transaction;
 
 class InitData
 {
-	/**
-	 * @var Transaction
-	 */
-	private $transaction;
+	private Transaction $transaction;
 
 	/**
 	 * @return InitData
 	 */
-	public static function create()
+	public static function create(): self
 	{
 		return new self();
 	}
 
-	/**
-	 * @return Transaction
-	 */
 	public function getTransaction(): Transaction
 	{
 		return $this->transaction;
 	}
 
-	/**
-	 * @param Transaction $transaction
-	 * @return InitData
-	 */
 	public function setTransaction(Transaction $transaction): InitData
 	{
 		$this->transaction = $transaction;

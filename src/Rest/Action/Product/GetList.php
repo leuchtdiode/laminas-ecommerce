@@ -12,24 +12,17 @@ use Laminas\View\Model\JsonModel;
 
 class GetList extends Base implements LoginExempt
 {
-	/**
-	 * @var Provider
-	 */
-	private $provider;
+	private Provider $provider;
 
-	/**
-	 * @param Provider $provider
-	 */
 	public function __construct(Provider $provider)
 	{
 		$this->provider = $provider;
 	}
 
 	/**
-	 * @return JsonModel
 	 * @throws Exception
 	 */
-	public function executeAction()
+	public function executeAction(): JsonModel
 	{
 		$filterChain = FilterChain::create();
 
@@ -38,9 +31,7 @@ class GetList extends Base implements LoginExempt
 		return Response::is()
 			->successful()
 			->data(
-				ObjectToArrayHydrator::hydrate(
-					$products
-				)
+				ObjectToArrayHydrator::hydrate($products)
 			)
 			->dispatch();
 	}

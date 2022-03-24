@@ -8,14 +8,8 @@ class MethodValidator extends AbstractValidator
 {
 	const INVALID = 'invalid';
 
-	/**
-	 * @var MethodProvider
-	 */
-	private $methodProvider;
+	private MethodProvider $methodProvider;
 
-	/**
-	 * @param MethodProvider $methodProvider
-	 */
 	public function __construct(MethodProvider $methodProvider)
 	{
 		$this->methodProvider = $methodProvider;
@@ -29,11 +23,7 @@ class MethodValidator extends AbstractValidator
 		);
 	}
 
-	/**
-	 * @param string $value
-	 * @return bool
-	 */
-	public function isValid($value)
+	public function isValid($value): bool
 	{
 		if ($this->methodProvider->byId($value) === null)
 		{

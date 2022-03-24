@@ -5,15 +5,8 @@ use Common\Translator;
 
 class PostPaymentStatusProvider
 {
-	/**
-	 * @var array
-	 */
-	private $config;
+	private array $config;
 
-	/**
-	 * PostPaymentStatusProvider constructor.
-	 * @param array $config
-	 */
 	public function __construct(array $config)
 	{
 		$this->config = $config;
@@ -22,7 +15,7 @@ class PostPaymentStatusProvider
 	/**
 	 * @return PostPaymentStatus[]
 	 */
-	public function all()
+	public function all(): array
 	{
 		$all = [];
 
@@ -36,11 +29,7 @@ class PostPaymentStatusProvider
 		return $all;
 	}
 
-	/**
-	 * @param $id
-	 * @return PostPaymentStatus|null
-	 */
-	public function byId($id)
+	public function byId(string $id): ?PostPaymentStatus
 	{
 		foreach ($this->all() as $item)
 		{

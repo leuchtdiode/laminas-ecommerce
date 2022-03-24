@@ -15,36 +15,19 @@ use Ecommerce\Transaction\Provider;
 use Ecommerce\Transaction\SaveData;
 use Ecommerce\Transaction\Saver;
 use Ecommerce\Transaction\Status;
-use Exception;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class MethodHandler implements MethodHandlerInterface
 {
-	/**
-	 * @var Saver
-	 */
-	private $saver;
+	private Saver $saver;
 
-	/**
-	 * @var Handler
-	 */
-	private $postPaymentHandler;
+	private Handler $postPaymentHandler;
 
-	/**
-	 * @var Provider
-	 */
-	private $transactionProvider;
+	private Provider $transactionProvider;
 
-	/**
-	 * @var ReturnUrlProvider
-	 */
-	private $returnUrlProvider;
+	private ReturnUrlProvider $returnUrlProvider;
 
-	/**
-	 * @param Saver $saver
-	 * @param Handler $postPaymentHandler
-	 * @param Provider $transactionProvider
-	 * @param ReturnUrlProvider $returnUrlProvider
-	 */
 	public function __construct(
 		Saver $saver,
 		Handler $postPaymentHandler,
@@ -59,9 +42,8 @@ class MethodHandler implements MethodHandlerInterface
 	}
 
 	/**
-	 * @param InitData $data
-	 * @return InitResult
-	 * @throws Exception
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
 	public function init(InitData $data): InitResult
 	{
@@ -107,13 +89,9 @@ class MethodHandler implements MethodHandlerInterface
 		return $initResult;
 	}
 
-	/**
-	 * @param HandleCallbackData $data
-	 * @return HandleCallbackResult
-	 */
 	public function handleCallback(HandleCallbackData $data): HandleCallbackResult
 	{
-		// no callback for pre payment
+		// no callback for pre-payment
 		return new HandleCallbackResult();
 	}
 }

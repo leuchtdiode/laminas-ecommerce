@@ -7,22 +7,13 @@ class GenerateResult
 {
 	use ResultTrait;
 
-	/**
-	 * @var string
-	 */
-	private $pdf;
+	private string $pdf;
 
-	/**
-	 * @return string
-	 */
 	public function getPdf(): string
 	{
 		return $this->pdf;
 	}
 
-	/**
-	 * @param string $pdf
-	 */
 	public function setPdf(string $pdf): void
 	{
 		$this->pdf = $pdf;

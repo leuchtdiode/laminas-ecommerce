@@ -6,25 +6,16 @@ use function range;
 
 class ReferenceNumberProvider
 {
-	/**
-	 * @var Repository
-	 */
-	private $repository;
+	private Repository $repository;
 
 	const LENGTH = 8;
 
-	/**
-	 * @param Repository $repository
-	 */
 	public function __construct(Repository $repository)
 	{
 		$this->repository = $repository;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function create()
+	public function create(): string
 	{
 		$chars = range('A', 'Z');
 
@@ -48,11 +39,7 @@ class ReferenceNumberProvider
 		return '';
 	}
 
-	/**
-	 * @param string $referenceNumber
-	 * @return bool
-	 */
-	private function exists(string $referenceNumber)
+	private function exists(string $referenceNumber): bool
 	{
 		return !empty($this->repository->findOneBy([ 'referenceNumber' => $referenceNumber]));
 	}

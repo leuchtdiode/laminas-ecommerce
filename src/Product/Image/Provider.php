@@ -9,20 +9,10 @@ use Ecommerce\Db\Product\Image\Repository;
 
 class Provider
 {
-	/**
-	 * @var Repository
-	 */
-	private $repository;
+	private Repository $repository;
 
-	/**
-	 * @var DtoCreatorProvider
-	 */
-	private $dtoCreatorProvider;
+	private DtoCreatorProvider $dtoCreatorProvider;
 
-	/**
-	 * @param Repository $repository
-	 * @param DtoCreatorProvider $dtoCreatorProvider
-	 */
 	public function __construct(Repository $repository, DtoCreatorProvider $dtoCreatorProvider)
 	{
 		$this->repository         = $repository;
@@ -30,11 +20,9 @@ class Provider
 	}
 
 	/**
-	 * @param FilterChain $filterChain
-	 * @param OrderChain|null $orderChain
 	 * @return Image[]
 	 */
-	public function filter(FilterChain $filterChain, ?OrderChain $orderChain = null)
+	public function filter(FilterChain $filterChain, ?OrderChain $orderChain = null): array
 	{
 		return $this->createDtos(
 			$this->repository->filter($filterChain, $orderChain)
@@ -45,7 +33,7 @@ class Provider
 	 * @param Entity[] $entities
 	 * @return Image[]
 	 */
-	private function createDtos(array $entities)
+	private function createDtos(array $entities): array
 	{
 		return array_map(
 			function (Entity $entity)
@@ -56,11 +44,7 @@ class Provider
 		);
 	}
 
-	/**
-	 * @param Entity $entity
-	 * @return Image
-	 */
-	private function createDto(Entity $entity)
+	private function createDto(Entity $entity): Image
 	{
 		return $this->dtoCreatorProvider
 			->getProductImageCreator()

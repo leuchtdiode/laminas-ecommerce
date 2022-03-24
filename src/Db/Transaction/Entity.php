@@ -1,8 +1,10 @@
 <?php
 namespace Ecommerce\Db\Transaction;
 
+use Common\Db\Entity as DbEntity;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ecommerce\Db\Address\Entity as AddressEntity;
 use Ecommerce\Db\Customer\Entity as CustomerEntity;
@@ -11,113 +13,58 @@ use Exception;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-/**
- * @ORM\Table(name="ecommerce_transactions")
- * @ORM\Entity(repositoryClass="Ecommerce\Db\Transaction\Repository")
- */
-class Entity
+#[ORM\Table(name: 'ecommerce_transactions')]
+#[ORM\Entity(repositoryClass: Repository::class)]
+class Entity implements DbEntity
 {
-	/**
-	 * @var UuidInterface
-	 *
-	 * @ORM\Id
-	 * @ORM\Column(type="uuid");
-	 */
-	private $id;
+	#[ORM\Id]
+	#[ORM\Column(type: 'uuid')]
+	private UuidInterface $id;
+
+	#[ORM\Column(type: 'string', length: 20, nullable: false)]
+	private string $referenceNumber;
+
+	#[ORM\Column(type: 'string', length: 50, nullable: true)]
+	private ?string $invoiceNumber = null;
+
+	#[ORM\Column(type: 'integer', nullable: true)]
+	private ?int $consecutiveSuccessNumberInYear = null;
+
+	#[ORM\Column(type: 'string', length: 50)]
+	private string $status;
+
+	#[ORM\Column(type: 'string', length: 50, nullable: true)]
+	private ?string $postPaymentStatus = null;
+
+	#[ORM\Column(type: 'string', length: 50)]
+	private string $paymentMethod;
+
+	#[ORM\Column(type: 'string', nullable: true)]
+	private ?string $foreignId = null;
+
+	#[ORM\Column(type: 'integer', nullable: true)]
+	private ?int $shippingCost = null;
+
+	#[ORM\Column(type: 'datetime', nullable: true)]
+	private DateTime $createdDate;
+
+	#[ORM\ManyToOne(targetEntity: CustomerEntity::class)]
+	#[ORM\JoinColumn(name: 'customerId', nullable: false)]
+	private CustomerEntity $customer;
 
 	/**
-	 * @var string
-	 *
-	 * @ORM\Column(type="string", length=20, nullable=false)
+	 * @var Collection|TransactionItemEntity[]
 	 */
-	private $referenceNumber;
+	#[ORM\OneToMany(mappedBy: 'transaction', targetEntity: TransactionItemEntity::class, cascade: [ 'persist' ])]
+	private Collection|array $items;
 
-	/**
-	 * @var string|null
-	 *
-	 * @ORM\Column(type="string", length=50, nullable=true)
-	 */
-	private $invoiceNumber;
+	#[ORM\ManyToOne(targetEntity: AddressEntity::class)]
+	#[ORM\JoinColumn(name: 'billingAddressId', nullable: false)]
+	private AddressEntity $billingAddress;
 
-	/**
-	 * @var int|null
-	 *
-	 * @ORM\Column(type="integer", nullable=true)
-	 */
-	private $consecutiveSuccessNumberInYear;
-
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(type="string", length=50)
-	 */
-	private $status;
-
-	/**
-	 * @var string|null
-	 *
-	 * @ORM\Column(type="string", length=50, nullable=true)
-	 */
-	private $postPaymentStatus;
-
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(type="string", length=50)
-	 */
-	private $paymentMethod;
-
-	/**
-	 * @var string|null
-	 *
-	 * @ORM\Column(type="string", nullable=true)
-	 */
-	private $foreignId;
-
-	/**
-	 * @var int|null
-	 *
-	 * @ORM\Column(type="integer", nullable=true)
-	 */
-	private $shippingCost;
-
-	/**
-	 * @var DateTime
-	 *
-	 * @ORM\Column(type="datetime")
-	 */
-	private $createdDate;
-
-	/**
-	 * @var CustomerEntity
-	 *
-	 * @ORM\ManyToOne(targetEntity="Ecommerce\Db\Customer\Entity")
-	 * @ORM\JoinColumn(name="customerId", referencedColumnName="id", nullable=false)
-	 */
-	private $customer;
-
-	/**
-	 * @var ArrayCollection|TransactionItemEntity[]
-	 *
-	 * @ORM\OneToMany(targetEntity="Ecommerce\Db\Transaction\Item\Entity", mappedBy="transaction", cascade={"persist"})
-	 */
-	private $items;
-
-	/**
-	 * @var AddressEntity
-	 *
-	 * @ORM\ManyToOne(targetEntity="Ecommerce\Db\Address\Entity")
-	 * @ORM\JoinColumn(name="billingAddressId", referencedColumnName="id", nullable=false)
-	 */
-	private $billingAddress;
-
-	/**
-	 * @var AddressEntity
-	 *
-	 * @ORM\ManyToOne(targetEntity="Ecommerce\Db\Address\Entity")
-	 * @ORM\JoinColumn(name="shippingAddressId", referencedColumnName="id", nullable=false)
-	 */
-	private $shippingAddress;
+	#[ORM\ManyToOne(targetEntity: AddressEntity::class)]
+	#[ORM\JoinColumn(name: 'shippingAddressId', nullable: false)]
+	private AddressEntity $shippingAddress;
 
 	/**
 	 * @throws Exception
@@ -129,225 +76,147 @@ class Entity
 		$this->items       = new ArrayCollection();
 	}
 
-	/**
-	 * @return UuidInterface
-	 */
 	public function getId(): UuidInterface
 	{
 		return $this->id;
 	}
 
-	/**
-	 * @param UuidInterface $id
-	 */
 	public function setId(UuidInterface $id): void
 	{
 		$this->id = $id;
 	}
 
-	/**
-	 * @return string
-	 */
 	public function getReferenceNumber(): string
 	{
 		return $this->referenceNumber;
 	}
 
-	/**
-	 * @param string $referenceNumber
-	 */
 	public function setReferenceNumber(string $referenceNumber): void
 	{
 		$this->referenceNumber = $referenceNumber;
 	}
 
-	/**
-	 * @return string|null
-	 */
 	public function getInvoiceNumber(): ?string
 	{
 		return $this->invoiceNumber;
 	}
 
-	/**
-	 * @param string|null $invoiceNumber
-	 */
 	public function setInvoiceNumber(?string $invoiceNumber): void
 	{
 		$this->invoiceNumber = $invoiceNumber;
 	}
 
-	/**
-	 * @return int|null
-	 */
 	public function getConsecutiveSuccessNumberInYear(): ?int
 	{
 		return $this->consecutiveSuccessNumberInYear;
 	}
 
-	/**
-	 * @param int|null $consecutiveSuccessNumberInYear
-	 */
 	public function setConsecutiveSuccessNumberInYear(?int $consecutiveSuccessNumberInYear): void
 	{
 		$this->consecutiveSuccessNumberInYear = $consecutiveSuccessNumberInYear;
 	}
 
-	/**
-	 * @return string
-	 */
 	public function getStatus(): string
 	{
 		return $this->status;
 	}
 
-	/**
-	 * @param string $status
-	 */
 	public function setStatus(string $status): void
 	{
 		$this->status = $status;
 	}
 
-	/**
-	 * @return string|null
-	 */
 	public function getPostPaymentStatus(): ?string
 	{
 		return $this->postPaymentStatus;
 	}
 
-	/**
-	 * @param string|null $postPaymentStatus
-	 */
 	public function setPostPaymentStatus(?string $postPaymentStatus): void
 	{
 		$this->postPaymentStatus = $postPaymentStatus;
 	}
 
-	/**
-	 * @return string
-	 */
 	public function getPaymentMethod(): string
 	{
 		return $this->paymentMethod;
 	}
 
-	/**
-	 * @param string $paymentMethod
-	 */
 	public function setPaymentMethod(string $paymentMethod): void
 	{
 		$this->paymentMethod = $paymentMethod;
 	}
 
-	/**
-	 * @return string|null
-	 */
 	public function getForeignId(): ?string
 	{
 		return $this->foreignId;
 	}
 
-	/**
-	 * @param string|null $foreignId
-	 */
 	public function setForeignId(?string $foreignId): void
 	{
 		$this->foreignId = $foreignId;
 	}
 
-	/**
-	 * @return int|null
-	 */
 	public function getShippingCost(): ?int
 	{
 		return $this->shippingCost;
 	}
 
-	/**
-	 * @param int|null $shippingCost
-	 */
 	public function setShippingCost(?int $shippingCost): void
 	{
 		$this->shippingCost = $shippingCost;
 	}
 
-	/**
-	 * @return DateTime
-	 */
 	public function getCreatedDate(): DateTime
 	{
 		return $this->createdDate;
 	}
 
-	/**
-	 * @param DateTime $createdDate
-	 */
 	public function setCreatedDate(DateTime $createdDate): void
 	{
 		$this->createdDate = $createdDate;
 	}
 
-	/**
-	 * @return CustomerEntity
-	 */
 	public function getCustomer(): CustomerEntity
 	{
 		return $this->customer;
 	}
 
-	/**
-	 * @param CustomerEntity $customer
-	 */
 	public function setCustomer(CustomerEntity $customer): void
 	{
 		$this->customer = $customer;
 	}
 
 	/**
-	 * @return ArrayCollection|TransactionItemEntity[]
+	 * @return Collection|TransactionItemEntity[]
 	 */
-	public function getItems()
+	public function getItems(): Collection|array
 	{
 		return $this->items;
 	}
 
 	/**
-	 * @param ArrayCollection|TransactionItemEntity[] $items
+	 * @param Collection|TransactionItemEntity[] $items
 	 */
-	public function setItems($items): void
+	public function setItems(Collection|array $items): void
 	{
 		$this->items = $items;
 	}
 
-	/**
-	 * @return AddressEntity
-	 */
 	public function getBillingAddress(): AddressEntity
 	{
 		return $this->billingAddress;
 	}
 
-	/**
-	 * @param AddressEntity $billingAddress
-	 */
 	public function setBillingAddress(AddressEntity $billingAddress): void
 	{
 		$this->billingAddress = $billingAddress;
 	}
 
-	/**
-	 * @return AddressEntity
-	 */
 	public function getShippingAddress(): AddressEntity
 	{
 		return $this->shippingAddress;
 	}
 
-	/**
-	 * @param AddressEntity $shippingAddress
-	 */
 	public function setShippingAddress(AddressEntity $shippingAddress): void
 	{
 		$this->shippingAddress = $shippingAddress;

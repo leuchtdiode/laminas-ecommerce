@@ -7,22 +7,13 @@ class SaveResult
 {
 	use ResultTrait;
 
-	/**
-	 * @var Attribute|null
-	 */
-	private $attribute;
+	private ?Attribute $attribute = null;
 
-	/**
-	 * @return Attribute|null
-	 */
 	public function getAttribute(): ?Attribute
 	{
 		return $this->attribute;
 	}
 
-	/**
-	 * @param Attribute|null $attribute
-	 */
 	public function setAttribute(?Attribute $attribute): void
 	{
 		$this->attribute = $attribute;

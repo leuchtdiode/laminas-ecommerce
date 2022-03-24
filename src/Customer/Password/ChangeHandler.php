@@ -11,34 +11,22 @@ use Log\Log;
 
 class ChangeHandler
 {
-	/**
-	 * @var PasswordHandler
-	 */
-	private $passwordHandler;
+	private PasswordHandler $passwordHandler;
 
-	/**
-	 * @var Saver
-	 */
-	private $entitySaver;
+	private Saver $entitySaver;
 
-	/**
-	 * @param PasswordHandler $passwordHandler
-	 * @param Saver $entitySaver
-	 */
 	public function __construct(PasswordHandler $passwordHandler, Saver $entitySaver)
 	{
 		$this->passwordHandler = $passwordHandler;
 		$this->entitySaver     = $entitySaver;
 	}
 
-	/**
-	 * @param Customer $customer
-	 * @param $oldPassword
-	 * @param $newPassword
-	 * @param $newPasswordVerify
-	 * @return ChangeResult
-	 */
-	public function change(Customer $customer, $oldPassword, $newPassword, $newPasswordVerify)
+	public function change(
+		Customer $customer,
+		string $oldPassword,
+		string $newPassword,
+		string $newPasswordVerify
+	): ChangeResult
 	{
 		$result = new ChangeResult();
 		$result->setSuccess(false);

@@ -5,51 +5,32 @@ use Common\Db\FilterChain;
 use Common\Hydration\ObjectToArrayHydrator;
 use Ecommerce\Address\Address;
 use Ecommerce\Address\Provider as AddressProvider;
+use Ecommerce\Cart\Checkout\CheckoutData as CheckoutHandlerCheckoutData;
 use Ecommerce\Cart\Checkout\Handler as CheckoutHandler;
 use Ecommerce\Cart\CouldNotFindCartError;
 use Ecommerce\Cart\Provider as CartProvider;
 use Ecommerce\Db\Address\Filter\Customer;
 use Ecommerce\Payment\MethodProvider as PaymentMethodProvider;
 use Ecommerce\Rest\Action\Base;
-use Ecommerce\Cart\Checkout\CheckoutData as CheckoutHandlerCheckoutData;
 use Ecommerce\Rest\Action\Response;
 use Exception;
+use Laminas\Stdlib\ResponseInterface;
 use Laminas\View\Model\JsonModel;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class Checkout extends Base
 {
-	/**
-	 * @var CheckoutData
-	 */
-	private $data;
+	private CheckoutData $data;
 
-	/**
-	 * @var CartProvider
-	 */
-	private $cartProvider;
+	private CartProvider $cartProvider;
 
-	/**
-	 * @var AddressProvider
-	 */
-	private $addressProvider;
+	private AddressProvider $addressProvider;
 
-	/**
-	 * @var PaymentMethodProvider
-	 */
-	private $paymentMethodProvider;
+	private PaymentMethodProvider $paymentMethodProvider;
 
-	/**
-	 * @var CheckoutHandler
-	 */
-	private $checkoutHandler;
+	private CheckoutHandler $checkoutHandler;
 
-	/**
-	 * @param CheckoutData $data
-	 * @param CartProvider $cartProvider
-	 * @param AddressProvider $addressProvider
-	 * @param PaymentMethodProvider $paymentMethodProvider
-	 * @param CheckoutHandler $checkoutHandler
-	 */
 	public function __construct(
 		CheckoutData $data,
 		CartProvider $cartProvider,
@@ -66,10 +47,10 @@ class Checkout extends Base
 	}
 
 	/**
-	 * @return JsonModel
-	 * @throws Exception
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
-	public function executeAction()
+	public function executeAction(): JsonModel|ResponseInterface
 	{
 		$values = $this->data
 			->setRequest($this->getRequest())
@@ -96,11 +77,13 @@ class Checkout extends Base
 				->dispatch();
 		}
 
-		$billingAddress = $this->getAddress(
-			$values->get(CheckoutData::BILLING_ADDRESS_ID)->getValue()
+		$billingAddress  = $this->getAddress(
+			$values->get(CheckoutData::BILLING_ADDRESS_ID)
+				->getValue()
 		);
 		$shippingAddress = $this->getAddress(
-			$values->get(CheckoutData::SHIPPING_ADDRESS_ID)->getValue()
+			$values->get(CheckoutData::SHIPPING_ADDRESS_ID)
+				->getValue()
 		);
 
 		if (!$billingAddress || !$shippingAddress)
@@ -143,13 +126,12 @@ class Checkout extends Base
 	}
 
 	/**
-	 * @param string $addressId
-	 * @return Address|null
 	 * @throws Exception
 	 */
-	private function getAddress($addressId)
+	private function getAddress(string $addressId): ?Address
 	{
-		$customerId = $this->getCustomer()->getId();
+		$customerId = $this->getCustomer()
+			->getId();
 
 		$addresses = $this->addressProvider->filter(
 			FilterChain::create()
@@ -158,7 +140,8 @@ class Checkout extends Base
 
 		foreach ($addresses as $address)
 		{
-			if ($address->getId()->toString() === $addressId)
+			if ($address->getId()
+					->toString() === $addressId)
 			{
 				return $address;
 			}

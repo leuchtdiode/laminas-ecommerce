@@ -5,19 +5,8 @@ use Common\Db\Filter\Equals;
 
 class ConsecutiveSuccessNumberInYear extends Equals
 {
-	/**
-	 * @inheritDoc
-	 */
-	protected function getField()
+	protected function getField(): string
 	{
 		return 't.consecutiveSuccessNumberInYear';
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	protected function getParameterName()
-	{
-		return 'transactionConsecutiveSuccessNumberInYear';
 	}
 }

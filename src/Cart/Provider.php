@@ -7,26 +7,12 @@ use Ecommerce\Db\Cart\Repository;
 
 class Provider
 {
-	/**
-	 * @var DtoCreatorProvider
-	 */
-	private $dtoCreatorProvider;
+	private DtoCreatorProvider $dtoCreatorProvider;
 
-	/**
-	 * @var Repository
-	 */
-	private $repository;
+	private Repository $repository;
 
-	/**
-	 * @var Validator
-	 */
-	private $validator;
+	private Validator $validator;
 
-	/**
-	 * @param DtoCreatorProvider $dtoCreatorProvider
-	 * @param Repository $repository
-	 * @param Validator $validator
-	 */
 	public function __construct(DtoCreatorProvider $dtoCreatorProvider, Repository $repository, Validator $validator)
 	{
 		$this->dtoCreatorProvider = $dtoCreatorProvider;
@@ -34,22 +20,14 @@ class Provider
 		$this->validator          = $validator;
 	}
 
-	/**
-	 * @param string $id
-	 * @return Cart|null
-	 */
-	public function byId($id)
+	public function byId(string $id): ?Cart
 	{
 		return ($entity = $this->repository->find($id))
 			? $this->createDto($entity)
 			: null;
 	}
 
-	/**
-	 * @param Entity $entity
-	 * @return Cart
-	 */
-	private function createDto(Entity $entity)
+	private function createDto(Entity $entity): Cart
 	{
 		$cart = $this->dtoCreatorProvider
 			->getCartCreator()

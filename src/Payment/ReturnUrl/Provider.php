@@ -3,24 +3,14 @@ namespace Ecommerce\Payment\ReturnUrl;
 
 class Provider
 {
-	/**
-	 * @var array
-	 */
-	private $config;
+	private array $config;
 
-	/**
-	 * @param array $config
-	 */
 	public function __construct(array $config)
 	{
 		$this->config = $config;
 	}
 
-	/**
-	 * @param GetData $data
-	 * @return string
-	 */
-	public function get(GetData $data)
+	public function get(GetData $data): string
 	{
 		$callbackType = $data->getCallbackType();
 

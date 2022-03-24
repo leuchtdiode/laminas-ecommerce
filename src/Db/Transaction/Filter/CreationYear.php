@@ -6,32 +6,19 @@ use Doctrine\ORM\QueryBuilder;
 
 class CreationYear implements Filter
 {
-	/**
-	 * @var int
-	 */
-	private $year;
+	private int $year;
 
-	/**
-	 * @param int $year
-	 */
 	public function __construct(int $year)
 	{
 		$this->year = $year;
 	}
 
-	/**
-	 * @param $year
-	 * @return CreationYear
-	 */
-	public static function is($year)
+	public static function is(int $year): self
 	{
 		return new self($year);
 	}
 
-	/**
-	 * @param QueryBuilder $queryBuilder
-	 */
-	public function addClause(QueryBuilder $queryBuilder)
+	public function addClause(QueryBuilder $queryBuilder): void
 	{
 		$expr = $queryBuilder->expr();
 

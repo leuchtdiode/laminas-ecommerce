@@ -1,6 +1,7 @@
 <?php
 namespace Ecommerce\Product;
 
+use Common\Db\Entity as DbEntity;
 use Doctrine\Common\Collections\Criteria;
 use Ecommerce\Common\EntityDtoCreator;
 use Ecommerce\Common\PriceCreator;
@@ -12,36 +13,16 @@ use Ecommerce\Product\Image\Image;
 
 class Creator implements EntityDtoCreator
 {
-	/**
-	 * @var PriceCreator
-	 */
-	private $priceCreator;
+	private PriceCreator $priceCreator;
 
-	/**
-	 * @var StatusProvider
-	 */
-	private $statusProvider;
+	private StatusProvider $statusProvider;
 
-	/**
-	 * @var UrlProvider
-	 */
-	private $urlProvider;
+	private UrlProvider $urlProvider;
 
-	/**
-	 * @var ProductAttributeValueCreator
-	 */
-	private $productAttributeValueCreator;
+	private ProductAttributeValueCreator $productAttributeValueCreator;
 
-	/**
-	 * @var ProductImageCreator
-	 */
-	private $productImageCreator;
+	private ProductImageCreator $productImageCreator;
 
-	/**
-	 * @param PriceCreator $priceCreator
-	 * @param StatusProvider $statusProvider
-	 * @param UrlProvider $urlProvider
-	 */
 	public function __construct(PriceCreator $priceCreator, StatusProvider $statusProvider, UrlProvider $urlProvider)
 	{
 		$this->priceCreator   = $priceCreator;
@@ -49,17 +30,11 @@ class Creator implements EntityDtoCreator
 		$this->urlProvider    = $urlProvider;
 	}
 
-	/**
-	 * @param ProductAttributeValueCreator $productAttributeValueCreator
-	 */
 	public function setProductAttributeValueCreator(ProductAttributeValueCreator $productAttributeValueCreator): void
 	{
 		$this->productAttributeValueCreator = $productAttributeValueCreator;
 	}
 
-	/**
-	 * @param ProductImageCreator $productImageCreator
-	 */
 	public function setProductImageCreator(ProductImageCreator $productImageCreator): void
 	{
 		$this->productImageCreator = $productImageCreator;
@@ -67,9 +42,8 @@ class Creator implements EntityDtoCreator
 
 	/**
 	 * @param Entity $entity
-	 * @return Product
 	 */
-	public function byEntity($entity)
+	public function byEntity(DbEntity $entity): Product
 	{
 		return new Product(
 			$entity,
@@ -87,11 +61,7 @@ class Creator implements EntityDtoCreator
 		);
 	}
 
-	/**
-	 * @param Entity $entity
-	 * @return Image|null
-	 */
-	private function getMainImage(Entity $entity)
+	private function getMainImage(Entity $entity): ?Image
 	{
 		$imageEntities = $entity
 			->getImages()

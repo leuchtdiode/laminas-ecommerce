@@ -5,24 +5,15 @@ use Ecommerce\Customer\Password\ChangeHandler;
 use Exception;
 use Ecommerce\Rest\Action\Base;
 use Ecommerce\Rest\Action\Response;
+use Laminas\Stdlib\ResponseInterface;
 use Laminas\View\Model\JsonModel;
 
 class Change extends Base
 {
-	/**
-	 * @var ChangeData
-	 */
-	private $data;
+	private ChangeData $data;
 
-	/**
-	 * @var ChangeHandler
-	 */
-	private $changeHandler;
+	private ChangeHandler $changeHandler;
 
-	/**
-	 * @param ChangeData $data
-	 * @param ChangeHandler $changeHandler
-	 */
 	public function __construct(ChangeData $data, ChangeHandler $changeHandler)
 	{
 		$this->data          = $data;
@@ -30,10 +21,9 @@ class Change extends Base
 	}
 
 	/**
-	 * @return JsonModel
 	 * @throws Exception
 	 */
-	public function executeAction()
+	public function executeAction(): JsonModel|ResponseInterface
 	{
 		$customerId = $this
 			->params()

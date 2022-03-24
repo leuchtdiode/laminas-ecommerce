@@ -14,42 +14,27 @@ class Status implements ArrayHydratable
 
 	use IdLabelObject;
 
-	/**
-	 * @return bool
-	 */
-	public function isNew()
+	public function isNew(): bool
 	{
 		return $this->is(self::NEW);
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function isPending()
+	public function isPending(): bool
 	{
 		return $this->is(self::PENDING);
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function isCancelled()
+	public function isCancelled(): bool
 	{
 		return $this->is(self::CANCELLED);
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function isError()
+	public function isError(): bool
 	{
 		return $this->is(self::ERROR);
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function isSuccess()
+	public function isSuccess(): bool
 	{
 		return $this->is(self::SUCCESS);
 	}

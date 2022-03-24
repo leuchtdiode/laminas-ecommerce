@@ -8,23 +8,14 @@ use Ecommerce\Rest\Action\Base;
 use Ecommerce\Rest\Action\LoginExempt;
 use Ecommerce\Rest\Action\Response;
 use Exception;
+use Laminas\View\Model\JsonModel;
 
 class Login extends Base implements LoginExempt
 {
-	/**
-	 * @var LoginData
-	 */
-	private $data;
+	private LoginData $data;
 
-	/**
-	 * @var LoginHandler
-	 */
-	private $loginHandler;
+	private LoginHandler $loginHandler;
 
-	/**
-	 * @param LoginData $data
-	 * @param LoginHandler $loginHandler
-	 */
 	public function __construct(LoginData $data, LoginHandler $loginHandler)
 	{
 		$this->data         = $data;
@@ -34,7 +25,7 @@ class Login extends Base implements LoginExempt
 	/**
 	 * @throws Exception
 	 */
-	public function executeAction()
+	public function executeAction(): JsonModel
 	{
 		$values = $this->data
 			->setRequest($this->getRequest())

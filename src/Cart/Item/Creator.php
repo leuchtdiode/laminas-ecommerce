@@ -1,29 +1,24 @@
 <?php
 namespace Ecommerce\Cart\Item;
 
+use Common\Db\Entity as DbEntity;
 use Ecommerce\Common\EntityDtoCreator;
 use Ecommerce\Db\Cart\Item\Entity;
 use Ecommerce\Product\Creator as ProductCreator;
 
 class Creator implements EntityDtoCreator
 {
-	/**
-	 * @var ProductCreator
-	 */
-	private $productCreator;
+	private ProductCreator $productCreator;
 
-	/**
-	 * @param ProductCreator $productCreator
-	 */
 	public function setProductCreator(ProductCreator $productCreator): void
 	{
 		$this->productCreator = $productCreator;
 	}
+
 	/**
 	 * @param Entity $entity
-	 * @return Item
 	 */
-	public function byEntity($entity)
+	public function byEntity(DbEntity $entity): Item
 	{
 		return new Item(
 			$entity,

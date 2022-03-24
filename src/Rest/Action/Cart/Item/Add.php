@@ -14,26 +14,12 @@ use Laminas\View\Model\JsonModel;
 
 class Add extends Base implements LoginExempt
 {
-	/**
-	 * @var AddData
-	 */
-	private $data;
+	private AddData $data;
 
-	/**
-	 * @var CartProvider
-	 */
-	private $cartProvider;
+	private CartProvider $cartProvider;
 
-	/**
-	 * @var Adder
-	 */
-	private $adder;
+	private Adder $adder;
 
-	/**
-	 * @param AddData $data
-	 * @param CartProvider $cartProvider
-	 * @param Adder $adder
-	 */
 	public function __construct(AddData $data, CartProvider $cartProvider, Adder $adder)
 	{
 		$this->data         = $data;
@@ -42,10 +28,9 @@ class Add extends Base implements LoginExempt
 	}
 
 	/**
-	 * @return JsonModel
 	 * @throws Exception
 	 */
-	public function executeAction()
+	public function executeAction(): JsonModel
 	{
 		$values = $this->data
 			->setRequest($this->getRequest())

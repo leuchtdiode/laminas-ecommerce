@@ -1,25 +1,16 @@
 <?php
 namespace Ecommerce\Customer;
 
+use Common\Db\Entity as DbEntity;
 use Ecommerce\Common\EntityDtoCreator;
 use Ecommerce\Db\Customer\Entity;
 
 class Creator implements EntityDtoCreator
 {
-	/**
-	 * @var StatusProvider
-	 */
-	private $statusProvider;
+	private StatusProvider $statusProvider;
 
-	/**
-	 * @var SalutationProvider
-	 */
-	private $salutationProvider;
+	private SalutationProvider $salutationProvider;
 
-	/**
-	 * @param StatusProvider $statusProvider
-	 * @param SalutationProvider $salutationProvider
-	 */
 	public function __construct(StatusProvider $statusProvider, SalutationProvider $salutationProvider)
 	{
 		$this->statusProvider     = $statusProvider;
@@ -28,9 +19,8 @@ class Creator implements EntityDtoCreator
 
 	/**
 	 * @param Entity $entity
-	 * @return Customer
 	 */
-	public function byEntity($entity)
+	public function byEntity(DbEntity $entity): Customer
 	{
 		return new Customer(
 			$entity,

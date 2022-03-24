@@ -1,37 +1,30 @@
 <?php
 namespace Ecommerce\Cart;
 
+use Common\Dto\Dto;
 use Common\Hydration\ArrayHydratable;
+use Common\Hydration\ObjectToArrayHydratorProperty;
 use Ecommerce\Cart\Item\Item;
 use Ecommerce\Common\Price;
 use Ecommerce\Db\Cart\Entity;
 use Ramsey\Uuid\UuidInterface;
 
-class Cart implements ArrayHydratable
+class Cart implements Dto, ArrayHydratable
 {
-	/**
-	 * @var Entity
-	 */
-	private $entity;
+	#[ObjectToArrayHydratorProperty]
+	private Entity $entity;
 
 	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
 	 * @var Item[]
 	 */
-	private $items;
+	#[ObjectToArrayHydratorProperty]
+	private array $items;
+
+	#[ObjectToArrayHydratorProperty]
+	private Price $totalPrice;
 
 	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @var Price
-	 */
-	private $totalPrice;
-
-	/**
-	 * @param Entity $entity
 	 * @param Item[] $items
-	 * @param Price $totalPrice
 	 */
 	public function __construct(Entity $entity, array $items, Price $totalPrice)
 	{
@@ -40,12 +33,8 @@ class Cart implements ArrayHydratable
 		$this->totalPrice = $totalPrice;
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return bool
-	 */
-	public function isValid()
+	#[ObjectToArrayHydratorProperty]
+	public function isValid(): bool
 	{
 		foreach ($this->getItems() as $item)
 		{
@@ -58,20 +47,13 @@ class Cart implements ArrayHydratable
 		return true;
 	}
 
-	/**
-	 * @return Price
-	 */
 	public function getTotalPrice(): Price
 	{
 		return $this->totalPrice;
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return UuidInterface
-	 */
-	public function getId()
+	#[ObjectToArrayHydratorProperty]
+	public function getId(): UuidInterface
 	{
 		return $this->entity->getId();
 	}
@@ -84,9 +66,6 @@ class Cart implements ArrayHydratable
 		return $this->items;
 	}
 
-	/**
-	 * @return Entity
-	 */
 	public function getEntity(): Entity
 	{
 		return $this->entity;

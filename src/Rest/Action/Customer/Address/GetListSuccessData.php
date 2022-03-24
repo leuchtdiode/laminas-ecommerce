@@ -2,21 +2,18 @@
 namespace Ecommerce\Rest\Action\Customer\Address;
 
 use Common\Hydration\ArrayHydratable;
+use Common\Hydration\ObjectToArrayHydratorProperty;
 use Ecommerce\Address\Address;
 
 class GetListSuccessData implements ArrayHydratable
 {
 	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
 	 * @var Address[]
 	 */
-	private $addresses;
+	#[ObjectToArrayHydratorProperty]
+	private array $addresses;
 
-	/**
-	 * @return GetListSuccessData
-	 */
-	public static function create()
+	public static function create(): self
 	{
 		return new self();
 	}
@@ -31,7 +28,6 @@ class GetListSuccessData implements ArrayHydratable
 
 	/**
 	 * @param Address[] $addresses
-	 * @return GetListSuccessData
 	 */
 	public function setAddresses(array $addresses): GetListSuccessData
 	{

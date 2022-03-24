@@ -3,25 +3,14 @@ namespace Ecommerce\Common;
 
 class PriceCreator
 {
-	/**
-	 * @var array
-	 */
-	private $config;
+	private array $config;
 
-	/**
-	 * @param array $config
-	 */
 	public function __construct(array $config)
 	{
 		$this->config = $config;
 	}
 
-	/**
-	 * @param $cents
-	 * @param null|int $taxRate
-	 * @return Price
-	 */
-	public function fromCents($cents, $taxRate = null)
+	public function fromCents(int $cents, ?int $taxRate = null): Price
 	{
 		return Price::fromCents(
 			$cents,

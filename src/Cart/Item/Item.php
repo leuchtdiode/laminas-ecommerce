@@ -1,100 +1,69 @@
 <?php
 namespace Ecommerce\Cart\Item;
 
+use Common\Dto\Dto;
 use Common\Error;
 use Common\Hydration\ArrayHydratable;
+use Common\Hydration\ObjectToArrayHydratorProperty;
 use Ecommerce\Db\Cart\Item\Entity;
 use Ecommerce\Product\Product;
 use Ramsey\Uuid\UuidInterface;
 
-class Item implements ArrayHydratable
+class Item implements Dto, ArrayHydratable
 {
-	/**
-	 * @var Entity
-	 */
-	private $entity;
+	private Entity $entity;
 
-	/**
-	 * @var Product
-	 */
-	private $product;
+	private Product $product;
 
 	/**
 	 * @var Error[]
 	 */
-	private $validationErrors = [];
+	private array $validationErrors = [];
 
-	/**
-	 * @param Entity $entity
-	 * @param Product $product
-	 */
 	public function __construct(Entity $entity, Product $product)
 	{
 		$this->entity  = $entity;
 		$this->product = $product;
 	}
 
-	/**
-	 * @param Error $error
-	 */
-	public function addValidationError(Error $error)
+	public function addValidationError(Error $error): void
 	{
 		$this->validationErrors[] = $error;
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return bool
-	 */
-	public function isValid()
+	#[ObjectToArrayHydratorProperty]
+	public function isValid(): bool
 	{
 		return empty($this->validationErrors);
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return Product
-	 */
+	#[ObjectToArrayHydratorProperty]
 	public function getProduct(): Product
 	{
 		return $this->product;
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return UuidInterface
-	 */
-	public function getId()
+	#[ObjectToArrayHydratorProperty]
+	public function getId(): UuidInterface
 	{
 		return $this->entity->getId();
 	}
 
 	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
 	 * @return Error[]
 	 */
+	#[ObjectToArrayHydratorProperty]
 	public function getValidationErrors(): array
 	{
 		return $this->validationErrors;
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return int
-	 */
-	public function getQuantity()
+	#[ObjectToArrayHydratorProperty]
+	public function getQuantity(): int
 	{
 		return $this->entity->getQuantity();
 	}
 
-	/**
-	 * @return Entity
-	 */
 	public function getEntity(): Entity
 	{
 		return $this->entity;

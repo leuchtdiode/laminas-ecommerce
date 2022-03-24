@@ -1,6 +1,7 @@
 <?php
 namespace Ecommerce\Address;
 
+use Common\Db\Entity as DbEntity;
 use Common\Country\Provider as CountryProvider;
 use Ecommerce\Common\EntityDtoCreator;
 use Ecommerce\Db\Address\Entity;
@@ -8,14 +9,8 @@ use Exception;
 
 class Creator implements EntityDtoCreator
 {
-	/**
-	 * @var CountryProvider
-	 */
-	private $countryProvider;
+	private CountryProvider $countryProvider;
 
-	/**
-	 * @param CountryProvider $countryProvider
-	 */
 	public function __construct(CountryProvider $countryProvider)
 	{
 		$this->countryProvider = $countryProvider;
@@ -23,10 +18,9 @@ class Creator implements EntityDtoCreator
 
 	/**
 	 * @param Entity $entity
-	 * @return Address
 	 * @throws Exception
 	 */
-	public function byEntity($entity)
+	public function byEntity(DbEntity $entity): Address
 	{
 		return new Address(
 			$entity,

@@ -3,10 +3,11 @@ namespace Ecommerce\Rest\Action\Customer;
 
 use Common\RequestData\Data;
 use Common\RequestData\PropertyDefinition\Email;
-use Common\RequestData\PropertyDefinition\PropertyDefinition;
 use Common\RequestData\PropertyDefinition\Text;
 use Common\Country\Validator as CountryValidator;
 use Ecommerce\Customer\SalutationValidator;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class RegisterData extends Data
 {
@@ -27,9 +28,11 @@ class RegisterData extends Data
 	const ADDRESS_COUNTRY      = 'address.country';
 
 	/**
-	 * @return PropertyDefinition[]
+	 * @return array
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
-	protected function getDefinitions()
+	protected function getDefinitions(): array
 	{
 		return [
 			Email::create()

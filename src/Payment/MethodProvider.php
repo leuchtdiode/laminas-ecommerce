@@ -8,7 +8,7 @@ class MethodProvider
 	/**
 	 * @return Method[]
 	 */
-	public function all()
+	public function all(): array
 	{
 		return [
 			$this->create(Method::PAY_PAL, _('PayPal')),
@@ -19,11 +19,7 @@ class MethodProvider
 		];
 	}
 
-	/**
-	 * @param string $id
-	 * @return Method|null
-	 */
-	public function byId($id)
+	public function byId(string $id): ?Method
 	{
 		foreach ($this->all() as $status)
 		{
@@ -36,12 +32,7 @@ class MethodProvider
 		return null;
 	}
 
-	/**
-	 * @param string $id
-	 * @param string $label
-	 * @return Method
-	 */
-	private function create($id, $label)
+	private function create(string $id, string $label): Method
 	{
 		return new Method($id, Translator::translate($label));
 	}

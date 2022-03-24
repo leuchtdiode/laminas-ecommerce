@@ -8,7 +8,7 @@ class StatusProvider
 	/**
 	 * @return Status[]
 	 */
-	public function all()
+	public function all(): array
 	{
 		return [
 			$this->create(Status::NEW, _('Neu')),
@@ -19,11 +19,7 @@ class StatusProvider
 		];
 	}
 
-	/**
-	 * @param string $id
-	 * @return Status|null
-	 */
-	public function byId($id)
+	public function byId(string $id): ?Status
 	{
 		foreach ($this->all() as $status)
 		{
@@ -36,12 +32,7 @@ class StatusProvider
 		return null;
 	}
 
-	/**
-	 * @param string $id
-	 * @param string $label
-	 * @return Status
-	 */
-	private function create($id, $label)
+	private function create(string $id, string $label): Status
 	{
 		return new Status($id, Translator::translate($label));
 	}

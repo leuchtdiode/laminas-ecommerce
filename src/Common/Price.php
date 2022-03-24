@@ -2,6 +2,7 @@
 namespace Ecommerce\Common;
 
 use Common\Hydration\ArrayHydratable;
+use Common\Hydration\ObjectToArrayHydratorProperty;
 use Common\Translator;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\IntlMoneyFormatter;
@@ -11,37 +12,17 @@ use NumberFormatter;
 
 class Price implements ArrayHydratable
 {
-	/**
-	 * @var Money
-	 */
-	private $money;
+	private Money $money;
 
-	/**
-	 * @var Money
-	 */
-	private $grossMoney;
+	private Money $grossMoney;
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @var int
-	 */
-	private $taxRate;
+	#[ObjectToArrayHydratorProperty]
+	private int $taxRate;
 
-	/**
-	 * @var Money
-	 */
-	private $taxAmount;
+	private Money $taxAmount;
 
-	/**
-	 * @var MoneyFormatter
-	 */
-	private $formatter;
+	private MoneyFormatter $formatter;
 
-	/**
-	 * @param Money $money
-	 * @param int $taxRate
-	 */
 	public function __construct(Money $money, int $taxRate)
 	{
 		$this->money   = $money;
@@ -58,12 +39,7 @@ class Price implements ArrayHydratable
 		$this->formatter = new IntlMoneyFormatter($numberFormatter, $currencies);
 	}
 
-	/**
-	 * @param $cents
-	 * @param int $taxRate
-	 * @return Price
-	 */
-	public static function fromCents($cents, $taxRate)
+	public static function fromCents(int $cents, int $taxRate): self
 	{
 		return new self(
 			Money::EUR($cents),
@@ -71,82 +47,51 @@ class Price implements ArrayHydratable
 		);
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getNet()
+	#[ObjectToArrayHydratorProperty]
+	public function getNet(): string
 	{
 		return $this->money->getAmount();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getNetFormatted()
+	#[ObjectToArrayHydratorProperty]
+	public function getNetFormatted(): string
 	{
 		return $this->formatter->format($this->money);
 	}
 
-	/**
-	 * @return int
-	 */
 	public function getTaxRate(): int
 	{
 		return $this->taxRate;
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getCurrency()
+	#[ObjectToArrayHydratorProperty]
+	public function getCurrency(): string
 	{
 		return $this->money
 			->getCurrency()
 			->getCode();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getGross()
+	#[ObjectToArrayHydratorProperty]
+	public function getGross(): string
 	{
 		return $this->grossMoney->getAmount();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getGrossFormatted()
+	#[ObjectToArrayHydratorProperty]
+	public function getGrossFormatted(): string
 	{
 		return $this->formatter->format($this->grossMoney);
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getTaxAmount()
+	#[ObjectToArrayHydratorProperty]
+	public function getTaxAmount(): string
 	{
 		return $this->taxAmount->getAmount();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getTaxAmountFormatted()
+	#[ObjectToArrayHydratorProperty]
+	public function getTaxAmountFormatted(): string
 	{
 		return $this->formatter->format($this->taxAmount);
 	}

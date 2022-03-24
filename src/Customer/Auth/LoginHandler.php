@@ -6,31 +6,17 @@ use Ecommerce\Customer\Provider;
 
 class LoginHandler
 {
-	/**
-	 * @var Provider
-	 */
-	private $customerProvider;
+	private Provider $customerProvider;
 
-	/**
-	 * @var JwtHandler
-	 */
-	private $jwtHandler;
+	private JwtHandler $jwtHandler;
 
-	/**
-	 * @param Provider $customerProvider
-	 * @param JwtHandler $jwtHandler
-	 */
 	public function __construct(Provider $customerProvider, JwtHandler $jwtHandler)
 	{
 		$this->customerProvider = $customerProvider;
 		$this->jwtHandler       = $jwtHandler;
 	}
 
-	/**
-	 * @param LoginData $data
-	 * @return LoginResult
-	 */
-	public function login(LoginData $data)
+	public function login(LoginData $data): LoginResult
 	{
 		$result = new LoginResult();
 		$result->setSuccess(false);

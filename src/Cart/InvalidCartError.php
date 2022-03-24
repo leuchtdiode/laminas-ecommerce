@@ -2,34 +2,24 @@
 namespace Ecommerce\Cart;
 
 use Common\Error;
+use Common\Hydration\ObjectToArrayHydratorProperty;
 use Common\Translator;
 
 class InvalidCartError extends Error
 {
-	/**
-	 * @return InvalidCartError
-	 */
-	public static function create()
+	public static function create(): self
 	{
 		return new self();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getCode()
+	#[ObjectToArrayHydratorProperty]
+	public function getCode(): string
 	{
 		return 'INVALID_CART';
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getMessage()
+	#[ObjectToArrayHydratorProperty]
+	public function getMessage(): string
 	{
 		return Translator::translate('Der Warenkorb enthält fehlerhafte Produkte');
 	}

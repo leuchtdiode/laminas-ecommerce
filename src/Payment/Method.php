@@ -14,42 +14,27 @@ class Method implements ArrayHydratable
 
 	use IdLabelObject;
 
-	/**
-	 * @return bool
-	 */
-	public function isPayPal()
+	public function isPayPal(): bool
 	{
 		return $this->is(self::PAY_PAL);
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function isAmazonPay()
+	public function isAmazonPay(): bool
 	{
 		return $this->is(self::AMAZON_PAY);
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function isPrePayment()
+	public function isPrePayment(): bool
 	{
 		return $this->is(self::PRE_PAYMENT);
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function isMpay24()
+	public function isMpay24(): bool
 	{
 		return $this->is(self::MPAY_24);
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function isWirecard()
+	public function isWirecard(): bool
 	{
 		return $this->is(self::WIRECARD);
 	}

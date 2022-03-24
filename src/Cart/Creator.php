@@ -8,27 +8,15 @@ use Ecommerce\Db\Cart\Item\Entity as CartItemEntity;
 
 class Creator implements EntityDtoCreator
 {
-	/**
-	 * @var TotalPriceCalculator
-	 */
-	private $totalPriceCalculator;
+	private TotalPriceCalculator $totalPriceCalculator;
 
-	/**
-	 * @var CartItemCreator
-	 */
-	private $cartItemCreator;
+	private CartItemCreator $cartItemCreator;
 
-	/**
-	 * @param TotalPriceCalculator $totalPriceCalculator
-	 */
 	public function __construct(TotalPriceCalculator $totalPriceCalculator)
 	{
 		$this->totalPriceCalculator = $totalPriceCalculator;
 	}
 
-	/**
-	 * @param CartItemCreator $cartItemCreator
-	 */
 	public function setCartItemCreator(CartItemCreator $cartItemCreator): void
 	{
 		$this->cartItemCreator = $cartItemCreator;
@@ -36,11 +24,12 @@ class Creator implements EntityDtoCreator
 
 	/**
 	 * @param Entity $entity
-	 * @return Cart
 	 */
-	public function byEntity($entity)
+	public function byEntity($entity): Cart
 	{
-		$items = $entity->getItems()->toArray();
+		$items = $entity
+			->getItems()
+			->toArray();
 
 		return new Cart(
 			$entity,

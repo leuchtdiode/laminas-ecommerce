@@ -2,37 +2,24 @@
 namespace Ecommerce\Rest\Action\Customer\Address;
 
 use Common\Hydration\ArrayHydratable;
+use Common\Hydration\ObjectToArrayHydratorProperty;
 use Ecommerce\Address\Address;
 
 class AddOrModifySuccessData implements ArrayHydratable
 {
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @var Address
-	 */
-	private $address;
+	#[ObjectToArrayHydratorProperty]
+	private Address $address;
 
-	/**
-	 * @return AddOrModifySuccessData
-	 */
-	public static function create()
+	public static function create(): self
 	{
 		return new self();
 	}
 
-	/**
-	 * @return Address
-	 */
 	public function getAddress(): Address
 	{
 		return $this->address;
 	}
 
-	/**
-	 * @param Address $address
-	 * @return AddOrModifySuccessData
-	 */
 	public function setAddress(Address $address): AddOrModifySuccessData
 	{
 		$this->address = $address;

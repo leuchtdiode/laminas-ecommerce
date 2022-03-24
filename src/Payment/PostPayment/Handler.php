@@ -17,61 +17,30 @@ use Ecommerce\Transaction\Provider as TransactionProvider;
 use Ecommerce\Transaction\Transaction;
 use Exception;
 use Laminas\EventManager\EventManagerAwareInterface;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class Handler implements EventManagerAwareInterface
 {
 	use EventManagerTrait;
 
-	/**
-	 * @var array
-	 */
-	private $config;
+	private array $config;
 
-	/**
-	 * @var ContainerInterface
-	 */
-	private $container;
+	private ContainerInterface $container;
 
-	/**
-	 * @var TransactionProvider
-	 */
-	private $transactionProvider;
+	private TransactionProvider $transactionProvider;
 
-	/**
-	 * @var TransactionEntitySaver
-	 */
-	private $transactionEntitySaver;
+	private TransactionEntitySaver $transactionEntitySaver;
 
-	/**
-	 * @var DefaultInvoiceGenerator
-	 */
-	private $invoiceGenerator;
+	private DefaultInvoiceGenerator $invoiceGenerator;
 
-	/**
-	 * @var SuccessMailSender
-	 */
-	private $successMailSender;
+	private SuccessMailSender $successMailSender;
 
-	/**
-	 * @var UnsuccessfulMailSender
-	 */
-	private $unsuccessfulMailSender;
+	private UnsuccessfulMailSender $unsuccessfulMailSender;
 
-	/**
-	 * @var Transaction
-	 */
-	private $transaction;
+	private Transaction $transaction;
 
-	/**
-	 * @param array $config
-	 * @param ContainerInterface $container
-	 * @param TransactionProvider $transactionProvider
-	 * @param TransactionEntitySaver $transactionEntitySaver
-	 * @param DefaultInvoiceGenerator $invoiceGenerator
-	 * @param SuccessMailSender $successMailSender
-	 * @param UnsuccessfulMailSender $unsuccessfulMailSender
-	 */
 	public function __construct(
 		array $config,
 		ContainerInterface $container,
@@ -92,11 +61,10 @@ class Handler implements EventManagerAwareInterface
 	}
 
 	/**
-	 * @param SuccessfulData $data
-	 * @return SuccessfulResult
-	 * @throws Exception
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
-	public function successful(SuccessfulData $data)
+	public function successful(SuccessfulData $data): SuccessfulResult
 	{
 		$result = new SuccessfulResult();
 		$result->setSuccess(false);
@@ -139,11 +107,7 @@ class Handler implements EventManagerAwareInterface
 		return $result;
 	}
 
-	/**
-	 * @param UnsuccessfulData $data
-	 * @return UnsuccessfulResult
-	 */
-	public function unsuccessful(UnsuccessfulData $data)
+	public function unsuccessful(UnsuccessfulData $data): UnsuccessfulResult
 	{
 		$result = new UnsuccessfulResult();
 
@@ -165,9 +129,10 @@ class Handler implements EventManagerAwareInterface
 	}
 
 	/**
-	 * @throws Exception
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
 	 */
-	private function generateInvoiceNumber()
+	private function generateInvoiceNumber(): void
 	{
 		/**
 		 * @var InvoiceNumberGenerator $invoiceNumberGenerator
@@ -193,7 +158,7 @@ class Handler implements EventManagerAwareInterface
 	/**
 	 * @throws Exception
 	 */
-	private function handleConsecutiveNumberInYear()
+	private function handleConsecutiveNumberInYear(): void
 	{
 		$latestSuccessTransactionsInYear = $this->transactionProvider->filter(
 			FilterChain::create()
@@ -225,7 +190,7 @@ class Handler implements EventManagerAwareInterface
 	/**
 	 * @throws Exception
 	 */
-	private function reloadTransaction()
+	private function reloadTransaction(): void
 	{
 		$this->transaction = $this->transactionProvider->byId($this->transaction->getId());
 	}

@@ -6,23 +6,14 @@ use Ecommerce\Rest\Action\Base;
 use Ecommerce\Rest\Action\LoginExempt;
 use Ecommerce\Rest\Action\Response;
 use Exception;
+use Laminas\View\Model\JsonModel;
 
 class Activate extends Base implements LoginExempt
 {
-	/**
-	 * @var ActivateData
-	 */
-	private $data;
+	private ActivateData $data;
 
-	/**
-	 * @var ActivateHandler
-	 */
-	private $activateHandler;
+	private ActivateHandler $activateHandler;
 
-	/**
-	 * @param ActivateData $data
-	 * @param ActivateHandler $activateHandler
-	 */
 	public function __construct(ActivateData $data, ActivateHandler $activateHandler)
 	{
 		$this->data            = $data;
@@ -32,7 +23,7 @@ class Activate extends Base implements LoginExempt
 	/**
 	 * @throws Exception
 	 */
-	public function executeAction()
+	public function executeAction(): JsonModel
 	{
 		$values = $this->data
 			->setRequest($this->getRequest())
@@ -47,8 +38,10 @@ class Activate extends Base implements LoginExempt
 		}
 
 		$result = $this->activateHandler->activate(
-			$this->params()->fromRoute('id'),
-			$values->get(ActivateData::CREATED_DATE)->getValue()
+			$this->params()
+				->fromRoute('id'),
+			$values->get(ActivateData::CREATED_DATE)
+				->getValue()
 		);
 
 		if ($result->isSuccess())

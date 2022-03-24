@@ -10,7 +10,7 @@ class LoginData extends Data
 	const EMAIL    = 'email';
 	const PASSWORD = 'password';
 
-	protected function getDefinitions()
+	protected function getDefinitions(): array
 	{
 		return [
 			Email::create()

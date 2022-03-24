@@ -13,26 +13,12 @@ use Mail\Queue\Queue;
 
 class SuccessMailSender extends Sender
 {
-	/**
-	 * @var InvoiceProvider
-	 */
-	private $invoiceProvider;
+	private InvoiceProvider $invoiceProvider;
 
-	/**
-	 * @var Transaction
-	 */
-	private $transaction;
+	private Transaction $transaction;
 
-	/**
-	 * @var Customer
-	 */
-	private $customer;
+	private Customer $customer;
 
-	/**
-	 * @param array $config
-	 * @param Queue $mailQueue
-	 * @param InvoiceProvider $invoiceProvider
-	 */
 	public function __construct(array $config, Queue $mailQueue, InvoiceProvider $invoiceProvider)
 	{
 		parent::__construct($config, $mailQueue);
@@ -40,11 +26,7 @@ class SuccessMailSender extends Sender
 		$this->invoiceProvider = $invoiceProvider;
 	}
 
-	/**
-	 * @param Transaction $transaction
-	 * @return bool
-	 */
-	public function send(Transaction $transaction)
+	public function send(Transaction $transaction): bool
 	{
 		Log::debug('Sending success payment mail for ' . $transaction->getId()->toString());
 
@@ -58,7 +40,7 @@ class SuccessMailSender extends Sender
 	 * @return Attachment[]
 	 * @throws Exception
 	 */
-	protected function getAttachments()
+	protected function getAttachments(): array
 	{
 		$invoice = $this->invoiceProvider->get($this->transaction);
 
@@ -70,10 +52,7 @@ class SuccessMailSender extends Sender
 		];
 	}
 
-	/**
-	 * @return Recipient
-	 */
-	protected function getRecipient()
+	protected function getRecipient(): Recipient
 	{
 		return Recipient::create(
 			$this->customer->getEmail(),
@@ -81,26 +60,17 @@ class SuccessMailSender extends Sender
 		);
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getContentTemplate()
+	protected function getContentTemplate(): string
 	{
 		return $this->getEcommerceMailConfig()['payment']['successful']['template'];
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getSubject()
+	protected function getSubject(): string
 	{
 		return $this->getEcommerceMailConfig()['payment']['successful']['subject'];
 	}
 
-	/**
-	 * @return SuccessMailPlaceholderValues
-	 */
-	protected function getPlaceholderValues()
+	protected function getPlaceholderValues(): SuccessMailPlaceholderValues
 	{
 		return SuccessMailPlaceholderValues::create()
 			->setTransaction($this->transaction)

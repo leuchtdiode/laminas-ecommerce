@@ -7,23 +7,15 @@ use Ecommerce\Rest\Action\Base;
 use Ecommerce\Rest\Action\LoginExempt;
 use Ecommerce\Transaction\Invoice\Bulk\GetData;
 use Ecommerce\Transaction\Invoice\Bulk\Provider;
+use Laminas\Stdlib\ResponseInterface;
+use Laminas\View\Model\JsonModel;
 
 class Bulk extends Base implements LoginExempt
 {
-	/**
-	 * @var BulkData
-	 */
-	private $data;
+	private BulkData $data;
 	
-	/**
-	 * @var Provider
-	 */
-	private $bulkProvider;
+	private Provider $bulkProvider;
 
-	/**
-	 * @param BulkData $data
-	 * @param Provider $bulkProvider
-	 */
 	public function __construct(BulkData $data, Provider $bulkProvider)
 	{
 		$this->data         = $data;
@@ -33,7 +25,7 @@ class Bulk extends Base implements LoginExempt
 	/**
 	 * @throws Exception
 	 */
-	public function executeAction()
+	public function executeAction(): JsonModel|ResponseInterface
 	{
 		$values = $this->data
 			->setRequest($this->getRequest())

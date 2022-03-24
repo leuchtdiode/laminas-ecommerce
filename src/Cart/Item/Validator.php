@@ -5,10 +5,7 @@ use Ecommerce\Product\ProductHasNotEnoughStockError;
 
 class Validator
 {
-	/**
-	 * @param Item $item
-	 */
-	public function validate(Item $item)
+	public function validate(Item $item): void
 	{
 		$product = $item->getProduct();
 

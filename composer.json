@@ -20,22 +20,22 @@
 		"Shop"
 	],
 	"require": {
-		"php": ">=7.1",
+		"php": "^8.0",
 		"ext-curl": "*",
 		"ext-json": "*",
 		"ext-openssl": "*",
 		"ext-gettext": "*",
 		"ext-intl": "*",
-		"leuchtdiode/laminas-common": "^1.0",
-		"leuchtdiode/laminas-log": "^1.0",
-		"leuchtdiode/laminas-mail": "^1.0",
-		"leuchtdiode/laminas-async-queue": "^0.1",
-		"leuchtdiode/laminas-assets": "^0.1.1",
-		"laminas/laminas-eventmanager": "^3.2",
-		"beberlei/doctrineextensions": "^1.2",
-		"ramsey/uuid-doctrine": "^1.5",
-		"firebase/php-jwt": "^5.0",
-		"moneyphp/money": "^3.2",
+		"leuchtdiode/laminas-common": "^2.1.0",
+		"leuchtdiode/laminas-log": "^2.0.0",
+		"leuchtdiode/laminas-mail": "^3.0.0",
+		"leuchtdiode/laminas-async-queue": "^0.3.0",
+		"leuchtdiode/laminas-assets": "^0.4.0",
+		"laminas/laminas-eventmanager": "^3.4.0",
+		"beberlei/doctrineextensions": "^1.3.0",
+		"ramsey/uuid-doctrine": "^1.8.0",
+		"firebase/php-jwt": "^6.0.0",
+		"moneyphp/money": "^4.0.0",
 		"spipu/html2pdf": "^5.2"
 	},
 	"suggest": {
@@ -45,6 +45,11 @@
 	"autoload": {
 		"psr-4": {
 			"Ecommerce\\": "src/"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"ocramius/package-versions": true
 		}
 	}
 }

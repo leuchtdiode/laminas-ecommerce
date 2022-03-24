@@ -5,10 +5,7 @@ use Common\Db\Order\AscOrDesc;
 
 class CreatedDate extends AscOrDesc
 {
-	/**
-	 * @inheritDoc
-	 */
-	protected function getField()
+	protected function getField(): string
 	{
 		return 't.createdDate';
 	}

@@ -2,21 +2,18 @@
 namespace Ecommerce\Rest\Action\Customer\Transaction;
 
 use Common\Hydration\ArrayHydratable;
+use Common\Hydration\ObjectToArrayHydratorProperty;
 use Ecommerce\Transaction\Transaction;
 
 class GetListSuccessData implements ArrayHydratable
 {
 	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
 	 * @var Transaction[]
 	 */
-	private $transactions;
+	#[ObjectToArrayHydratorProperty]
+	private array $transactions;
 
-	/**
-	 * @return GetListSuccessData
-	 */
-	public static function create()
+	public static function create(): self
 	{
 		return new self();
 	}
@@ -31,7 +28,6 @@ class GetListSuccessData implements ArrayHydratable
 
 	/**
 	 * @param Transaction[] $transactions
-	 * @return GetListSuccessData
 	 */
 	public function setTransactions(array $transactions): GetListSuccessData
 	{

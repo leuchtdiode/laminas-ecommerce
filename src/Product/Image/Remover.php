@@ -9,20 +9,10 @@ use Log\Log;
 
 class Remover
 {
-	/**
-	 * @var Provider
-	 */
-	private $provider;
+	private Provider $provider;
 
-	/**
-	 * @var EntityDeleter
-	 */
-	private $entityDeleter;
+	private EntityDeleter $entityDeleter;
 
-	/**
-	 * @param Provider $provider
-	 * @param EntityDeleter $entityDeleter
-	 */
 	public function __construct(Provider $provider, EntityDeleter $entityDeleter)
 	{
 		$this->provider      = $provider;
@@ -30,11 +20,9 @@ class Remover
 	}
 
 	/**
-	 * @param RemoveData $data
-	 * @return RemoveResult
 	 * @throws Exception
 	 */
-	public function remove(RemoveData $data)
+	public function remove(RemoveData $data): RemoveResult
 	{
 		$result = new RemoveResult();
 		$result->setSuccess(true);

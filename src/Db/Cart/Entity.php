@@ -1,49 +1,36 @@
 <?php
 namespace Ecommerce\Db\Cart;
 
+use Common\Db\Entity as DbEntity;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ecommerce\Db\Cart\Item\Entity as CartItemEntity;
 use Exception;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-/**
- * @ORM\Table(name="ecommerce_carts")
- * @ORM\Entity(repositoryClass="Ecommerce\Db\Cart\Repository")
- * @ORM\HasLifecycleCallbacks
- */
-class Entity
+#[ORM\Table(name: 'ecommerce_carts')]
+#[ORM\Entity(repositoryClass: Repository::class)]
+#[ORM\HasLifecycleCallbacks]
+class Entity implements DbEntity
 {
-	/**
-	 * @var UuidInterface
-	 *
-	 * @ORM\Id
-	 * @ORM\Column(type="uuid");
-	 */
-	private $id;
+	#[ORM\Id]
+	#[ORM\Column(type: 'uuid')]
+	private UuidInterface $id;
 
-	/**
-	 * @var DateTime
-	 *
-	 * @ORM\Column(type="datetime");
-	 */
-	private $lastChangedDate;
+	#[ORM\Column(type: 'datetime')]
+	private DateTime $lastChangedDate;
 
-	/**
-	 * @var DateTime
-	 *
-	 * @ORM\Column(type="datetime");
-	 */
-	private $createdDate;
+	#[ORM\Column(type: 'datetime')]
+	private DateTime $createdDate;
 
 	/**
 	 * @var ArrayCollection|CartItemEntity[]
-	 *
-	 * @ORM\OneToMany(targetEntity="Ecommerce\Db\Cart\Item\Entity", mappedBy="cart", cascade={"persist"})
 	 */
-	private $items;
+	#[ORM\OneToMany(mappedBy: 'cart', targetEntity: CartItemEntity::class, cascade: [ 'persist'])]
+	private Collection|array $items;
 
 	/**
 	 * @throws Exception
@@ -57,57 +44,39 @@ class Entity
 	}
 
 	/**
-	 * @ORM\PreFlush
 	 * @throws Exception
 	 */
+	#[ORM\PreFlush]
 	public function updateLastChangedDate()
 	{
 		$this->lastChangedDate = new DateTime();
 	}
 
-	/**
-	 * @return UuidInterface
-	 */
 	public function getId(): UuidInterface
 	{
 		return $this->id;
 	}
 
-	/**
-	 * @param UuidInterface $id
-	 */
 	public function setId(UuidInterface $id): void
 	{
 		$this->id = $id;
 	}
 
-	/**
-	 * @return DateTime
-	 */
 	public function getLastChangedDate(): DateTime
 	{
 		return $this->lastChangedDate;
 	}
 
-	/**
-	 * @param DateTime $lastChangedDate
-	 */
 	public function setLastChangedDate(DateTime $lastChangedDate): void
 	{
 		$this->lastChangedDate = $lastChangedDate;
 	}
 
-	/**
-	 * @return DateTime
-	 */
 	public function getCreatedDate(): DateTime
 	{
 		return $this->createdDate;
 	}
 
-	/**
-	 * @param DateTime $createdDate
-	 */
 	public function setCreatedDate(DateTime $createdDate): void
 	{
 		$this->createdDate = $createdDate;
@@ -116,7 +85,7 @@ class Entity
 	/**
 	 * @return ArrayCollection|CartItemEntity[]
 	 */
-	public function getItems()
+	public function getItems(): Collection|array
 	{
 		return $this->items;
 	}
@@ -124,7 +93,7 @@ class Entity
 	/**
 	 * @param ArrayCollection|CartItemEntity[] $items
 	 */
-	public function setItems($items): void
+	public function setItems(Collection|array $items): void
 	{
 		$this->items = $items;
 	}

@@ -1,37 +1,23 @@
 <?php
 namespace Ecommerce\Customer;
 
+use Common\Dto\Dto;
 use Common\Hydration\ArrayHydratable;
+use Common\Hydration\ObjectToArrayHydratorProperty;
 use DateTime;
 use Ecommerce\Db\Customer\Entity;
 use Ramsey\Uuid\UuidInterface;
 
-class Customer implements ArrayHydratable
+class Customer implements Dto, ArrayHydratable
 {
-	/**
-	 * @var Entity
-	 */
-	private $entity;
+	private Entity $entity;
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @var Status
-	 */
-	private $status;
+	#[ObjectToArrayHydratorProperty]
+	private Status $status;
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @var Salutation
-	 */
-	private $salutation;
+	#[ObjectToArrayHydratorProperty]
+	private Salutation $salutation;
 
-	/**
-	 * @param Entity $entity
-	 * @param Status $status
-	 * @param Salutation $salutation
-	 */
 	public function __construct(Entity $entity, Status $status, Salutation $salutation)
 	{
 		$this->entity     = $entity;
@@ -39,162 +25,99 @@ class Customer implements ArrayHydratable
 		$this->salutation = $salutation;
 	}
 
-	/**
-	 * @param Customer $customer
-	 * @return bool
-	 */
-	public function equals(Customer $customer)
+	public function equals(Customer $customer): bool
 	{
 		return $this->getId()->equals($customer->getId());
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function hasCompany()
+	public function hasCompany(): bool
 	{
 		$company = $this->getCompany();
 
 		return !empty($company);
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getName()
+	#[ObjectToArrayHydratorProperty]
+	public function getName(): string
 	{
 		return $this->getFirstName() . ' ' . $this->getLastName();
 	}
 
-	/**
-	 * @return Status
-	 */
 	public function getStatus(): Status
 	{
 		return $this->status;
 	}
 
-	/**
-	 * @return Salutation
-	 */
 	public function getSalutation(): Salutation
 	{
 		return $this->salutation;
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return UuidInterface
-	 */
-	public function getId()
+	#[ObjectToArrayHydratorProperty]
+	public function getId(): UuidInterface
 	{
 		return $this->entity->getId();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getEmail()
+	#[ObjectToArrayHydratorProperty]
+	public function getEmail(): string
 	{
 		return $this->entity->getEmail();
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getPassword()
+	public function getPassword(): string
 	{
 		return $this->entity->getPassword();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getFirstName()
+	#[ObjectToArrayHydratorProperty]
+	public function getFirstName(): string
 	{
 		return $this->entity->getFirstName();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getLastName()
+	#[ObjectToArrayHydratorProperty]
+	public function getLastName(): string
 	{
 		return $this->entity->getLastName();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return null|string
-	 */
-	public function getTitle()
+	#[ObjectToArrayHydratorProperty]
+	public function getTitle(): ?string
 	{
 		return $this->entity->getTitle();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return null|string
-	 */
-	public function getCompany()
+	#[ObjectToArrayHydratorProperty]
+	public function getCompany(): ?string
 	{
 		return $this->entity->getCompany();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return null|string
-	 */
-	public function getTaxNumber()
+	#[ObjectToArrayHydratorProperty]
+	public function getTaxNumber(): ?string
 	{
 		return $this->entity->getTaxNumber();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return null|string
-	 */
-	public function getForgotPasswordHash()
+	#[ObjectToArrayHydratorProperty]
+	public function getForgotPasswordHash(): ?string
 	{
 		return $this->entity->getForgotPasswordHash();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return null|string
-	 */
-	public function getLocale()
+	#[ObjectToArrayHydratorProperty]
+	public function getLocale(): ?string
 	{
 		return $this->entity->getLocale();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return DateTime
-	 */
-	public function getCreatedDate()
+	#[ObjectToArrayHydratorProperty]
+	public function getCreatedDate(): DateTime
 	{
 		return $this->entity->getCreatedDate();
 	}
 
-	/**
-	 * @return Entity
-	 */
 	public function getEntity(): Entity
 	{
 		return $this->entity;

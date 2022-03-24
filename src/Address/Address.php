@@ -2,115 +2,72 @@
 namespace Ecommerce\Address;
 
 use Common\Country\Country;
+use Common\Dto\Dto;
 use Common\Hydration\ArrayHydratable;
+use Common\Hydration\ObjectToArrayHydratorProperty;
 use Ecommerce\Db\Address\Entity;
 use Ramsey\Uuid\UuidInterface;
 
-class Address implements ArrayHydratable
+class Address implements Dto, ArrayHydratable
 {
-	/**
-	 * @var Entity
-	 */
-	private $entity;
+	private Entity $entity;
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @var Country
-	 */
-	private $country;
+	#[ObjectToArrayHydratorProperty]
+	private Country $country;
 
-	/**
-	 * @param Entity $entity
-	 * @param Country $country
-	 */
 	public function __construct(Entity $entity, Country $country)
 	{
 		$this->entity  = $entity;
 		$this->country = $country;
 	}
 
-	/**
-	 * @return Country
-	 */
-	public function getCountry()
+	public function getCountry(): Country
 	{
 		return $this->country;
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return UuidInterface
-	 */
-	public function getId()
+	#[ObjectToArrayHydratorProperty]
+	public function getId(): UuidInterface
 	{
 		return $this->entity->getId();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getZip()
+	#[ObjectToArrayHydratorProperty]
+	public function getZip(): string
 	{
 		return $this->entity->getZip();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getCity()
+	#[ObjectToArrayHydratorProperty]
+	public function getCity(): string
 	{
 		return $this->entity->getCity();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return string
-	 */
-	public function getStreet()
+	#[ObjectToArrayHydratorProperty]
+	public function getStreet(): string
 	{
 		return $this->entity->getStreet();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return null|string
-	 */
-	public function getExtra()
+	#[ObjectToArrayHydratorProperty]
+	public function getExtra(): ?string
 	{
 		return $this->entity->getExtra();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return bool
-	 */
-	public function isDefaultBilling()
+	#[ObjectToArrayHydratorProperty]
+	public function isDefaultBilling(): bool
 	{
 		return $this->entity->isDefaultBilling();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return bool
-	 */
-	public function isDefaultShipping()
+	#[ObjectToArrayHydratorProperty]
+	public function isDefaultShipping(): bool
 	{
 		return $this->entity->isDefaultShipping();
 	}
 
-	/**
-	 * @return Entity
-	 */
 	public function getEntity(): Entity
 	{
 		return $this->entity;

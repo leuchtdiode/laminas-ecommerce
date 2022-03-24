@@ -7,44 +7,32 @@ use Ecommerce\Transaction\Invoice\FileSystemPathProvider;
 use Ecommerce\Transaction\Invoice\SecurityHashHandler;
 use Ecommerce\Transaction\Provider as TransactionProvider;
 use Exception;
+use Laminas\Stdlib\ResponseInterface;
+use Laminas\View\Model\JsonModel;
 
 class Invoice extends Base implements LoginExempt
 {
-	/**
-	 * @var TransactionProvider
-	 */
-	private $transactionProvider;
+	private TransactionProvider $transactionProvider;
 
-	/**
-	 * @var FileSystemPathProvider
-	 */
-	private $fileSystemPathProvider;
+	private FileSystemPathProvider $fileSystemPathProvider;
 
-	/**
-	 * @var SecurityHashHandler
-	 */
-	private $securityHashHandler;
+	private SecurityHashHandler $securityHashHandler;
 
-	/**
-	 * @param TransactionProvider $transactionProvider
-	 * @param FileSystemPathProvider $fileSystemPathProvider
-	 * @param SecurityHashHandler $securityHashHandler
-	 */
 	public function __construct(
 		TransactionProvider $transactionProvider,
 		FileSystemPathProvider $fileSystemPathProvider,
 		SecurityHashHandler $securityHashHandler
 	)
 	{
-		$this->transactionProvider = $transactionProvider;
+		$this->transactionProvider    = $transactionProvider;
 		$this->fileSystemPathProvider = $fileSystemPathProvider;
-		$this->securityHashHandler = $securityHashHandler;
+		$this->securityHashHandler    = $securityHashHandler;
 	}
 
 	/**
 	 * @throws Exception
 	 */
-	public function executeAction()
+	public function executeAction(): JsonModel|ResponseInterface
 	{
 		$response = $this->getResponse();
 
@@ -81,7 +69,7 @@ class Invoice extends Base implements LoginExempt
 			->getHeaders()
 			->addHeaders(
 				[
-					'Content-type' => 'application/pdf;charset=utf-8'
+					'Content-type' => 'application/pdf;charset=utf-8',
 				]
 			);
 

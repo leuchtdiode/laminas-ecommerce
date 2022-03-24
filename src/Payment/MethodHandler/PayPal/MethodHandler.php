@@ -25,49 +25,21 @@ use PayPal\Api\Transaction as PayPalTransaction;
 
 class MethodHandler implements MethodHandlerInterface
 {
-	/**
-	 * @var array
-	 */
-	private $config;
+	private UrlProvider $urlProvider;
 
-	/**
-	 * @var UrlProvider
-	 */
-	private $urlProvider;
+	private AsyncQueueAdder $asyncQueueAdder;
 
-	/**
-	 * @var AsyncQueueAdder
-	 */
-	private $asyncQueueAdder;
+	private Api $api;
 
-	/**
-	 * @var Api
-	 */
-	private $api;
+	private InitData $data;
 
-	/**
-	 * @var InitData
-	 */
-	private $data;
-
-	/**
-	 * @param array $config
-	 * @param UrlProvider $urlProvider
-	 * @param AsyncQueueAdder $asyncQueueAdder
-	 * @param Api $api
-	 */
-	public function __construct(array $config, UrlProvider $urlProvider, AsyncQueueAdder $asyncQueueAdder, Api $api)
+	public function __construct(UrlProvider $urlProvider, AsyncQueueAdder $asyncQueueAdder, Api $api)
 	{
-		$this->config          = $config;
-		$this->urlProvider     = $urlProvider;
+		$this->urlProvider = $urlProvider;
 		$this->asyncQueueAdder = $asyncQueueAdder;
-		$this->api             = $api;
+		$this->api = $api;
 	}
 
-	/**
-	 * @param InitData $data
-	 * @return InitResult
-	 */
 	public function init(InitData $data): InitResult
 	{
 		$this->data = $data;
@@ -97,10 +69,6 @@ class MethodHandler implements MethodHandlerInterface
 		return $result;
 	}
 
-	/**
-	 * @param HandleCallbackData $data
-	 * @return HandleCallbackResult
-	 */
 	public function handleCallback(HandleCallbackData $data): HandleCallbackResult
 	{
 		$request = $data->getRequest();
@@ -133,7 +101,7 @@ class MethodHandler implements MethodHandlerInterface
 							'transactionId' => $data
 								->getTransaction()
 								->getId()
-								->toString()
+								->toString(),
 						]
 					)
 			);
@@ -149,17 +117,15 @@ class MethodHandler implements MethodHandlerInterface
 		return $result;
 	}
 
-	/**
-	 *
-	 */
-	private function createPayPalPayment()
+	private function createPayPalPayment(): Payment
 	{
 		$transaction = $this->data->getTransaction();
 
 		$payer = new Payer();
 		$payer->setPaymentMethod('paypal');
 
-		$totalAmount = $transaction->getTotalPrice()->getGross() / 100; // amount is cents, so divide by 100
+		$totalAmount = $transaction->getTotalPrice()
+				->getGross() / 100; // amount is cents, so divide by 100
 
 		$details = new Details();
 		$details
@@ -167,7 +133,7 @@ class MethodHandler implements MethodHandlerInterface
 
 		$amount = new Amount();
 		$amount->setCurrency('USD') // TODO for testing
-			->setTotal($totalAmount)
+		->setTotal($totalAmount)
 			->setDetails($details);
 
 		$payPalTransaction = new PayPalTransaction();
@@ -195,17 +161,12 @@ class MethodHandler implements MethodHandlerInterface
 			->setIntent("sale")
 			->setPayer($payer)
 			->setRedirectUrls($redirectUrls)
-			->setTransactions([$payPalTransaction]);
+			->setTransactions([ $payPalTransaction ]);
 
 		return $payment;
 	}
 
-	/**
-	 * @param string $type
-	 * @param string $transactionId
-	 * @return string $type
-	 */
-	private function getUrl($type, $transactionId)
+	private function getUrl(string $type, string $transactionId): string
 	{
 		return $this->urlProvider->get(
 			'ecommerce/payment/callback',

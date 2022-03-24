@@ -10,32 +10,17 @@ use Log\Log;
 
 class ActivateHandler
 {
-	/**
-	 * @var Provider
-	 */
-	private $customerProvider;
+	private Provider $customerProvider;
 
-	/**
-	 * @var Saver
-	 */
-	private $entitySaver;
+	private Saver $entitySaver;
 
-	/**
-	 * @param Provider $customerProvider
-	 * @param Saver $entitySaver
-	 */
 	public function __construct(Provider $customerProvider, Saver $entitySaver)
 	{
 		$this->customerProvider = $customerProvider;
 		$this->entitySaver      = $entitySaver;
 	}
 
-	/**
-	 * @param string $customerId
-	 * @param string $createdDate
-	 * @return ActivateResult
-	 */
-	public function activate($customerId, $createdDate)
+	public function activate(string $customerId, string $createdDate): ActivateResult
 	{
 		$result = new ActivateResult();
 		$result->setSuccess(false);

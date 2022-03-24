@@ -8,34 +8,24 @@ use Laminas\View\Model\JsonModel;
 
 class Response
 {
-	/**
-	 * @var bool
-	 */
-	private $success;
+	private bool $success;
 
 	/**
 	 * @var Error[]
 	 */
-	private $errors;
+	private array $errors = [];
 
-	/**
-	 * @var array
-	 */
-	private $data;
+	private array $data;
 
-	/**
-	 * @return Response
-	 */
-	public static function is()
+	public static function is(): self
 	{
 		return new self();
 	}
 
 	/**
-	 * @return JsonModel
 	 * @throws Exception
 	 */
-	public function dispatch()
+	public function dispatch(): JsonModel
 	{
 		return new JsonModel(
 			[
@@ -46,9 +36,6 @@ class Response
 		);
 	}
 
-	/**
-	 * @return Response
-	 */
 	public function successful(): Response
 	{
 		$this->success = true;
@@ -56,9 +43,6 @@ class Response
 		return $this;
 	}
 
-	/**
-	 * @return Response
-	 */
 	public function unsuccessful(): Response
 	{
 		$this->success = false;
@@ -68,7 +52,6 @@ class Response
 
 	/**
 	 * @param Error[] $errors
-	 * @return Response
 	 */
 	public function errors(array $errors): Response
 	{
@@ -77,10 +60,6 @@ class Response
 		return $this;
 	}
 
-	/**
-	 * @param array $data
-	 * @return Response
-	 */
 	public function data(array $data): Response
 	{
 		$this->data = $data;

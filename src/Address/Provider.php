@@ -9,20 +9,10 @@ use Exception;
 
 class Provider
 {
-	/**
-	 * @var DtoCreatorProvider
-	 */
-	private $dtoCreatorProvider;
+	private DtoCreatorProvider $dtoCreatorProvider;
 
-	/**
-	 * @var Repository
-	 */
-	private $repository;
+	private Repository $repository;
 
-	/**
-	 * @param DtoCreatorProvider $dtoCreatorProvider
-	 * @param Repository $repository
-	 */
 	public function __construct(DtoCreatorProvider $dtoCreatorProvider, Repository $repository)
 	{
 		$this->dtoCreatorProvider = $dtoCreatorProvider;
@@ -30,11 +20,9 @@ class Provider
 	}
 
 	/**
-	 * @param string $id
-	 * @return Address|null
 	 * @throws Exception
 	 */
-	public function byId($id)
+	public function byId(string $id): ?Address
 	{
 		return ($entity = $this->repository->find($id))
 			? $this->createDto($entity)
@@ -42,10 +30,10 @@ class Provider
 	}
 
 	/**
-	 * @param FilterChain $filterChain
 	 * @return Address[]
+	 * @throws Exception
 	 */
-	public function filter(FilterChain $filterChain)
+	public function filter(FilterChain $filterChain): array
 	{
 		return $this->createDtos(
 			$this->repository->filter($filterChain)
@@ -55,8 +43,9 @@ class Provider
 	/**
 	 * @param Entity[] $entities
 	 * @return Address[]
+	 * @throws Exception
 	 */
-	private function createDtos(array $entities)
+	private function createDtos(array $entities): array
 	{
 		return array_map(
 			function (Entity $entity)
@@ -68,11 +57,9 @@ class Provider
 	}
 
 	/**
-	 * @param Entity $entity
-	 * @return Address
 	 * @throws Exception
 	 */
-	private function createDto(Entity $entity)
+	private function createDto(Entity $entity): Address
 	{
 		return $this->dtoCreatorProvider
 			->getAddressCreator()

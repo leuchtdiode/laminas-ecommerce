@@ -1,6 +1,7 @@
 <?php
 namespace Ecommerce\Transaction\Item;
 
+use Common\Db\Entity as DbEntity;
 use Ecommerce\Common\EntityDtoCreator;
 use Ecommerce\Common\PriceCreator;
 use Ecommerce\Db\Transaction\Item\Entity;
@@ -8,27 +9,15 @@ use Ecommerce\Product\Creator as ProductCreator;
 
 class Creator implements EntityDtoCreator
 {
-	/**
-	 * @var PriceCreator
-	 */
-	private $priceCreator;
+	private PriceCreator $priceCreator;
 
-	/**
-	 * @var ProductCreator
-	 */
-	private $productCreator;
+	private ProductCreator $productCreator;
 
-	/**
-	 * @param PriceCreator $priceCreator
-	 */
 	public function __construct(PriceCreator $priceCreator)
 	{
 		$this->priceCreator = $priceCreator;
 	}
 
-	/**
-	 * @param ProductCreator $productCreator
-	 */
 	public function setProductCreator(ProductCreator $productCreator): void
 	{
 		$this->productCreator = $productCreator;
@@ -36,9 +25,8 @@ class Creator implements EntityDtoCreator
 
 	/**
 	 * @param Entity $entity
-	 * @return Item
 	 */
-	public function byEntity($entity)
+	public function byEntity(DbEntity $entity): Item
 	{
 		return new Item(
 			$entity,

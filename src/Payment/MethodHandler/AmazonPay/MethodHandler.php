@@ -11,8 +11,6 @@ use Exception;
 class MethodHandler implements MethodHandlerInterface
 {
 	/**
-	 * @param InitData $data
-	 * @return InitResult
 	 * @throws Exception
 	 */
 	public function init(InitData $data): InitResult
@@ -21,8 +19,6 @@ class MethodHandler implements MethodHandlerInterface
 	}
 
 	/**
-	 * @param HandleCallbackData $data
-	 * @return HandleCallbackResult
 	 * @throws Exception
 	 */
 	public function handleCallback(HandleCallbackData $data): HandleCallbackResult

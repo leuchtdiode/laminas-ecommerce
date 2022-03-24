@@ -9,31 +9,17 @@ use Ecommerce\Db\Product\Attribute\Value\Repository;
 
 class Provider
 {
-	/**
-	 * @var DtoCreatorProvider
-	 */
-	private $dtoCreatorProvider;
+	private DtoCreatorProvider $dtoCreatorProvider;
 
-	/**
-	 * @var Repository
-	 */
-	private $repository;
+	private Repository $repository;
 
-	/**
-	 * @param DtoCreatorProvider $dtoCreatorProvider
-	 * @param Repository $repository
-	 */
 	public function __construct(DtoCreatorProvider $dtoCreatorProvider, Repository $repository)
 	{
 		$this->dtoCreatorProvider = $dtoCreatorProvider;
 		$this->repository         = $repository;
 	}
 
-	/**
-	 * @param string $id
-	 * @return Value|null
-	 */
-	public function byId($id)
+	public function byId(string $id): ?Value
 	{
 		return ($entity = $this->repository->find($id))
 			? $this->createDto($entity)
@@ -41,13 +27,14 @@ class Provider
 	}
 
 	/**
-	 * @param FilterChain $filterChain
-	 * @param OrderChain|null $orderChain
-	 * @param int $offset
-	 * @param int $limit
 	 * @return Value[]
 	 */
-	public function filter(FilterChain $filterChain, ?OrderChain $orderChain = null, $offset = 0, $limit = PHP_INT_MAX)
+	public function filter(
+		FilterChain $filterChain,
+		?OrderChain $orderChain = null,
+		int $offset = 0,
+		int $limit = PHP_INT_MAX
+	): array
 	{
 		return $this->createDtos(
 			$this->repository->filter($filterChain, $orderChain, $offset, $limit)
@@ -55,19 +42,15 @@ class Provider
 	}
 
 	/**
-	 * @param array $entities
+	 * @param Entity[] $entities
 	 * @return Value[]
 	 */
-	private function createDtos(array $entities)
+	private function createDtos(array $entities): array
 	{
 		return array_map([ $this, 'createDto' ], $entities);
 	}
 
-	/**
-	 * @param Entity $entity
-	 * @return Value
-	 */
-	private function createDto(Entity $entity)
+	private function createDto(Entity $entity): Value
 	{
 		return $this->dtoCreatorProvider
 			->getProductAttributeValueCreator()

@@ -9,42 +9,24 @@ use Ecommerce\Db\Product\Attribute\Repository;
 
 class Provider
 {
-	/**
-	 * @var DtoCreatorProvider
-	 */
-	private $dtoCreatorProvider;
+	private DtoCreatorProvider $dtoCreatorProvider;
 
-	/**
-	 * @var Repository
-	 */
-	private $repository;
+	private Repository $repository;
 
-	/**
-	 * @param DtoCreatorProvider $dtoCreatorProvider
-	 * @param Repository $repository
-	 */
 	public function __construct(DtoCreatorProvider $dtoCreatorProvider, Repository $repository)
 	{
 		$this->dtoCreatorProvider = $dtoCreatorProvider;
 		$this->repository         = $repository;
 	}
 
-	/**
-	 * @param string $id
-	 * @return Attribute|null
-	 */
-	public function byId($id)
+	public function byId(string $id): ?Attribute
 	{
 		return ($entity = $this->repository->find($id))
 			? $this->createDto($entity)
 			: null;
 	}
 
-	/**
-	 * @param string $number
-	 * @return Attribute|null
-	 */
-	public function byProcessableId($number)
+	public function byProcessableId(string $number): ?Attribute
 	{
 		return ($entity = $this->repository->findOneBy([ 'processableId' => $number ]))
 			? $this->createDto($entity)
@@ -52,13 +34,14 @@ class Provider
 	}
 
 	/**
-	 * @param FilterChain $filterChain
-	 * @param OrderChain|null $orderChain
-	 * @param int $offset
-	 * @param int $limit
 	 * @return Attribute[]
 	 */
-	public function filter(FilterChain $filterChain, ?OrderChain $orderChain = null, $offset = 0, $limit = PHP_INT_MAX)
+	public function filter(
+		FilterChain $filterChain,
+		?OrderChain $orderChain = null,
+		int $offset = 0,
+		int $limit = PHP_INT_MAX
+	): array
 	{
 		return $this->createDtos(
 			$this->repository->filter($filterChain, $orderChain, $offset, $limit)
@@ -66,19 +49,15 @@ class Provider
 	}
 
 	/**
-	 * @param array $entities
+	 * @param Entity[] $entities
 	 * @return Attribute[]
 	 */
-	private function createDtos(array $entities)
+	private function createDtos(array $entities): array
 	{
 		return array_map([ $this, 'createDto' ], $entities);
 	}
 
-	/**
-	 * @param Entity $entity
-	 * @return Attribute
-	 */
-	private function createDto(Entity $entity)
+	private function createDto(Entity $entity): Attribute
 	{
 		return $this->dtoCreatorProvider
 			->getProductAttributeCreator()

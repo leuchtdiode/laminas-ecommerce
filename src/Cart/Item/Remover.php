@@ -7,20 +7,14 @@ use Log\Log;
 
 class Remover
 {
-	/**
-	 * @var Deleter
-	 */
-	private $entityDeleter;
+	private Deleter $entityDeleter;
 
-	/**
-	 * @param Deleter $entityDeleter
-	 */
 	public function __construct(Deleter $entityDeleter)
 	{
 		$this->entityDeleter = $entityDeleter;
 	}
 
-	public function remove(Item $item)
+	public function remove(Item $item): RemoveResult
 	{
 		$result = new RemoveResult();
 		$result->setSuccess(false);

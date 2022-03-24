@@ -2,75 +2,48 @@
 namespace Ecommerce\Product\Image;
 
 use Assets\File\File;
+use Common\Dto\Dto;
 use Common\Hydration\ArrayHydratable;
+use Common\Hydration\ObjectToArrayHydratorProperty;
 use Ecommerce\Db\Product\Image\Entity;
 use Ramsey\Uuid\UuidInterface;
 
-class Image implements ArrayHydratable
+class Image implements Dto, ArrayHydratable
 {
-	/**
-	 * @var Entity
-	 */
-	private $entity;
+	private Entity $entity;
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @var File
-	 */
-	private $file;
+	#[ObjectToArrayHydratorProperty]
+	private File $file;
 
-	/**
-	 * @param Entity $entity
-	 * @param File $file
-	 */
 	public function __construct(Entity $entity, File $file)
 	{
 		$this->entity = $entity;
 		$this->file   = $file;
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return UuidInterface
-	 */
-	public function getId()
+	#[ObjectToArrayHydratorProperty]
+	public function getId(): UuidInterface
 	{
 		return $this->entity->getId();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return bool
-	 */
-	public function isMain()
+	#[ObjectToArrayHydratorProperty]
+	public function isMain(): bool
 	{
 		return $this->entity->isMain();
 	}
 
-	/**
-	 * @ObjectToArrayHydratorProperty
-	 *
-	 * @return int
-	 */
-	public function getSort()
+	#[ObjectToArrayHydratorProperty]
+	public function getSort(): int
 	{
 		return $this->entity->getSort();
 	}
 
-	/**
-	 * @return Entity
-	 */
 	public function getEntity(): Entity
 	{
 		return $this->entity;
 	}
 
-	/**
-	 * @return File
-	 */
 	public function getFile(): File
 	{
 		return $this->file;

@@ -12,30 +12,18 @@ use Ecommerce\Rest\Action\Base;
 use Ecommerce\Rest\Action\Response;
 use Ecommerce\Transaction\Provider;
 use Exception;
+use Laminas\View\Model\JsonModel;
 
 class GetList extends Base
 {
 	const ORDER_CREATED_DATE = 'createdDate';
 
-	/**
-	 * @var GetListData
-	 */
-	private $data;
+	private GetListData $data;
 
-	/**
-	 * @var Provider
-	 */
-	private $provider;
+	private Provider $provider;
 
-	/**
-	 * @var Values
-	 */
-	private $values;
+	private Values $values;
 
-	/**
-	 * @param GetListData $data
-	 * @param Provider $provider
-	 */
 	public function __construct(GetListData $data, Provider $provider)
 	{
 		$this->data     = $data;
@@ -43,10 +31,9 @@ class GetList extends Base
 	}
 
 	/**
-	 * @return string
 	 * @throws Exception
 	 */
-	public function executeAction()
+	public function executeAction(): JsonModel
 	{
 		$this->values = $this->data
 			->setRequest($this->getRequest())
@@ -77,10 +64,7 @@ class GetList extends Base
 			->dispatch();
 	}
 
-	/**
-	 * @return FilterChain
-	 */
-	private function buildFilter()
+	private function buildFilter(): FilterChain
 	{
 		$customerId = $this->getCustomer()->getId();
 
@@ -99,10 +83,7 @@ class GetList extends Base
 		return $filterChain;
 	}
 
-	/**
-	 * @return OrderChain
-	 */
-	private function buildOrder()
+	private function buildOrder(): OrderChain
 	{
 		$orderChain = OrderChain::create();
 

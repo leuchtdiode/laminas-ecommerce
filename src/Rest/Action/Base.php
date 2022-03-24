@@ -3,25 +3,20 @@ namespace Ecommerce\Rest\Action;
 
 use Ecommerce\Customer\Customer;
 use Ecommerce\Rest\Action\Plugin\Auth;
-use Laminas\Http\Request;
+use Laminas\Http\PhpEnvironment\Response;
 use Laminas\Mvc\Controller\AbstractRestfulController;
 use Laminas\Mvc\MvcEvent;
+use Laminas\Stdlib\RequestInterface;
+use Laminas\Stdlib\ResponseInterface;
 
 /**
  * @method Auth auth()
  */
 abstract class Base extends AbstractRestfulController
 {
-	/**
-	 * @var Customer|null
-	 */
-	private $customer;
+	private ?Customer $customer = null;
 
-	/**
-	 * @param MvcEvent $e
-	 * @return mixed
-	 */
-	public function onDispatch(MvcEvent $e)
+	public function onDispatch(MvcEvent $e): mixed
 	{
 		$restConfig = $this->config()['ecommerce']['rest'] ?? [];
 
@@ -51,7 +46,8 @@ abstract class Base extends AbstractRestfulController
 
 		if ($this->customer)
 		{
-			$response->getHeaders()
+			$response
+				->getHeaders()
 				->addHeaders(
 					[
 						'X-JwtToken' => $this
@@ -66,13 +62,9 @@ abstract class Base extends AbstractRestfulController
 
 	abstract public function executeAction();
 
-	/**
-	 * @param Request $request
-	 */
-	protected function loadCustomer($request)
+	protected function loadCustomer(RequestInterface $request): void
 	{
-		$authHeader = $request
-			->getHeader('Authorization');
+		$authHeader = $request->getHeader('Authorization');
 
 		if (!$authHeader)
 		{
@@ -86,7 +78,8 @@ abstract class Base extends AbstractRestfulController
 			return;
 		}
 
-		$result = $this->auth()
+		$result = $this
+			->auth()
 			->validateJwtToken($token);
 
 		if (!$result->isValid())
@@ -97,38 +90,25 @@ abstract class Base extends AbstractRestfulController
 		$this->customer = $result->getCustomer();
 	}
 
-	/**
-	 * @return Customer|null
-	 */
 	protected function getCustomer(): ?Customer
 	{
 		return $this->customer;
 	}
 
-	/**
-	 * @param string $customerId
-	 * @return bool
-	 */
-	protected function customerCheck($customerId)
+	protected function customerCheck(string $customerId): bool
 	{
 		return $this->customer && $this->customer->getId()
 				->toString() === $customerId;
 	}
 
-	/**
-	 * @return mixed
-	 */
-	protected function forbidden()
+	protected function forbidden(): Response|ResponseInterface
 	{
 		return $this
 			->getResponse()
 			->setStatusCode(403);
 	}
 
-	/**
-	 * @return mixed
-	 */
-	protected function notFound()
+	protected function notFound(): Response|ResponseInterface
 	{
 		return $this
 			->getResponse()

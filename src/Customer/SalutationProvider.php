@@ -8,7 +8,7 @@ class SalutationProvider
 	/**
 	 * @return Salutation[]
 	 */
-	public function all()
+	public function all(): array
 	{
 		return [
 			$this->create(Salutation::MALE, _('Herr')),
@@ -17,11 +17,7 @@ class SalutationProvider
 		];
 	}
 
-	/**
-	 * @param string $id
-	 * @return Salutation|null
-	 */
-	public function byId($id)
+	public function byId(string $id): ?Salutation
 	{
 		foreach ($this->all() as $salutation)
 		{
@@ -34,12 +30,7 @@ class SalutationProvider
 		return null;
 	}
 
-	/**
-	 * @param string $id
-	 * @param string $label
-	 * @return Salutation
-	 */
-	private function create($id, $label)
+	private function create(string $id, string $label): Salutation
 	{
 		return new Salutation($id, Translator::translate($label));
 	}
