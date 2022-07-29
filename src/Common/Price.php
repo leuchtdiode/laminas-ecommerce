@@ -28,7 +28,7 @@ class Price implements ArrayHydratable
 		$this->money   = $money;
 		$this->taxRate = $taxRate;
 
-		$this->grossMoney = $money->multiply(1 + ($this->taxRate / 100));
+		$this->grossMoney = $money->multiply((string)(1 + ($this->taxRate / 100)));
 		$this->taxAmount = $this->grossMoney->subtract($this->money);
 
 		$currencies = new ISOCurrencies();
