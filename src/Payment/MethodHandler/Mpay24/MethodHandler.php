@@ -122,8 +122,9 @@ class MethodHandler implements MethodHandlerInterface
 
 		$result->setRedirect(!$isConfirmation);
 
-		// leave status as be if not pending
-		if (!$transactionStatus->isPending())
+		// leave status as be if cancelled or success, otherwise process again, because
+		// Unzer (former Mpay24) can send ERROR first and SUCCESS later for same transaction (weird, but possible)
+		if ($transactionStatus->isSuccess() || $transactionStatus->isCancelled())
 		{
 			$result->setTransactionStatus(
 				$transaction

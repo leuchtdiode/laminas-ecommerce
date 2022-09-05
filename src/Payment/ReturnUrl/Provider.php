@@ -19,7 +19,7 @@ class Provider
 		$url = $config[$callbackType];
 
 		// possibility to set different return URL for each locale
-		if (($locale = $data->getLocale()) && ($localeUrl = $config[$locale][$callbackType]))
+		if (($locale = $data->getLocale()) && ($localeUrl = $config[$locale][$callbackType] ?? null))
 		{
 			$url = $localeUrl;
 		}
