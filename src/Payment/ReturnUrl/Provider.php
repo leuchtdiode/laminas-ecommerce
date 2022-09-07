@@ -10,7 +10,7 @@ class Provider
 		$this->config = $config;
 	}
 
-	public function get(GetData $data): string
+	public function get(GetData $data): ?string
 	{
 		$callbackType = $data->getCallbackType();
 
