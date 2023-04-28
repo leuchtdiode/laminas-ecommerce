@@ -41,7 +41,7 @@ class Module
 						->getResponse()
 						->setStatusCode(400);
 
-					$e->stopPropagation(true);
+					$e->stopPropagation();
 				}
 
 				return null;
