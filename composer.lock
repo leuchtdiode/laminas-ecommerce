@@ -4602,16 +4602,16 @@
         },
         {
             "name": "spipu/html2pdf",
-            "version": "v5.2.7",
+            "version": "v5.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spipu/html2pdf.git",
-                "reference": "b0f477711de3052041072897510e690975aa37ce"
+                "reference": "6c94dcd48c94c6c73f206629839c1ebd81e8c726"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spipu/html2pdf/zipball/b0f477711de3052041072897510e690975aa37ce",
-                "reference": "b0f477711de3052041072897510e690975aa37ce",
+                "url": "https://api.github.com/repos/spipu/html2pdf/zipball/6c94dcd48c94c6c73f206629839c1ebd81e8c726",
+                "reference": "6c94dcd48c94c6c73f206629839c1ebd81e8c726",
                 "shasum": ""
             },
             "require": {
@@ -4653,9 +4653,9 @@
             ],
             "support": {
                 "issues": "https://github.com/spipu/html2pdf/issues",
-                "source": "https://github.com/spipu/html2pdf/tree/v5.2.7"
+                "source": "https://github.com/spipu/html2pdf/tree/v5.2.8"
             },
-            "time": "2023-02-02T15:50:45+00:00"
+            "time": "2023-07-18T14:52:59+00:00"
         },
         {
             "name": "stella-maris/clock",
